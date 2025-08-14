@@ -23,7 +23,5 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button button;
-        TextView txt;
     }
 }
