@@ -2,6 +2,7 @@ package com.group.campus;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,5 +24,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button button;
+        TextView txt;
     }
 }
