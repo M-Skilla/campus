@@ -3,6 +3,7 @@
   <component name="CopilotDiffPersistence">
     <option name="pendingDiffs">
       <map>
+
         <entry key="$PROJECT_DIR$/app/src/main/res/drawable/card_background.xml">
           <value>
             <PendingDiffInfo>
@@ -34,6 +35,7 @@
               <option name="filePath" value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
               <option name="originalContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;resources&gt;&#10;    &lt;color name=&quot;black&quot;&gt;#FF000000&lt;/color&gt;&#10;    &lt;color name=&quot;white&quot;&gt;#FFFFFFFF&lt;/color&gt;&#10;&#10;    &lt;!-- Campus Theme Colors --&gt;&#10;    &lt;color name=&quot;primary_blue&quot;&gt;#2E86AB&lt;/color&gt;&#10;    &lt;color name=&quot;primary_blue_dark&quot;&gt;#1A5490&lt;/color&gt;&#10;    &lt;color name=&quot;accent_orange&quot;&gt;#F24236&lt;/color&gt;&#10;    &lt;color name=&quot;accent_green&quot;&gt;#A23B72&lt;/color&gt;&#10;    &lt;color name=&quot;light_gray&quot;&gt;#F5F7FA&lt;/color&gt;&#10;    &lt;color name=&quot;text_dark&quot;&gt;#2C3E50&lt;/color&gt;&#10;    &lt;color name=&quot;text_light&quot;&gt;#7F8C8D&lt;/color&gt;&#10;    &lt;color name=&quot;background_gradient_start&quot;&gt;#667eea&lt;/color&gt;&#10;    &lt;color name=&quot;background_gradient_end&quot;&gt;#764ba2&lt;/color&gt;&#10;    &lt;color name=&quot;card_background&quot;&gt;#FFFFFF&lt;/color&gt;&#10;    &lt;color name=&quot;shadow_color&quot;&gt;#1A000000&lt;/color&gt;&#10;&lt;/resources&gt;" />
               <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;resources&gt;&#10;    &lt;color name=&quot;black&quot;&gt;#FF000000&lt;/color&gt;&#10;    &lt;color name=&quot;white&quot;&gt;#FFFFFFFF&lt;/color&gt;&#10;&lt;/resources&gt;" />
+
             </PendingDiffInfo>
           </value>
         </entry>
