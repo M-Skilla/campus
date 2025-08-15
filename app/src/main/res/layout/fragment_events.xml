@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_events"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="24dp">
+
+      <!-- Event Title Field -->
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Event Title"
+          android:textColor="@color/black"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:layout_marginBottom="8dp"/>
+
+      <EditText
+          android:id="@+id/title"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:background="@drawable/rounded_edittext_background"
+          android:hint="Enter event title"
+          android:inputType="text"
+          android:padding="16dp"
+          android:layout_marginBottom="20dp"
+          android:textSize="16sp"
+          android:textColorHint="#999999"/>
+
+      <!-- Description Field -->
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Description"
+          android:textColor="@color/black"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:layout_marginBottom="8dp"/>
+
+      <EditText
+          android:id="@+id/description"
+          android:layout_width="match_parent"
+          android:layout_height="96dp"
+          android:background="@drawable/rounded_edittext_background"
+          android:hint="Enter event description"
+          android:inputType="textMultiLine"
+          android:padding="16dp"
+          android:layout_marginBottom="20dp"
+          android:textSize="16sp"
+          android:textColorHint="#999999"
+          android:gravity="top"
+          android:maxLines="4"/>
+
+      <!-- Start Time Field -->
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Start Time"
+          android:textColor="@color/black"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:layout_marginBottom="8dp"/>
+
+      <EditText
+          android:id="@+id/start_time"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:background="@drawable/rounded_edittext_background"
+          android:hint="YYYY-MM-DD HH:MM"
+          android:inputType="datetime"
+          android:padding="16dp"
+          android:layout_marginBottom="20dp"
+          android:textSize="16sp"
+          android:textColorHint="#999999"/>
+
+      <!-- End Time Field -->
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="End Time"
+          android:textColor="@color/black"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:layout_marginBottom="8dp"/>
+
+      <EditText
+          android:id="@+id/end_time"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:background="@drawable/rounded_edittext_background"
+          android:hint="YYYY-MM-DD HH:MM"
+          android:inputType="datetime"
+          android:padding="16dp"
+          android:layout_marginBottom="20dp"
+          android:textSize="16sp"
+          android:textColorHint="#999999"/>
+
+      <!-- Location Field -->
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Location"
+          android:textColor="@color/black"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:layout_marginBottom="8dp"/>
+
+      <EditText
+          android:id="@+id/location"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:background="@drawable/rounded_edittext_background"
+          android:hint="Enter event location"
+          android:inputType="text"
+          android:padding="16dp"
+          android:layout_marginBottom="32dp"
+          android:textSize="16sp"
+          android:textColorHint="#999999"/>
+
+      <Button
+          android:id="@+id/btn_events"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:text="Create Event"
+          android:layout_gravity="center"
+          android:background="@drawable/rounded_button_background"
+          android:textColor="@android:color/white"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:layout_marginTop="16dp"/>
+  </LinearLayout>
+</ScrollView>
