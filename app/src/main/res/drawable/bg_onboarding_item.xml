@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modern, unobtrusive background for onboarding pages (light) -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Soft vertical gradient using surface tones -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="@color/md_theme_surfaceBright"
+                android:centerColor="@color/md_theme_surfaceContainerLow"
+                android:endColor="@color/md_theme_surface"
+                android:angle="180" />
+        </shape>
+    </item>
+
+    <!-- Faint top accent (primary tint) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/md_theme_primaryContainer"
+                android:endColor="#00FFFFFF"
+                android:angle="180" />
+            <size android:height="220dp" />
+        </shape>
+    </item>
+
+    <!-- Subtle radial glow behind future illustration (centered roughly 40% from top) -->
+    <item>
+        <shape android:shape="oval">
+            <size android:width="600dp" android:height="600dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="300dp"
+                android:startColor="#20ACC7FF"
+                android:endColor="#00ACC7FF" />
+        </shape>
+        <gravity android:gravity="top|center_horizontal" />
+        <padding android:top="140dp" />
+    </item>
+</layer-list>

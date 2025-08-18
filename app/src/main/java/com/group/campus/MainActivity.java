@@ -2,8 +2,7 @@ package com.group.campus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +10,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.group.campus.utils.PreferenceManager;
+
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth fAuth;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +30,32 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        fAuth = FirebaseAuth.getInstance();
+        preferenceManager = new PreferenceManager(this);
 
-        startActivity(new Intent(MainActivity.this, OnboardingActivity.class));
+        if (preferenceManager.isFirstTime()) {
+            startActivity(new Intent(MainActivity.this, OnboardingActivity.class));
+            finish();
+        } else {
+            FirebaseUser user = fAuth.getCurrentUser();
+            if (user != null) {
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            }
+        }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = fAuth.getCurrentUser();
+        if (user != null) {
+            Toast.makeText(this, "User Logged In", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, HomeActivity.class));
+        }
     }
 }

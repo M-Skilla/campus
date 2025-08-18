@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="?attr/colorSurface"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <!-- Main content area -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical">
+
+        <!-- Header with department info and timestamp -->
+        <LinearLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView_department_avatar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircularImageView"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="1dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_announcement_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jakarta_font_family"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:letterSpacing="0.01"
+                    tools:text="Computer Science Dept" />
+
+                <TextView
+                    android:id="@+id/textView_announcement_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jakarta_font_family"
+                    android:textSize="11sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    tools:text="2 hours ago" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_more_vert_24"
+                android:contentDescription="@string/more_options"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+        </LinearLayout>
+
+        <!-- Announcement content -->
+        <TextView
+            android:id="@+id/textView_announcement_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jakarta_font_family"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="?attr/colorOnSurface"
+            android:lineSpacingMultiplier="1.2"
+            android:letterSpacing="0.005"
+            android:layout_marginBottom="4dp"
+            tools:text="Important: Mid-term Examination Schedule Released" />
+
+        <TextView
+            android:id="@+id/textView_announcement_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jakarta_font_family"
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.4"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="The mid-term examination schedule for all undergraduate programs has been released. Students are advised to check their respective department portals for detailed timings and venues." />
+
+        <!-- Action bar with only share and bookmark -->
+        <LinearLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="start|center_vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_share"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="@string/share"
+                android:textSize="12sp"
+                android:fontFamily="@font/jakarta_font_family"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:icon="@drawable/ic_share_24"
+                app:iconTint="?attr/colorOnSurfaceVariant"
+                app:iconSize="16dp"
+                app:iconGravity="start"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_marginEnd="8dp" />
+
+            <ImageButton
+                android:id="@+id/button_bookmark"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_bookmark_border_24"
+                android:contentDescription="@string/bookmark"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Image container aligned to the right -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView_announcement_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        tools:visibility="visible" />
+
+</LinearLayout>
