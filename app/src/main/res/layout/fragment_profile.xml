@@ -182,7 +182,7 @@
                 android:layout_marginTop="24dp" />
             <!-- Browse events button -->
             <Button
-                android:id="@+id/browse_events_button"
+                android:id="@+id/btn_browse_events_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/browse_events"
