@@ -15,9 +15,6 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".SettignsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
