@@ -149,7 +149,6 @@
     <color name="pill_bg">#EDE1FF</color>      <!-- light lilac of fields -->
     <color name="icon_bubble">#F3E9FF</color>  <!-- even lighter bubble -->
     <color name="purple_700">#6200EE</color>
-</resources>
 
     <!-- Campus Theme Colors -->
     <color name="primary_blue">#2E86AB</color>
@@ -165,4 +164,5 @@
     <color name="shadow_color">#1A000000</color>
     <color name="grey">#564C4C</color>
 </resources>
+
 
