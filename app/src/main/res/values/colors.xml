@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Campus Theme Colors -->
+    <color name="primary_blue">#2E86AB</color>
+    <color name="primary_blue_dark">#1A5490</color>
+    <color name="accent_orange">#F24236</color>
+    <color name="accent_green">#A23B72</color>
+    <color name="light_gray">#F5F7FA</color>
+    <color name="text_dark">#2C3E50</color>
+    <color name="text_light">#7F8C8D</color>
+    <color name="background_gradient_start">#667eea</color>
+    <color name="background_gradient_end">#764ba2</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="shadow_color">#1A000000</color>
+    <color name="grey">#564C4C</color>
 </resources>
