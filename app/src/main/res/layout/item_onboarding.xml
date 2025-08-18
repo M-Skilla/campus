@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/headerOnboarding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Welcome to Campus Life"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageOnboarding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="78dp"
+        app:layout_constraintEnd_toEndOf="@+id/headerOnboarding"
+        app:layout_constraintStart_toStartOf="@+id/headerOnboarding"
+        app:layout_constraintTop_toBottomOf="@+id/headerOnboarding"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/titleOnboarding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:text="Your Campus, Connected "
+        app:layout_constraintEnd_toEndOf="@+id/imageOnboarding"
+        app:layout_constraintStart_toStartOf="@+id/imageOnboarding"
+        app:layout_constraintTop_toBottomOf="@+id/imageOnboarding" />
+
+    <TextView
+        android:id="@+id/descOnboarding"
+        android:layout_width="281dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="104dp"
+        android:text="Stay in the loop with all your university announcements and updates all in one place"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/titleOnboarding"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/titleOnboarding"
+        app:layout_constraintTop_toBottomOf="@+id/titleOnboarding" />
+</androidx.constraintlayout.widget.ConstraintLayout>
