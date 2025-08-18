@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurfaceContainerLowest"
+    tools:context=".fragments.AnnouncementFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout_announcements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:elevation="0dp"
+        app:elevation="0dp">
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:hint="Search Announcements" />
+
+
+        <!-- Stories-like category chips with enhanced styling -->
+<!--        <HorizontalScrollView-->
+<!--            android:id="@+id/chip_scroll_view_announcements"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:scrollbars="none"-->
+<!--            android:paddingTop="4dp"-->
+<!--            android:paddingBottom="4dp"-->
+<!--            android:paddingStart="20dp"-->
+<!--            android:paddingEnd="20dp"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:background="?attr/colorSurface">-->
+
+<!--            <com.google.android.material.chip.ChipGroup-->
+<!--                android:id="@+id/chipGroup_categories_announcements"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:singleLine="true"-->
+<!--                app:chipSpacing="12dp">-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip_all"-->
+<!--                    style="@style/AnnouncementChipStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/category_all"-->
+<!--                    android:checked="true" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip_events"-->
+<!--                    style="@style/AnnouncementChipStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/category_events" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip_notices"-->
+<!--                    style="@style/AnnouncementChipStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/category_notices" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip_holidays"-->
+<!--                    style="@style/AnnouncementChipStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/category_holidays" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip_academic"-->
+<!--                    style="@style/AnnouncementChipStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/category_academic" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip_sports"-->
+<!--                    style="@style/AnnouncementChipStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/category_sports" />-->
+
+<!--            </com.google.android.material.chip.ChipGroup>-->
+<!--        </HorizontalScrollView>-->
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.search.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Search Announcements"
+        app:layout_anchor="@id/search_bar"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.google.android.material.search.SearchView>
+    <!-- Main content with nested scroll view instead of SwipeRefreshLayout -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_announcements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_announcement" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Floating Action Button for creating new announcements -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_announcement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/add_announcement"
+        app:srcCompat="@drawable/ic_add_24"
+         />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
