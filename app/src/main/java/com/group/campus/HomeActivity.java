@@ -61,6 +61,10 @@ public class HomeActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.suggestionsItem) {
                 selectedFragment = new SuggestionsFragment();
             }
+            else if (item.getItemId() == R.id.fragment_container) {
+                selectedFragment = new CalendarFragment();
+            }
+
 
             if (selectedFragment != null) {
                 getSupportFragmentManager()

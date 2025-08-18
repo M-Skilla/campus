@@ -56,19 +56,20 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        etRegistration = findViewById(R.id.etRegistration);
-        etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
+        etRegistration = findViewById(R.id.registrationEditText);
+        etPassword = findViewById(R.id.passwordEditText);
+        btnLogin = findViewById(R.id.loginButton);
+        circularIndicator = findViewById(R.id.loginIndicator);
       
              loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         loginViewModel.getLoading().observe(this, isLoading -> {
             if (isLoading) {
                 circularIndicator.setVisibility(View.VISIBLE);
-                loginButton.setVisibility(INVISIBLE);
+                btnLogin.setVisibility(INVISIBLE);
             } else {
                 circularIndicator.setVisibility(GONE);
-                loginButton.setVisibility(View.VISIBLE);
+                btnLogin.setVisibility(View.VISIBLE);
             }
         });
 
@@ -83,8 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
-            String regNo = registrationEditText.getText().toString().trim();
-            String password = passwordEditText.getText().toString().trim();
+            String regNo = etRegistration.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
             loginViewModel.login(regNo, password);
                        
         });
