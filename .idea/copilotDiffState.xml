@@ -3,22 +3,7 @@
   <component name="CopilotDiffPersistence">
     <option name="pendingDiffs">
       <map>
-        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/card_background.xml">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable/card_background.xml" />
-              <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&#10;    android:shape=&quot;rectangle&quot;&gt;&#10;    &lt;solid android:color=&quot;@color/card_background&quot; /&gt;&#10;    &lt;corners android:radius=&quot;16dp&quot; /&gt;&#10;    &lt;stroke&#10;        android:width=&quot;0.5dp&quot;&#10;        android:color=&quot;@color/light_gray&quot; /&gt;&#10;&lt;/shape&gt;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/gradient_background.xml">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable/gradient_background.xml" />
-              <option name="updatedContent" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#10;&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;&#10;    &lt;gradient&#10;        android:angle=&quot;135&quot;&#10;        android:startColor=&quot;@color/background_gradient_start&quot;&#10;        android:endColor=&quot;@color/background_gradient_end&quot;&#10;        android:type=&quot;linear&quot; /&gt;&#10;&lt;/shape&gt;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
+
       </map>
     </option>
   </component>

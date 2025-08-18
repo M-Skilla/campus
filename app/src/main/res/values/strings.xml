@@ -58,4 +58,21 @@
     <string name="view_acknowledgements">View acknowledgements</string>
     <string name="account_actions">ACCOUNT ACTIONS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="announcements_title">Announcements</string>
+
+    <!-- Announcement-related strings -->
+    <string name="add_announcement">Add new announcement</string>
+    <string name="more_options">More options</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+    <string name="share">Share</string>
+    <string name="bookmark">Bookmark</string>
+
+    <!-- Category strings with emojis -->
+    <string name="category_all">📢 All</string>
+    <string name="category_events">🎉 Events</string>
+    <string name="category_notices">📋 Notices</string>
+    <string name="category_holidays">🏖️ Holidays</string>
+    <string name="category_academic">📚 Academic</string>
+    <string name="category_sports">⚽ Sports</string>
 </resources>

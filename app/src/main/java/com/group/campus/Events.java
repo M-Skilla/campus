@@ -24,13 +24,13 @@ public class Events extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events, container, false);
-        // Initialize UI fields
-        titleEditText = view.findViewById(R.id.title);
-        descriptionEditText = view.findViewById(R.id.description);
-        startTimeEditText = view.findViewById(R.id.start_time);
-        endTimeEditText = view.findViewById(R.id.end_time);
-        locationEditText = view.findViewById(R.id.location);
-        createEventButton = view.findViewById(R.id.btn_events);
+//        // Initialize UI fields
+//        titleEditText = view.findViewById(R.id.title);
+//        descriptionEditText = view.findViewById(R.id.description);
+//        startTimeEditText = view.findViewById(R.id.start_time);
+//        endTimeEditText = view.findViewById(R.id.end_time);
+//        locationEditText = view.findViewById(R.id.location);
+//        createEventButton = view.findViewById(R.id.btn_events);
 
         return view;
     }

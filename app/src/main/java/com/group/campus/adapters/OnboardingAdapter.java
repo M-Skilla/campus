@@ -1,8 +1,11 @@
 package com.group.campus.adapters;
 
+import static android.view.View.VISIBLE;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.group.campus.R;
 import com.group.campus.models.OnboardingItem;
+import com.group.campus.utils.OnItemClickListener;
 
 import java.util.List;
 
@@ -21,10 +25,13 @@ public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.Vi
 
         private ImageView imageOnboarding;
 
+        private Button continueButton;
+
         private TextView headerOnboarding, titleOnboarding, descOnboarding;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            continueButton = itemView.findViewById(R.id.continueButton);
             imageOnboarding = itemView.findViewById(R.id.imageOnboarding);
             headerOnboarding = itemView.findViewById(R.id.headerOnboarding);
             titleOnboarding = itemView.findViewById(R.id.titleOnboarding);
@@ -44,8 +51,11 @@ public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.Vi
 
     private List<OnboardingItem> onboardingItems;
 
-    public OnboardingAdapter(List<OnboardingItem> onboardingItems) {
+    private OnItemClickListener listener;
+
+    public OnboardingAdapter(List<OnboardingItem> onboardingItems, OnItemClickListener listener) {
         this.onboardingItems = onboardingItems;
+        this.listener = listener;
     }
 
     public void setOnboardingItems(List<OnboardingItem> onboardingItems) {
@@ -64,6 +74,13 @@ public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setOnboardingData(onboardingItems.get(position));
+       if (listener != null && position == getItemCount() - 1) {
+           holder.continueButton.setVisibility(VISIBLE);
+           holder.continueButton
+                   .setOnClickListener(v -> {
+                        listener.onClick(v);
+                   });
+       }
     }
 
     @Override

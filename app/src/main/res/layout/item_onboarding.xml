@@ -3,47 +3,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="32dp"
+    android:paddingVertical="48dp">
 
+    <!-- Header / Tagline -->
     <TextView
         android:id="@+id/headerOnboarding"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Welcome to Campus Life"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="32sp"
+        android:fontFamily="@font/jakarta_extra_bold"
+        android:textColor="@color/md_theme_primary"
+        android:letterSpacing="0.01"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintBottom_toTopOf="@id/imageOnboarding" />
 
+    <!-- Illustration -->
     <ImageView
         android:id="@+id/imageOnboarding"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="78dp"
-        app:layout_constraintEnd_toEndOf="@+id/headerOnboarding"
-        app:layout_constraintStart_toStartOf="@+id/headerOnboarding"
-        app:layout_constraintTop_toBottomOf="@+id/headerOnboarding"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="24dp"
+        android:contentDescription="Campus feature illustration"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@id/contentContainer"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerOnboarding"
+        app:layout_constraintWidth_percent="0.65"
+        app:srcCompat="@drawable/onboarding" />
 
-    <TextView
-        android:id="@+id/titleOnboarding"
-        android:layout_width="wrap_content"
+    <!-- Content Container for Title and Description -->
+    <LinearLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:text="Your Campus, Connected "
-        app:layout_constraintEnd_toEndOf="@+id/imageOnboarding"
-        app:layout_constraintStart_toStartOf="@+id/imageOnboarding"
-        app:layout_constraintTop_toBottomOf="@+id/imageOnboarding" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageOnboarding"
+        app:layout_constraintBottom_toTopOf="@id/continueButton">
 
-    <TextView
-        android:id="@+id/descOnboarding"
-        android:layout_width="281dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="104dp"
-        android:text="Stay in the loop with all your university announcements and updates all in one place"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/titleOnboarding"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="@+id/titleOnboarding"
-        app:layout_constraintTop_toBottomOf="@+id/titleOnboarding" />
+        <!-- Title -->
+        <TextView
+            android:id="@+id/titleOnboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Campus, Connected"
+            android:textSize="24sp"
+            android:fontFamily="@font/jakarta_semibold"
+            android:textColor="@color/md_theme_onBackground"
+            android:letterSpacing="0.01"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/descOnboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stay in the loop with all your university announcements and updates all in one place."
+            android:textSize="16sp"
+            android:fontFamily="@font/jakarta_regular"
+            android:textColor="@color/md_theme_secondary"
+            android:lineSpacingMultiplier="1.4"
+            android:letterSpacing="0.005"
+            android:gravity="center"
+            android:alpha="0.8"
+            android:maxLines="3"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+    <!-- Continue Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/continueButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Continue"
+        android:textSize="16sp"
+        android:fontFamily="@font/jakarta_semibold"
+        android:letterSpacing="0.02"
+        android:textAllCaps="false"
+        style="@style/Widget.Material3.Button"
+        app:backgroundTint="@color/md_theme_primary"
+        app:cornerRadius="16dp"
+        app:elevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        android:visibility="invisible"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
