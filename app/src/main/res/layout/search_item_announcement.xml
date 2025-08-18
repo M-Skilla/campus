@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/colorSurface"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <!-- Header with department info and timestamp (no profile pic) -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_announcement_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jakarta_font_family"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="?attr/colorOnSurface"
+                android:letterSpacing="0.01"
+                tools:text="Computer Science Dept" />
+
+            <TextView
+                android:id="@+id/textView_announcement_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jakarta_font_family"
+                android:textSize="11sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="2 hours ago" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Announcement content -->
+    <TextView
+        android:id="@+id/textView_announcement_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jakarta_font_family"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnSurface"
+        android:lineSpacingMultiplier="1.2"
+        android:letterSpacing="0.005"
+        android:layout_marginBottom="4dp"
+        tools:text="Important: Mid-term Examination Schedule Released" />
+
+    <TextView
+        android:id="@+id/textView_announcement_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jakarta_font_family"
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.4"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="The mid-term examination schedule for all undergraduate programs has been released. Students are advised to check their respective department portals for detailed timings and venues." />
+
+    <!-- Action bar with only share and bookmark -->
+
+</LinearLayout>

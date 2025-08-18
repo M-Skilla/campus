@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:text="Month"/>
 
-
         <Button
             android:id="@+id/btnEvents"
             android:layout_width="0dp"
@@ -32,8 +31,6 @@
             android:layout_height="wrap_content"
             android:text="Events"/>
     </LinearLayout>
-
-    <!-- Month/Year/Events title -->
     <TextView
         android:id="@+id/monthTitle"
         android:layout_width="match_parent"
@@ -43,8 +40,6 @@
         android:textStyle="bold"
         android:gravity="center"
         android:padding="8dp"/>
-
-    <!-- RecyclerView for calendar or events -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
@@ -53,3 +48,4 @@
         android:clipToPadding="false"
         android:paddingTop="8dp"/>
 </LinearLayout>
+
