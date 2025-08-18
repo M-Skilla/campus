@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login_gradient">
+
+    <!-- TITLE -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="56dp"/>
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TO CONTINUE"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:letterSpacing="0.06"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <!-- REGISTRATION NUMBER FIELD (pill + icon bubble, shadow) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardReg"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        app:cardBackgroundColor="@color/pill_bg"
+        app:cardCornerRadius="62dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="14dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="16dp">
+
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_icon_bubble"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:layout_marginEnd="8dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_person"/>
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/etRegistration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Registration Number"
+                android:inputType="textNoSuggestions"
+                android:maxLines="1"
+                android:textColor="#1A1A1A"
+                android:textColorHint="#7C6DAA"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- PASSWORD FIELD -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPass"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        app:cardBackgroundColor="@color/pill_bg"
+        app:cardCornerRadius="62dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="14dp"
+        app:layout_constraintTop_toBottomOf="@id/cardReg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="16dp">
+
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_icon_bubble"
+                android:layout_marginEnd="8dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lock"/>
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="#1A1A1A"
+                android:textColorHint="#7C6DAA"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- LOGIN BUTTON: white pill with purple text -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:text="LOGIN"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#1976D2"
+        android:background="@drawable/bg_button_white_pill"
+        app:layout_constraintTop_toBottomOf="@id/cardPass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="18dp"
+        android:layout_marginHorizontal="32dp"/>
+
+    <!-- DOUBLE WAVES AT BOTTOM (light purple + white) -->
+    <ImageView
+        android:id="@+id/waveBack"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:src="@drawable/wave_light"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/waveFront"
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        android:src="@drawable/wave_white"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

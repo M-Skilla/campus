@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_primary">#7B1FA2</color>
+    <color name="purple_primary_end">#9C27B0</color>
+    <color name="pill_bg">#EDE1FF</color>      <!-- light lilac of fields -->
+    <color name="icon_bubble">#F3E9FF</color>  <!-- even lighter bubble -->
+    <color name="purple_700">#6200EE</color>
 </resources>
