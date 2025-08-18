@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -36,9 +37,8 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText registrationEditText, passwordEditText;
-
-    private Button loginButton;
+    private EditText etRegistration, etPassword;
+    private Button btnLogin;
 
     private CircularProgressIndicator circularIndicator;
 
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+      EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -55,12 +55,12 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        registrationEditText = findViewById(R.id.registrationEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        loginButton = findViewById(R.id.loginButton);
-        circularIndicator = findViewById(R.id.loginIndicator);
 
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        etRegistration = findViewById(R.id.etRegistration);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+      
+             loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         loginViewModel.getLoading().observe(this, isLoading -> {
             if (isLoading) {
@@ -75,12 +75,22 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.getSuccessState().observe(this, this::handleLoginSuccess);
         loginViewModel.getErrorMsg().observe(this, msg -> Toast.makeText(this, msg, Toast.LENGTH_SHORT).show());
 
-        loginButton.setOnClickListener(v -> {
+        btnLogin.setOnClickListener(v -> {
+            String reg = etRegistration.getText().toString().trim();
+            String pw  = etPassword.getText().toString().trim();
+
+            if (reg.isEmpty() || pw.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
             String regNo = registrationEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
             loginViewModel.login(regNo, password);
+                       
         });
-    }
+   
+}
+
 
     private void handleLoginSuccess(Boolean successState) {
         if (successState) {
@@ -94,3 +104,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
+
