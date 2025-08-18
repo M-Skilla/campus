@@ -66,6 +66,8 @@ public class HomeActivity extends AppCompatActivity {
             }
 
 
+
+
             if (selectedFragment != null) {
                 getSupportFragmentManager()
                         .beginTransaction()
