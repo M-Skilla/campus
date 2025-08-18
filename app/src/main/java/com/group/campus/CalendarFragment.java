@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.DayOfWeek;
+import com.group.campus.adapters.EventAdapter;
+import com.group.campus.adapters.YearAdapter;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class CalendarFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     private Button btnMonth, btnYear, btnEvents;
     private TextView monthTitle;
     private static final String[] DAY_HEADERS = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
