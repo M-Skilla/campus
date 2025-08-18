@@ -1,5 +1,63 @@
 <resources>
     <string name="app_name">Campus</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="campus_connect">CampusConnect</string>
+    <string name="back">Back</string>
+    <string name="notifications">Notifications</string>
+    <string name="alex_johnson">Alex Johnson</string>
+    <string name="user_role">Student</string>
+    <string name="user_information">User Information</string>
+    <string name="email">Email: student@udom.ac.tz</string>
+    <string name="course">Course: Computer Science</string>
+    <string name="year_of_study">Year: 2024/2025</string>
+    <string name="event_registration">Event Registration</string>
+    <string name="browse_events">Browse Events</string>
+    <string name="upcoming_events">Upcoming: Events should be Displayed here</string>
+    <string name="activity_history">Activity History</string>
+    <string name="activity">Recent Activity</string>
+    <string name="date_arrow">20/0111 →</string>
+    <string name="settings">Settings</string>
+    <string name="log_out">Log Out</string>
+    <string name="account_settings">ACCOUNT SETTINGS</string>
+    <string name="change_password">Change Password</string>
+    <string name="manage_devices">Manage Devices/Sessions</string>
+    <string name="app_preferences">APP PREFERENCES and GENERAL</string>
+    <string name="theme_appearance">Theme/Appearance</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="notification_settings">NOTIFICATION SETTINGS</string>
+    <string name="enable_disable_notifications">Enable/Disable Notifications</string>
+    <string name="new_announcements">New Announcements</string>
+    <string name="event_reminders">Event Reminders</string>
+    <string name="new_event_postings">New Event Postings</string>
+    <string name="suggestion_updates">Suggestion/Complaint Updates</string>
+    <string name="sound_vibration_led">Sound, Vibration and LED</string>
+    <string name="customize_notification_style">Customize notification style</string>
+    <string name="privacy_settings">PRIVACY SETTINGS</string>
+    <string name="anonymous_submissions">Anonymous Submissions (default)</string>
+    <string name="data_policy">Data Policy</string>
+    <string name="view_data_policy">View data policy</string>
+    <string name="help_support">HELP and SUPPORT</string>
+    <string name="faq">FAQ (Frequently Asked Questions)</string>
+    <string name="view_faqs">View FAQs</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="contact_support_desc">Contact support</string>
+    <string name="report_bug">Report a Bug</string>
+    <string name="report_bug_desc">Report a bug</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="send_feedback_desc">Send feedback</string>
+    <string name="about_legal">ABOUT and LEGAL</string>
+    <string name="app_version">App Version</string>
+    <string name="version_1_0_0">1.0.0</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="view_terms_of_service">View terms of service</string>
+    <string name="licenses">Licenses</string>
+    <string name="view_licenses">View licenses</string>
+    <string name="acknowledgements">Acknowledgements</string>
+    <string name="view_acknowledgements">View acknowledgements</string>
+    <string name="account_actions">ACCOUNT ACTIONS</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
