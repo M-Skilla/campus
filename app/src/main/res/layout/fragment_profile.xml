@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/md_theme_background_highContrast"
     android:padding="0dp">
 
     <!-- Toolbar at the top -->
@@ -13,7 +13,7 @@
         android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/white"
+        android:background="@color/md_theme_background_highContrast"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -38,20 +38,21 @@
                 android:text="@string/campus_connect"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:gravity="center" />
             <ImageView
-                android:id="@+id/notification_icon"
+                android:id="@+id/settings_icon"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
-                android:src="@drawable/bell_icon"
+                android:src="@drawable/settings_icon"
                 android:contentDescription="@string/notifications"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="8dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,7 +91,7 @@
                 android:text="@string/alex_johnson"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp" />
             <!-- User role -->
@@ -111,7 +112,7 @@
                 android:text="@string/user_information"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="24dp" />
             <!-- Email row -->
             <LinearLayout
@@ -124,6 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/email"
                     android:textSize="16sp" />
                 <ImageView
@@ -143,6 +145,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/course"
                     android:textSize="16sp" />
                 <ImageView
@@ -162,6 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/year_of_study"
                     android:textSize="16sp" />
                 <ImageView
@@ -178,7 +182,7 @@
                 android:text="@string/event_registration"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="24dp" />
             <!-- Browse events button -->
             <Button
@@ -192,6 +196,7 @@
                 android:id="@+id/upcoming_events"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:text="@string/upcoming_events"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp" />
@@ -203,7 +208,7 @@
                 android:text="@string/activity_history"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="24dp" />
             <!-- Activity rows -->
             <LinearLayout
@@ -216,6 +221,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/activity"
                     android:textSize="16sp" />
                 <TextView
@@ -234,6 +240,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/activity"
                     android:textSize="16sp" />
                 <TextView
@@ -252,6 +259,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/activity"
                     android:textSize="16sp" />
                 <TextView
@@ -260,73 +268,7 @@
                     android:text="@string/date_arrow"
                     android:textSize="16sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/settings_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingTop="16dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/bell_icon"
-                        android:contentDescription="@string/notifications" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notifications"
-                        android:textSize="12sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/layoutSettings"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/settings_icon"
-                    android:contentDescription="@string/settings" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings"
-                    android:textSize="12sp" />
-            </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/exit_icon"
-                        android:contentDescription="@string/log_out" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/log_out"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
