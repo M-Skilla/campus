@@ -1,66 +1,160 @@
 package com.group.campus.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.group.campus.R;
+import com.group.campus.adapters.YearViewAdapter;
+import com.group.campus.adapters.MonthViewAdapter;
+import com.group.campus.adapters.EventsAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalendarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CalendarFragment extends Fragment {
+import java.util.Arrays;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class CalendarFragment extends Fragment implements YearViewAdapter.OnMonthClickListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView yearCalendarRecyclerView;
+    private RecyclerView monthCalendarRecyclerView;
+    private RecyclerView eventsRecyclerView;
+    private View eventsLayout;
+    private TextView titleText;
 
-    public CalendarFragment() {
-        // Required empty public constructor
+    private Button btnYear, btnMonth, btnEvents;
+    private YearViewAdapter yearAdapter;
+    private MonthViewAdapter monthAdapter;
+    private EventsAdapter eventsAdapter;
+
+    private int currentYear = 2025;
+    private int currentMonth = 7; // August (0-indexed)
+    private final String[] monthNames = {"January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        initViews(view);
+        setupAdapters();
+        setupClickListeners();
+
+        // Start with year view
+        showYearView();
+
+        return view;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CalendarFragment newInstance(String param1, String param2) {
-        CalendarFragment fragment = new CalendarFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void initViews(View view) {
+        yearCalendarRecyclerView = view.findViewById(R.id.yearCalendarRecyclerView);
+        monthCalendarRecyclerView = view.findViewById(R.id.monthCalendarRecyclerView);
+        eventsRecyclerView = view.findViewById(R.id.eventsRecyclerView);
+        eventsLayout = view.findViewById(R.id.eventsLayout);
+        titleText = view.findViewById(R.id.titleText);
+
+        btnYear = view.findViewById(R.id.btnYear);
+        btnMonth = view.findViewById(R.id.btnMonth);
+        btnEvents = view.findViewById(R.id.btnEvents);
+    }
+
+    private void setupAdapters() {
+        // Year view adapter
+        yearAdapter = new YearViewAdapter(currentYear);
+        yearAdapter.setOnMonthClickListener(this);
+        yearCalendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        yearCalendarRecyclerView.setAdapter(yearAdapter);
+
+        // Month view adapter
+        monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthCalendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
+        monthCalendarRecyclerView.setAdapter(monthAdapter);
+
+        // Events adapter
+        List<String> sampleEvents = Arrays.asList(
+                "Team Meeting",
+                "Project Deadline",
+                "Campus Event",
+                "Study Group",
+                "Assignment Due"
+        );
+        eventsAdapter = new EventsAdapter(sampleEvents);
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        eventsRecyclerView.setAdapter(eventsAdapter);
+    }
+
+    private void setupClickListeners() {
+        btnYear.setOnClickListener(v -> {
+            showYearView();
+            updateButtonSelection(btnYear);
+        });
+
+        btnMonth.setOnClickListener(v -> {
+            showMonthView();
+            updateButtonSelection(btnMonth);
+        });
+
+        btnEvents.setOnClickListener(v -> {
+            showEventsView();
+            updateButtonSelection(btnEvents);
+        });
+    }
+
+    private void showYearView() {
+        yearCalendarRecyclerView.setVisibility(View.VISIBLE);
+        monthCalendarRecyclerView.setVisibility(View.GONE);
+        eventsLayout.setVisibility(View.GONE);
+
+        // Update title to show current year
+        titleText.setText(currentYear + " Calendar");
+    }
+
+    private void showMonthView() {
+        yearCalendarRecyclerView.setVisibility(View.GONE);
+        monthCalendarRecyclerView.setVisibility(View.VISIBLE);
+        eventsLayout.setVisibility(View.GONE);
+
+        // Update month adapter with current month
+        monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthCalendarRecyclerView.setAdapter(monthAdapter);
+
+        // Update title to show current month and year
+        titleText.setText(monthNames[currentMonth] + " " + currentYear);
+    }
+
+    private void showEventsView() {
+        yearCalendarRecyclerView.setVisibility(View.GONE);
+        monthCalendarRecyclerView.setVisibility(View.GONE);
+        eventsLayout.setVisibility(View.VISIBLE);
+
+        // Update title for events view
+        titleText.setText("Events");
+    }
+
+    private void updateButtonSelection(Button selectedButton) {
+        // Reset all buttons
+        btnYear.setBackgroundResource(R.drawable.button_unselected_background);
+        btnMonth.setBackgroundResource(R.drawable.button_unselected_background);
+        btnEvents.setBackgroundResource(R.drawable.button_unselected_background);
+
+        // Set selected button
+        selectedButton.setBackgroundResource(R.drawable.button_selected_background);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+    public void onMonthClick(int month) {
+        currentMonth = month;
+        showMonthView();
+        updateButtonSelection(btnMonth);
     }
 }
