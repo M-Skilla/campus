@@ -1,13 +1,6 @@
 package com.group.campus.fragments;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group.campus.R;
+
 import com.group.campus.adapters.YearViewAdapter;
 import com.group.campus.adapters.MonthViewAdapter;
 import com.group.campus.adapters.EventsAdapter;
@@ -40,15 +34,18 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private final String[] monthNames = {"January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"};
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
+
         initViews(view);
         setupAdapters();
         setupClickListeners();
+
 
         // Start with year view
         showYearView();
@@ -70,7 +67,9 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     private void setupAdapters() {
         // Year view adapter
+
         yearAdapter = new YearViewAdapter(currentYear);
+
         yearAdapter.setOnMonthClickListener(this);
         yearCalendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         yearCalendarRecyclerView.setAdapter(yearAdapter);

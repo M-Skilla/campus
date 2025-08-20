@@ -17,7 +17,7 @@
         android:layout_marginTop="120dp"
         android:contentDescription="Campus Connect Logo"
         android:scaleType="centerInside"
-        app:srcCompat="@drawable/ic_launcher_foreground"
+        app:srcCompat="@drawable/campus_logo"
         app:tint="@color/md_theme_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
