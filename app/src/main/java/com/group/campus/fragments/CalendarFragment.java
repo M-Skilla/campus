@@ -1,7 +1,7 @@
 package com.group.campus.fragments;
 
 import android.os.Bundle;
-import android.view.Gravity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,120 +9,155 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group.campus.R;
-import com.group.campus.adapters.EventAdapter;
-import com.group.campus.adapters.YearAdapter;
+import com.group.campus.adapters.CustomMonthAdapter;
+import com.group.campus.adapters.MonthViewAdapter;
+import com.group.campus.adapters.EventsAdapter;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment implements CustomMonthAdapter.OnMonthClickListener {
 
-    public RecyclerView recyclerView;
-    private Button btnMonth, btnYear, btnEvents;
-    private TextView monthTitle;
-    private static final String[] DAY_HEADERS = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+    private RecyclerView yearCalendarRecyclerView;
+    private RecyclerView monthCalendarRecyclerView;
+    private RecyclerView eventsRecyclerView;
+    private View eventsLayout;
+    private TextView titleText;
 
+    private Button btnYear, btnMonth, btnEvents;
+    private CustomMonthAdapter yearAdapter;
+    private MonthViewAdapter monthAdapter;
+    private EventsAdapter eventsAdapter;
 
+    private int currentYear = 2025;
+    private int currentMonth = 7; // August (0-indexed)
+    private final String[] monthNames = {"January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
+
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        View root = inflater.inflate(com.group.campus.R.layout.fragment_calendar, container, false);
+        initViews(view);
+        setupAdapters();
+        setupClickListeners();
 
-        recyclerView = root.findViewById(R.id.RecyclerView);
-        btnMonth = root.findViewById(R.id.btnMonth);
-        btnYear = root.findViewById(R.id.btnYear);
-        btnEvents = root.findViewById(R.id.btnEvents);
-        monthTitle = root.findViewById(R.id.monthTitle);
+        // Start with year view
+        showYearView();
 
-        YearMonth currentMonth = YearMonth.now();
-
-        // Default: Month View
-        showMonthView(currentMonth);
-
-        btnMonth.setOnClickListener(v -> showMonthView(currentMonth));
-        btnYear.setOnClickListener(v -> showYearView(currentMonth));
-        btnEvents.setOnClickListener(v -> showEvents());
-
-        return root;
+        return view;
     }
 
-    // ------------------- Month View -------------------
-    private void showMonthView(YearMonth month) {
-        monthTitle.setText(capitalize(month.getMonth().name()) + " " + month.getYear());
+    private void initViews(View view) {
+        yearCalendarRecyclerView = view.findViewById(R.id.yearCalendarRecyclerView);
+        monthCalendarRecyclerView = view.findViewById(R.id.monthCalendarRecyclerView);
+        eventsRecyclerView = view.findViewById(R.id.eventsRecyclerView);
+        eventsLayout = view.findViewById(R.id.eventsLayout);
+        titleText = view.findViewById(R.id.titleText);
 
-        // Prepare list with weekday headers + days
-        List<String> dayItems = new ArrayList<>();
-// Add headers
-        for (String d : DAY_HEADERS) dayItems.add(d);
+        btnYear = view.findViewById(R.id.btnYear);
+        btnMonth = view.findViewById(R.id.btnMonth);
+        btnEvents = view.findViewById(R.id.btnEvents);
+    }
 
-// Add empty placeholders for alignment
-        LocalDate firstDay = month.atDay(1);
-        int startOffset = (firstDay.getDayOfWeek().getValue() + 6) % 7; // Monday=0
-        for (int i = 0; i < startOffset; i++) dayItems.add("");
+    private void setupAdapters() {
+        // Year view adapter
+        yearAdapter = new CustomMonthAdapter(currentYear);
+        yearAdapter.setOnMonthClickListener(this);
+        yearCalendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        yearCalendarRecyclerView.setAdapter(yearAdapter);
 
-// Add days
-        for (int day = 1; day <= month.lengthOfMonth(); day++) dayItems.add(String.valueOf(day));
+        // Month view adapter
+        monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthCalendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
+        monthCalendarRecyclerView.setAdapter(monthAdapter);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
-        recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                TextView tv = new TextView(parent.getContext());
-                tv.setGravity(Gravity.CENTER);
-                tv.setPadding(8, 16, 8, 16);
-                return new RecyclerView.ViewHolder(tv) {};
-            }
+        // Events adapter
+        List<String> sampleEvents = Arrays.asList(
+                "Team Meeting",
+                "Project Deadline",
+                "Campus Event",
+                "Study Group",
+                "Assignment Due"
+        );
+        eventsAdapter = new EventsAdapter(sampleEvents);
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        eventsRecyclerView.setAdapter(eventsAdapter);
+    }
 
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                ((TextView) holder.itemView).setText(dayItems.get(position));
-            }
+    private void setupClickListeners() {
+        btnYear.setOnClickListener(v -> {
+            showYearView();
+            updateButtonSelection(btnYear);
+        });
 
-            @Override
-            public int getItemCount() {
-                return dayItems.size();
-            }
+        btnMonth.setOnClickListener(v -> {
+            showMonthView();
+            updateButtonSelection(btnMonth);
+        });
+
+        btnEvents.setOnClickListener(v -> {
+            showEventsView();
+            updateButtonSelection(btnEvents);
         });
     }
 
-    // ------------------- Year View -------------------
-    private void showYearView(YearMonth currentMonth) {
-        monthTitle.setText(currentMonth.getYear() + "");
-        List<YearMonth> months = new ArrayList<>();
-        YearMonth firstMonth = YearMonth.of(currentMonth.getYear(), 1);
-        for (int i = 0; i < 12; i++) months.add(firstMonth.plusMonths(i));
+    private void showYearView() {
+        yearCalendarRecyclerView.setVisibility(View.VISIBLE);
+        monthCalendarRecyclerView.setVisibility(View.GONE);
+        eventsLayout.setVisibility(View.GONE);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
-        YearAdapter yearAdapter = new YearAdapter(months, this::showMonthView);
-        recyclerView.setAdapter(yearAdapter);
+        // Update title to show current year
+        titleText.setText(currentYear + " Calendar");
     }
 
-    // ------------------- Events View -------------------
-    private void showEvents() {
-        monthTitle.setText("Events");
+    private void showMonthView() {
+        yearCalendarRecyclerView.setVisibility(View.GONE);
+        monthCalendarRecyclerView.setVisibility(View.VISIBLE);
+        eventsLayout.setVisibility(View.GONE);
 
-        // Example dummy events
-        List<EventAdapter.Event> events = new ArrayList<>();
-        events.add(new EventAdapter.Event("Meeting", "Aug 18, 2025", "Discuss project progress"));
-        events.add(new EventAdapter.Event("Exam", "Aug 20, 2025", "Maths final exam"));
-        events.add(new EventAdapter.Event("Birthday Party", "Aug 25, 2025", "Friend's birthday celebration"));
+        // Update month adapter with current month
+        monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthCalendarRecyclerView.setAdapter(monthAdapter);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
-        EventAdapter adapter = new EventAdapter(events);
-        recyclerView.setAdapter(adapter);
+        // Update title to show current month and year
+        titleText.setText(monthNames[currentMonth] + " " + currentYear);
     }
 
-    private String capitalize(String s) {
-        String lower = s.toLowerCase();
-        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
+    private void showEventsView() {
+        yearCalendarRecyclerView.setVisibility(View.GONE);
+        monthCalendarRecyclerView.setVisibility(View.GONE);
+        eventsLayout.setVisibility(View.VISIBLE);
+
+        // Update title for events view
+        titleText.setText("Events");
+    }
+
+    private void updateButtonSelection(Button selectedButton) {
+        // Reset all buttons
+        btnYear.setBackgroundResource(R.drawable.button_unselected_background);
+        btnMonth.setBackgroundResource(R.drawable.button_unselected_background);
+        btnEvents.setBackgroundResource(R.drawable.button_unselected_background);
+
+        // Set selected button
+        selectedButton.setBackgroundResource(R.drawable.button_selected_background);
+    }
+
+    @Override
+    public void onMonthClick(int month) {
+        currentMonth = month;
+        showMonthView();
+        updateButtonSelection(btnMonth);
+
     }
 }
