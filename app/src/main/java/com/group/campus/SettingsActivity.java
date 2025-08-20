@@ -1,20 +1,28 @@
 package com.group.campus;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.view.View;
 import android.widget.Toast;
+import android.app.AlertDialog;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "theme_prefs";
+    private static final String KEY_THEME = "app_theme";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applySavedTheme();
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
@@ -53,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         themeAppearanceItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SettingsActivity.this, "Theme Appearance was clicked", Toast.LENGTH_SHORT).show();
+                showThemeDialog();
             }
         });
 
@@ -120,5 +128,32 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(SettingsActivity.this, "Acknowledgments was clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+
+    private void showThemeDialog() {
+        final String[] themes = {"Light","Dark"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Theme")
+                .setItems(themes, (dialog, which) -> {
+                    int mode = (which ==0) ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES;
+                    saveTheme(mode);
+                    AppCompatDelegate.setDefaultNightMode(mode);
+                    recreate();
+                })
+                .show();
+    }
+
+    private void saveTheme(int mode) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().putInt(KEY_THEME, mode).apply();
+    }
+
+    private void applySavedTheme() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int mode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(mode);
+    }
+
+
 }

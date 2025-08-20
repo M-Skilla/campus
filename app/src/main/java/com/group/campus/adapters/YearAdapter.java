@@ -11,7 +11,7 @@ import com.group.campus.R;
 import java.time.YearMonth;
 import java.util.List;
 
-public class YearAdapter extends RecyclerView.Adapter<MonthAdapter.DayViewHolder> {
+public class YearAdapter extends RecyclerView.Adapter<MonthAdapter.MonthViewHolder> {
 
     public interface OnMonthClickListener {
         void onMonthClick(YearMonth month);
@@ -27,15 +27,15 @@ public class YearAdapter extends RecyclerView.Adapter<MonthAdapter.DayViewHolder
 
     @NonNull
     @Override
-    public MonthAdapter.DayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MonthAdapter.DayViewHolder(
+    public MonthAdapter.MonthViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MonthAdapter.MonthViewHolder(
                 LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.calendar_day_layout, parent, false)
         );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MonthAdapter.DayViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MonthAdapter.MonthViewHolder holder, int position) {
         YearMonth month = months.get(position);
         holder.bind(month);
 
