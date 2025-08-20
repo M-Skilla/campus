@@ -1,11 +1,13 @@
 package com.group.campus.adapters;
 
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.group.campus.R;
@@ -31,6 +33,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.MonthViewHol
 
     @NonNull
     @Override
+
     public MonthViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_month, parent, false);
@@ -49,10 +52,13 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.MonthViewHol
         // Hide month name (header) so only dates remain
         holder.calendar.setHeaderLabelColor(android.R.color.transparent);
         holder.calendar.setHeaderColor(android.R.color.transparent);
+
     }
 
     @Override
     public int getItemCount() {
+
         return 12; // 12 months
+
     }
 }
