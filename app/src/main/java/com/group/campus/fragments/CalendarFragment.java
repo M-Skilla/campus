@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -179,13 +180,20 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         tvStartTime.setText(timeFormat.format(selectedStartDateTime.getTime()));
         tvEndTime.setText(timeFormat.format(selectedEndDateTime.getTime()));
 
-        // Handle chip selection to switch between forms
-        chipGroupEventTypes.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.chip_reminder) {
-                dialog.dismiss();
-                showReminderDialog();
-            }
+        // Handle chip selection to switch between forms - Fixed to use individual chip listeners
+        Chip chipEvent = dialogView.findViewById(R.id.chip_event);
+        Chip chipReminder = dialogView.findViewById(R.id.chip_reminder);
+
+        chipReminder.setOnClickListener(v -> {
+            dialog.dismiss();
+            showReminderDialog();
         });
+
+        // Handle other chip clicks to ensure proper selection
+        chipEvent.setOnClickListener(v -> {
+            // Event chip is already selected by default, no action needed
+        });
+
 
         // Handle all day switch
         switchAllDay.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -257,11 +265,12 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         ChipGroup chipGroupEventTypes = dialogView.findViewById(R.id.chipGroup_event_types);
 
         // Handle chip selection to switch back to event form
-        chipGroupEventTypes.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId != R.id.chip_reminder) {
-                dialog.dismiss();
-                showNewEventDialog();
-            }
+        Chip chipEventInReminder = dialogView.findViewById(R.id.chip_event);
+        Chip chipReminderInReminder = dialogView.findViewById(R.id.chip_reminder);
+
+        chipEventInReminder.setOnClickListener(v -> {
+            dialog.dismiss();
+            showNewEventDialog();
         });
 
         // Handle event selection
