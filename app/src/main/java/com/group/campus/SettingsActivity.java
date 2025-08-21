@@ -10,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.group.campus.fragments.ChangePasswordFragment;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -37,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         changePasswordItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SettingsActivity.this, "Change Password was clicked", Toast.LENGTH_SHORT).show();
+                launchChangePasswordFragment();
             }
         });
 
@@ -120,5 +124,30 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(SettingsActivity.this, "Acknowledgments was clicked", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void launchChangePasswordFragment() {
+        ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        findViewById(R.id.settingsActivity).setVisibility(View.GONE);
+        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
+
+        fragmentTransaction.replace(R.id.fragment_container, changePasswordFragment);
+        fragmentTransaction.addToBackStack("ChangePasswordFragment");
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            findViewById(R.id.settingsActivity).setVisibility(View.VISIBLE);
+            findViewById(R.id.fragment_container).setVisibility(View.GONE);
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
