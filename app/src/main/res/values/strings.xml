@@ -7,8 +7,8 @@
     <string name="alex_johnson">Alex Johnson</string>
     <string name="user_role">Student</string>
     <string name="user_information">User Information</string>
-    <string name="email">Email: student@udom.ac.tz</string>
-    <string name="course">Course: Computer Science</string>
+    <string name="email">student@udom.ac.tz</string>
+    <string name="course">Computer Science</string>
     <string name="year_of_study">Year: 2024/2025</string>
     <string name="event_registration">Event Registration</string>
     <string name="browse_events">Browse Events</string>
