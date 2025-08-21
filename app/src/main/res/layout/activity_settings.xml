@@ -117,6 +117,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/change_password" />
                         </LinearLayout>
@@ -144,6 +145,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/manage_devices" />
                         </LinearLayout>
@@ -197,6 +199,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/theme_appearance" />
                         </LinearLayout>
@@ -232,6 +235,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/language" />
                         </LinearLayout>
@@ -461,6 +465,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/view_data_policy" />
                         </LinearLayout>
@@ -514,6 +519,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/view_faqs" />
                         </LinearLayout>
@@ -541,6 +547,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/contact_support_desc" />
                         </LinearLayout>
@@ -568,6 +575,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/report_bug_desc" />
                         </LinearLayout>
@@ -595,6 +603,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/send_feedback_desc" />
                         </LinearLayout>
@@ -677,6 +686,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/view_terms_of_service" />
                         </LinearLayout>
@@ -704,6 +714,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/view_licenses" />
                         </LinearLayout>
@@ -731,6 +742,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/view_acknowledgements" />
                         </LinearLayout>

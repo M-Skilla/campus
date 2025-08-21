@@ -1,20 +1,27 @@
 package com.group.campus;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.view.View;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "theme_prefs";
+    private static final String KEY_THEME = "app_theme";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applySavedTheme();
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
@@ -53,7 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
         themeAppearanceItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SettingsActivity.this, "Theme Appearance was clicked", Toast.LENGTH_SHORT).show();
+                showThemeDialog();
             }
         });
 
@@ -121,4 +128,81 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showThemeDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_theme_selection, null);
+
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.PopupDialog)
+                .setView(dialogView)
+                .create();
+
+        int currentMode = getCurrentThemeMode();
+
+
+        showCurrentSelection(dialogView, currentMode);
+
+        dialogView.findViewById(R.id.option_match_phone).setOnClickListener(v -> {
+            int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+            saveTheme(mode);
+            AppCompatDelegate.setDefaultNightMode(mode);
+            dialog.dismiss();
+            recreate();
+        });
+
+        dialogView.findViewById(R.id.option_on).setOnClickListener(v -> {
+            int mode = AppCompatDelegate.MODE_NIGHT_YES;
+            saveTheme(mode);
+            AppCompatDelegate.setDefaultNightMode(mode);
+            dialog.dismiss();
+            recreate();
+        });
+
+        dialogView.findViewById(R.id.option_off).setOnClickListener(v -> {
+            int mode = AppCompatDelegate.MODE_NIGHT_NO;
+            saveTheme(mode);
+            AppCompatDelegate.setDefaultNightMode(mode);
+            dialog.dismiss();
+            recreate();
+        });
+
+        dialog.show();
+    }
+
+    private void showCurrentSelection(View dialogView, int currentMode) {
+        // Hide all ticks first
+        dialogView.findViewById(R.id.tick_match_phone).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.tick_on).setVisibility(View.GONE);
+        dialogView.findViewById(R.id.tick_off).setVisibility(View.GONE);
+
+
+        switch (currentMode) {
+            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
+                dialogView.findViewById(R.id.tick_match_phone).setVisibility(View.VISIBLE);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                dialogView.findViewById(R.id.tick_on).setVisibility(View.VISIBLE);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                dialogView.findViewById(R.id.tick_off).setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    private void saveTheme(int mode) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().putInt(KEY_THEME, mode).apply();
+    }
+
+    private void applySavedTheme(){
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int mode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(mode);
+    }
+
+    private int getCurrentThemeMode() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        return prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
+    }
+
+
 }
