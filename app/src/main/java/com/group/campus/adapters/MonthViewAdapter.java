@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group.campus.R;
+import com.group.campus.managers.EventManager;
+
 
 import java.util.Calendar;
 
@@ -20,18 +22,22 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.DayV
     private final String[] monthNames = {"January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"};
     private final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    private EventManager eventManager;
 
     public MonthViewAdapter(int year, int month) {
         this.year = year;
         this.month = month;
+        this.eventManager = EventManager.getInstance();
     }
 
     public static class DayViewHolder extends RecyclerView.ViewHolder {
         TextView dayText;
+        View eventIndicator;
 
         public DayViewHolder(@NonNull View itemView) {
             super(itemView);
             dayText = itemView.findViewById(R.id.dayText);
+            eventIndicator = itemView.findViewById(R.id.eventIndicator);
         }
     }
 
@@ -50,6 +56,9 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.DayV
             holder.dayText.setText(dayNames[position]);
             holder.dayText.setTextColor(Color.GRAY);
             holder.dayText.setTextSize(12f);
+            if (holder.eventIndicator != null) {
+                holder.eventIndicator.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -73,14 +82,30 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.DayV
             } else {
                 holder.dayText.setBackgroundColor(Color.TRANSPARENT);
             }
+
+            // Show event indicator if there are events on this day
+            if (holder.eventIndicator != null) {
+                if (eventManager.hasEventsOnDate(year, month, day)) {
+                    holder.eventIndicator.setVisibility(View.VISIBLE);
+                } else {
+                    holder.eventIndicator.setVisibility(View.GONE);
+                }
+            }
         } else {
             holder.dayText.setText("");
             holder.dayText.setBackgroundColor(Color.TRANSPARENT);
+            if (holder.eventIndicator != null) {
+                holder.eventIndicator.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
         return 49; // 7 header cells + 42 day cells (6 weeks)
+    }
+
+    public void refreshEvents() {
+        notifyDataSetChanged();
     }
 }
