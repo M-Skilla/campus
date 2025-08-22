@@ -19,15 +19,12 @@
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
-            android:exported="false" />
+            android:windowSoftInputMode="adjustResize" />
 
       <activity
             android:name=".OnboardingActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
