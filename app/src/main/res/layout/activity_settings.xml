@@ -118,11 +118,14 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/change_password" />
                         </LinearLayout>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/header_app_preferences"
@@ -171,6 +174,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/theme_appearance" />
                         </LinearLayout>
@@ -206,6 +210,7 @@
                             <ImageView
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
+                                app:tint="?attr/colorOnSurface"
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/language" />
                         </LinearLayout>
@@ -407,13 +412,16 @@
                                 android:layout_height="wrap_content"
                                 android:checked="true" />
                         </LinearLayout>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/header_about_legal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:text="@string/about_legal"
                     android:textStyle="bold"
                     android:textSize="14sp"
@@ -422,6 +430,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp" />
+
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_about_legal"
@@ -463,11 +472,13 @@
                                 android:fontFamily="@font/jakarta_regular"
                                 android:textColor="?attr/colorOnSurfaceVariant" />
                         </LinearLayout>
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
         </ScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
