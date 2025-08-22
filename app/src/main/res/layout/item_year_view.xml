@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@android:color/black"
+    android:background="@color/md_theme_background_highContrast"
     android:padding="4dp">
 
     <!-- Month Name Header -->
