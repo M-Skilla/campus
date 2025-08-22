@@ -60,6 +60,13 @@ public class EventManager {
         events.clear();
     }
 
+
+    public void setEvents(List<Event> newEvents) {
+        if (newEvents != null) {
+            this.events = new ArrayList<>(newEvents);
+        }
+    }
+
     public boolean hasEventsOnDate(int year, int month, int day) {
         for (Event event : events) {
             if (event.isOnDate(year, month, day)) {

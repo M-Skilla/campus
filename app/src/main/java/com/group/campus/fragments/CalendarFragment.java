@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Switch;
+
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,10 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.chip.ChipGroup;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+
 import com.group.campus.R;
 import com.group.campus.adapters.YearViewAdapter;
 import com.group.campus.adapters.MonthViewAdapter;
@@ -30,12 +35,14 @@ import com.group.campus.adapters.EventsAdapter;
 import com.group.campus.models.Event;
 import com.group.campus.managers.EventManager;
 
-import java.util.Arrays;
+
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.Date;
 
 public class CalendarFragment extends Fragment implements YearViewAdapter.OnMonthClickListener {
 
@@ -52,6 +59,11 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private EventsAdapter eventsAdapter;
     private EventManager eventManager;
 
+    // Firestore instance
+    private FirebaseFirestore db;
+    private static final String COLLECTION_NAME = "events";
+    private static final String DOCUMENT_ID = "6HN7DWWYnhuaweIG2T14";
+
     private int currentYear = 2025;
     private int currentMonth = 7; // August (0-indexed)
     private final String[] monthNames = {"January", "February", "March", "April", "May", "June",
@@ -61,15 +73,23 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private Calendar selectedStartDateTime;
     private Calendar selectedEndDateTime;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
+        db = FirebaseFirestore.getInstance();
+
+
         initViews(view);
         setupAdapters();
         setupClickListeners();
+
+
+        // Fetch events from Firestore
+        fetchEventsFromFirestore();
 
         // Start with year view
         showYearView();
@@ -210,6 +230,10 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                 // Add event to manager
                 eventManager.addEvent(newEvent);
 
+
+                // Save event to Firestore
+                saveEventToFirestore(newEvent);
+
                 // Refresh UI
                 refreshAllViews();
 
@@ -294,6 +318,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
             Event event = allEvents.get(i);
             // Format: "Event Title - Date"
             events[i] = event.getTitle() + " - " + event.getFormattedDate();
+
         }
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
@@ -482,6 +507,92 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         if (yearCalendarRecyclerView.getVisibility() == View.VISIBLE) {
             yearAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void fetchEventsFromFirestore() {
+        db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
+            .get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    List<Event> events = new ArrayList<>();
+
+                    if (document.exists()) {
+                        // Get events array from the document
+                        Object eventsArrayObj = document.get("events");
+                        if (eventsArrayObj instanceof List) {
+                            List<Map<String, Object>> eventsArray = (List<Map<String, Object>>) eventsArrayObj;
+
+                            for (Map<String, Object> eventData : eventsArray) {
+                                Object titleObj = eventData.get("title");
+                                Object startDateObj = eventData.get("startDate");
+                                Object endDateObj = eventData.get("endDate");
+
+                                if (titleObj != null && startDateObj != null && endDateObj != null) {
+                                    String title = titleObj.toString();
+                                    String startDate = startDateObj.toString();
+                                    String endDate = endDateObj.toString();
+
+                                    Event event = new Event(title, startDate, endDate);
+                                    events.add(event);
+                                }
+                            }
+                        }
+                    }
+
+                    eventManager.setEvents(events);
+                    eventsAdapter.updateEvents(events);
+                } else {
+                    Toast.makeText(getContext(), "Error fetching events", Toast.LENGTH_SHORT).show();
+                }
+            });
+    }
+
+    private void saveEventToFirestore(Event event) {
+        // First, get the current events array
+        db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
+            .get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    List<Map<String, Object>> eventsArray = new ArrayList<>();
+
+                    // Get existing events if they exist
+                    if (document.exists()) {
+                        Object existingEventsObj = document.get("events");
+                        if (existingEventsObj instanceof List) {
+                            eventsArray = (List<Map<String, Object>>) existingEventsObj;
+                        }
+                    }
+
+                    // Create new event data
+                    Map<String, Object> newEventData = new HashMap<>();
+                    newEventData.put("title", event.getTitle());
+                    newEventData.put("startDate", event.getStartDateString());
+                    newEventData.put("endDate", event.getEndDateString());
+
+                    // Add new event to array
+                    eventsArray.add(newEventData);
+
+                    // Create document data with events array
+                    Map<String, Object> documentData = new HashMap<>();
+                    documentData.put("events", eventsArray);
+
+                    // Save back to Firestore
+                    db.collection(COLLECTION_NAME).document(DOCUMENT_ID)
+                        .set(documentData)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(), "Event saved successfully", Toast.LENGTH_SHORT).show();
+                            // Refresh events from Firestore
+                            fetchEventsFromFirestore();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), "Error saving event: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        });
+                } else {
+                    Toast.makeText(getContext(), "Error fetching existing events", Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     @Override

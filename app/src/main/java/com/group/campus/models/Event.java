@@ -1,6 +1,9 @@
 package com.group.campus.models;
 
 import java.text.SimpleDateFormat;
+
+import java.text.ParseException;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -14,6 +17,11 @@ public class Event {
     private boolean hasSoundAlert;
     private String description;
 
+
+    // Firestore date format
+    private static final SimpleDateFormat FIRESTORE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+
     public Event() {
         // Default constructor
     }
@@ -26,6 +34,23 @@ public class Event {
         this.isAllDay = isAllDay;
         this.hasSoundAlert = hasSoundAlert;
     }
+
+
+    // Constructor for Firestore data (with String dates)
+    public Event(String title, String startDate, String endDate) {
+        this.title = title;
+        try {
+            this.startDate = FIRESTORE_DATE_FORMAT.parse(startDate);
+            this.endDate = FIRESTORE_DATE_FORMAT.parse(endDate);
+        } catch (ParseException e) {
+            // Fallback to current date if parsing fails
+            this.startDate = new Date();
+            this.endDate = new Date();
+        }
+        this.isAllDay = false;
+        this.hasSoundAlert = false;
+    }
+
 
     private String generateId() {
         return "event_" + System.currentTimeMillis();
@@ -127,4 +152,15 @@ public class Event {
         cal.setTime(startDate);
         return cal.get(Calendar.YEAR);
     }
+
+
+    // Methods to get String dates for Firestore
+    public String getStartDateString() {
+        return startDate != null ? FIRESTORE_DATE_FORMAT.format(startDate) : "";
+    }
+
+    public String getEndDateString() {
+        return endDate != null ? FIRESTORE_DATE_FORMAT.format(endDate) : "";
+    }
+
 }
