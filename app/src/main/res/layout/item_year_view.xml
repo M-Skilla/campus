@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@android:color/black"
+    android:background="@color/md_theme_background_highContrast"
     android:padding="4dp">
 
     <!-- Month Name Header -->
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Jan"
         android:textColor="@android:color/white"
+        android:fontFamily="@font/jakarta_bold"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginBottom="4dp" />
@@ -30,6 +31,7 @@
             android:layout_weight="1"
             android:text="S"
             android:textColor="@android:color/white"
+            android:fontFamily="@font/jakarta_regular"
             android:textSize="10sp"
             android:gravity="center" />
 
@@ -40,6 +42,7 @@
             android:text="M"
             android:textColor="@android:color/white"
             android:textSize="10sp"
+            android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
 
         <TextView
@@ -48,6 +51,7 @@
             android:layout_weight="1"
             android:text="T"
             android:textColor="@android:color/white"
+            android:fontFamily="@font/jakarta_regular"
             android:textSize="10sp"
             android:gravity="center" />
 
@@ -58,6 +62,7 @@
             android:text="W"
             android:textColor="@android:color/white"
             android:textSize="10sp"
+            android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
 
         <TextView
@@ -67,6 +72,7 @@
             android:text="T"
             android:textColor="@android:color/white"
             android:textSize="10sp"
+            android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
 
         <TextView
@@ -76,6 +82,7 @@
             android:text="F"
             android:textColor="@android:color/white"
             android:textSize="10sp"
+            android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
 
         <TextView
@@ -85,6 +92,7 @@
             android:text="S"
             android:textColor="@android:color/white"
             android:textSize="10sp"
+            android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
 
     </LinearLayout>
@@ -99,6 +107,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
             <TextView android:id="@+id/day1" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day2" style="@style/CalendarDayStyle" />
@@ -113,6 +122,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
             <TextView android:id="@+id/day8" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day9" style="@style/CalendarDayStyle" />
@@ -127,6 +137,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
             <TextView android:id="@+id/day15" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day16" style="@style/CalendarDayStyle" />
@@ -141,6 +152,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
             <TextView android:id="@+id/day22" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day23" style="@style/CalendarDayStyle" />
@@ -155,6 +167,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
             <TextView android:id="@+id/day29" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day30" style="@style/CalendarDayStyle" />
@@ -169,6 +182,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
             <TextView android:id="@+id/day36" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day37" style="@style/CalendarDayStyle" />

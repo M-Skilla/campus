@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/md_theme_background_highContrast">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="2025"
-            android:textColor="@android:color/white"
+            android:textColor="@color/md_theme_onSurface"
             android:textSize="24sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/jakarta_bold"
             android:padding="16dp"
             android:gravity="start" />
 
@@ -38,7 +38,8 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="Year"
-                android:textColor="@android:color/white"
+                android:textColor="@color/md_theme_onPrimary"
+                android:fontFamily="@font/jakarta_semibold"
                 android:background="@drawable/button_selected_background"
                 android:textSize="14sp"
                 android:layout_marginEnd="2dp" />
@@ -49,7 +50,8 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="Month"
-                android:textColor="@android:color/white"
+                android:textColor="@color/md_theme_onPrimary"
+                android:fontFamily="@font/jakarta_semibold"
                 android:background="@drawable/button_unselected_background"
                 android:textSize="14sp"
                 android:layout_marginEnd="2dp" />
@@ -60,7 +62,8 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="Events"
-                android:textColor="@android:color/white"
+                android:textColor="@color/md_theme_onPrimary"
+                android:fontFamily="@font/jakarta_semibold"
                 android:background="@drawable/button_unselected_background"
                 android:textSize="14sp" />
 
@@ -108,6 +111,8 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:contentDescription="Add Event"
-        app:srcCompat="@drawable/ic_add_24" />
+        app:srcCompat="@drawable/ic_add_24"
+        app:backgroundTint="@color/md_theme_primary"
+        app:tint="@color/md_theme_onPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
