@@ -1,106 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/black">
+    android:background="@color/md_theme_background_highContrast">
 
-    <!-- Title Area for Year/Month Display -->
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="2025"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:padding="16dp"
-        android:gravity="start" />
-
-    <!-- Navigation Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp"
-        android:background="@drawable/button_group_background"
-        android:padding="4dp">
-
-        <Button
-            android:id="@+id/btnYear"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="Y"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_selected_background"
-            android:textSize="14sp"
-            android:layout_marginEnd="2dp" />
-
-        <Button
-            android:id="@+id/btnMonth"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="M"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_unselected_background"
-            android:textSize="14sp"
-            android:layout_marginEnd="2dp" />
-
-        <Button
-            android:id="@+id/btnEvents"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="E"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_unselected_background"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <!-- Year View RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/yearCalendarRecyclerView"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp" />
+        android:orientation="vertical">
 
-    <!-- Month View RecyclerView (initially hidden) -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/monthCalendarRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:visibility="gone" />
-
-    <!-- Events View (initially hidden) -->
-    <LinearLayout
-        android:id="@+id/eventsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="gone">
-
+        <!-- Title Area for Year/Month Display -->
         <TextView
+            android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Events"
-            android:textColor="@android:color/white"
+            android:text="2025"
+            android:textColor="@color/md_theme_onSurface"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:fontFamily="@font/jakarta_bold"
+            android:padding="16dp"
+            android:gravity="start" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/eventsRecyclerView"
+        <!-- Navigation Buttons -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_group_background"
+            android:padding="4dp">
+
+            <Button
+                android:id="@+id/btnYear"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Year"
+                android:textColor="@color/md_theme_onPrimary"
+                android:fontFamily="@font/jakarta_semibold"
+                android:background="@drawable/button_selected_background"
+                android:textSize="14sp"
+                android:layout_marginEnd="2dp" />
+
+            <Button
+                android:id="@+id/btnMonth"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Month"
+                android:textColor="@color/md_theme_onPrimary"
+                android:fontFamily="@font/jakarta_semibold"
+                android:background="@drawable/button_unselected_background"
+                android:textSize="14sp"
+                android:layout_marginEnd="2dp" />
+
+            <Button
+                android:id="@+id/btnEvents"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Events"
+                android:textColor="@color/md_theme_onPrimary"
+                android:fontFamily="@font/jakarta_semibold"
+                android:background="@drawable/button_unselected_background"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Year View RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/yearCalendarRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp" />
+
+        <!-- Month View RecyclerView (initially hidden) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/monthCalendarRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:visibility="gone" />
+
+        <!-- Events View (initially hidden) -->
+        <LinearLayout
+            android:id="@+id/eventsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/eventsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <!-- Floating Action Button for creating new events -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="Add Event"
+        app:srcCompat="@drawable/ic_add_24"
+        app:backgroundTint="@color/md_theme_primary"
+        app:tint="@color/md_theme_onPrimary" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

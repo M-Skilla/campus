@@ -90,7 +90,7 @@ public class YearViewAdapter extends RecyclerView.Adapter<YearViewAdapter.MonthV
     @Override
     public MonthViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_month_custom, parent, false);
+                .inflate(R.layout.item_year_view, parent, false);
         return new MonthViewHolder(view);
     }
 
