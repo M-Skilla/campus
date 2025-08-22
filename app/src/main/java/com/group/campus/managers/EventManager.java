@@ -60,6 +60,7 @@ public class EventManager {
         events.clear();
     }
 
+
     public void setEvents(List<Event> newEvents) {
         if (newEvents != null) {
             this.events = new ArrayList<>(newEvents);

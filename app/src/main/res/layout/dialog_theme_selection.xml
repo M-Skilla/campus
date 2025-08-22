@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_rounded_bg"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:id="@+id/option_match_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/jakarta_regular"
+            android:text="Match phone setting"
+            android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <ImageView
+            android:id="@+id/tick_match_phone"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_icon"
+            android:visibility="gone"
+            app:tint="?attr/colorOnSurface" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_on"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="On"
+            android:fontFamily="@font/jakarta_regular"
+            android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <ImageView
+            android:id="@+id/tick_on"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_icon"
+            android:visibility="gone"
+            app:tint="?attr/colorOnSurface" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Off"
+            android:textSize="16sp"
+            android:fontFamily="@font/jakarta_regular"
+            android:textColor="?attr/colorOnSurface" />
+
+        <ImageView
+            android:id="@+id/tick_off"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/check_icon"
+            android:visibility="gone"
+            app:tint="?attr/colorOnSurface" />
+
+    </LinearLayout>
+
+</LinearLayout>

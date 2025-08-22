@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,12 +27,14 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+
 import com.group.campus.R;
 import com.group.campus.adapters.YearViewAdapter;
 import com.group.campus.adapters.MonthViewAdapter;
 import com.group.campus.adapters.EventsAdapter;
 import com.group.campus.models.Event;
 import com.group.campus.managers.EventManager;
+
 
 import java.util.List;
 import java.util.ArrayList;
@@ -70,18 +73,20 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private Calendar selectedStartDateTime;
     private Calendar selectedEndDateTime;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
+
 
         initViews(view);
         setupAdapters();
         setupClickListeners();
+
 
         // Fetch events from Firestore
         fetchEventsFromFirestore();
@@ -225,6 +230,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                 // Add event to manager
                 eventManager.addEvent(newEvent);
 
+
                 // Save event to Firestore
                 saveEventToFirestore(newEvent);
 
@@ -312,6 +318,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
             Event event = allEvents.get(i);
             // Format: "Event Title - Date"
             events[i] = event.getTitle() + " - " + event.getFormattedDate();
+
         }
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
