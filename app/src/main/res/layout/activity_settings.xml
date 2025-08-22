@@ -24,19 +24,19 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/settings_back_arrow"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:src="@drawable/circle_left_icon"
-                    android:contentDescription="@string/back"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:clickable="true"
-                    app:tint="?attr/colorOnSurfaceVariant"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="8dp" />
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:icon="@drawable/left_arrow_icon"
+                    app:iconSize="24dp"
+                    app:iconTint="?attr/colorOnSurface"
+                    android:contentDescription="Back" />
 
                 <TextView
                     android:id="@+id/settings_title"
@@ -86,10 +86,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_account_settings"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="30dp"
                     app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
                     app:cardElevation="0dp">
                     <LinearLayout
@@ -121,33 +121,6 @@
                                 android:src="@drawable/chevron_right_icon"
                                 android:contentDescription="@string/change_password" />
                         </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_manage_devices"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/manage_devices"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:textSize="16sp"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/manage_devices" />
-                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -169,7 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="30dp"
                     app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
                     app:cardElevation="0dp">
                     <LinearLayout
@@ -257,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="30dp"
                     app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
                     app:cardElevation="0dp">
                     <LinearLayout
@@ -408,7 +381,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="30dp"
                     app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
                     app:cardElevation="0dp">
                     <LinearLayout
@@ -438,167 +411,6 @@
                                 android:layout_height="wrap_content"
                                 android:checked="true" />
                         </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_data_policy"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:text="@string/data_policy"
-                                android:textSize="16sp"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/view_data_policy" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/header_help_support"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/jakarta_bold"
-                    android:text="@string/help_support"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_help_support"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
-                    app:cardElevation="0dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginEnd="6dp"
-                        android:padding="8dp">
-                        <LinearLayout
-                            android:id="@+id/item_faq"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:clickable="true"
-                            android:paddingVertical="12dp"
-                            android:background="?android:attr/selectableItemBackground">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:text="@string/faq"
-                                android:textSize="16sp"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/view_faqs" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_contact_support"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:text="@string/contact_support"
-                                android:textSize="16sp"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/contact_support_desc" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_report_bug"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/report_bug"
-                                android:textSize="16sp"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/report_bug_desc" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_send_feedback"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:text="@string/send_feedback"
-                                android:textSize="16sp"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/send_feedback_desc" />
-                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -620,7 +432,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="30dp"
                     app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
                     app:cardElevation="0dp">
                     <LinearLayout
@@ -635,6 +447,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
+                            android:background="?android:attr/selectableItemBackground"
                             android:orientation="horizontal"
                             android:paddingVertical="12dp">
                             <TextView
@@ -653,87 +466,6 @@
                                 android:textSize="16sp"
                                 android:fontFamily="@font/jakarta_regular"
                                 android:textColor="?attr/colorOnSurfaceVariant" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_terms_of_service"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/terms_of_service"
-                                android:textSize="16sp"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/view_terms_of_service" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_licenses"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/licenses"
-                                android:textSize="16sp"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/view_licenses" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="?attr/colorOnSurfaceVariant" />
-                        <LinearLayout
-                            android:id="@+id/item_acknowledgements"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp"
-                            android:clickable="true"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:layout_marginTop="1dp">
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/jakarta_regular"
-                                android:text="@string/acknowledgements"
-                                android:textSize="16sp"
-                                android:textColor="?attr/colorOnSurface" />
-                            <ImageView
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/chevron_right_icon"
-                                android:contentDescription="@string/view_acknowledgements" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
