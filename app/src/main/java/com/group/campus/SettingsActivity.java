@@ -2,12 +2,12 @@ package com.group.campus;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ImageButton;
 import android.view.View;
 import android.widget.Toast;
 import android.app.AlertDialog;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
@@ -21,9 +21,12 @@ import com.group.campus.fragments.ChangePasswordFragment;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    // Constants for SharedPreferences
+    private static final String PREFS_NAME = "CampusSettings";
+    private static final String KEY_THEME = "theme_mode";
 
     private MaterialButton backButton;
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,35 +41,39 @@ public class SettingsActivity extends AppCompatActivity {
             return insets;
         });
 
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        initializeViews();
+        setupClickListeners();
+        setupBackPressedCallback();
+    }
+
+    private void initializeViews() {
         backButton = findViewById(R.id.settings_back_arrow);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+    }
 
-        View changePasswordItem = findViewById(R.id.item_change_password);
-        changePasswordItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchChangePasswordFragment();
-            }
-        });
+    private void setupClickListeners() {
+        backButton.setOnClickListener(view -> finish());
 
-        View themeAppearanceItem = findViewById(R.id.item_theme_appearance);
-        themeAppearanceItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showThemeDialog();
-            }
-        });
+        findViewById(R.id.item_change_password).setOnClickListener(view -> launchChangePasswordFragment());
 
-        View languageItem = findViewById(R.id.item_language);
-        languageItem.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.item_theme_appearance).setOnClickListener(view -> showThemeDialog());
+
+        findViewById(R.id.item_language).setOnClickListener(view ->
+                Toast.makeText(SettingsActivity.this, "Language was clicked", Toast.LENGTH_SHORT).show());
+    }
+
+    private void setupBackPressedCallback() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(SettingsActivity.this, "Language was clicked", Toast.LENGTH_SHORT).show();
+            public void handleOnBackPressed() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    findViewById(R.id.settingsActivity).setVisibility(View.VISIBLE);
+                    findViewById(R.id.fragment_container).setVisibility(View.GONE);
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    finish();
+                }
             }
         });
     }
@@ -85,17 +92,6 @@ public class SettingsActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            findViewById(R.id.settingsActivity).setVisibility(View.VISIBLE);
-            findViewById(R.id.fragment_container).setVisibility(View.GONE);
-            getSupportFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     private void showThemeDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_theme_selection, null);
 
@@ -104,8 +100,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .create();
 
         int currentMode = getCurrentThemeMode();
-
-
         showCurrentSelection(dialogView, currentMode);
 
         dialogView.findViewById(R.id.option_match_phone).setOnClickListener(v -> {
@@ -136,11 +130,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void showCurrentSelection(View dialogView, int currentMode) {
-        // Hide all ticks first
         dialogView.findViewById(R.id.tick_match_phone).setVisibility(View.GONE);
         dialogView.findViewById(R.id.tick_on).setVisibility(View.GONE);
         dialogView.findViewById(R.id.tick_off).setVisibility(View.GONE);
-
 
         switch (currentMode) {
             case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
@@ -156,20 +148,16 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void saveTheme(int mode) {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        prefs.edit().putInt(KEY_THEME, mode).apply();
+        sharedPreferences.edit().putInt(KEY_THEME, mode).apply();
     }
 
-    private void applySavedTheme(){
+    private void applySavedTheme() {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         int mode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
         AppCompatDelegate.setDefaultNightMode(mode);
     }
 
     private int getCurrentThemeMode() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        return prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
+        return sharedPreferences.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
     }
-
-
 }
