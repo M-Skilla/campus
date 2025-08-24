@@ -406,10 +406,11 @@ public class AddAnnouncementDialog extends DialogFragment implements SelectedIma
         showLoading();
 
         // Upload images to Firebase Storage and get URLs
-        List<String> imageUrls = new ArrayList<>();
+        List<String> imageUrls = java.util.Collections.synchronizedList(new ArrayList<>());
         if (!selectedImageUris.isEmpty()) {
             updateLoadingText("Uploading images...");
 
+            java.util.concurrent.atomic.AtomicInteger completedUploads = new java.util.concurrent.atomic.AtomicInteger(0);
             for (Uri imageUri : selectedImageUris) {
                 // Create a reference to store the image using a UUID to avoid duplicates
                 StorageReference imageRef = storage.getReference().child("announcement_images/" + UUID.randomUUID().toString());
