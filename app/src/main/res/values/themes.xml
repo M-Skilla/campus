@@ -48,13 +48,7 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
 
-    <!-- Jakarta Font Text Styles -->
-    <style name="ToolbarTitleStyle" parent="TextAppearance.Material3.HeadlineSmall">
-        <item name="android:fontFamily">@font/jakarta_font_family</item>
 
-        <item name="android:letterSpacing">0.005</item>
-        <item name="android:textSize">20sp</item>
-    </style>
 
     <!-- Custom Chip Style for Announcements -->
     <style name="AnnouncementChipStyle" parent="Widget.Material3.Chip.Filter">
