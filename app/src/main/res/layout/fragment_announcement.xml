@@ -106,6 +106,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:id="@+id/swipeRefreshLayout"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -130,7 +132,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:contentDescription="@string/add_announcement"
+        android:contentDescription="Add Announcement"
         app:srcCompat="@drawable/ic_add_24"
          />
 

@@ -86,4 +86,14 @@ public class HomeActivity extends AppCompatActivity {
 //        });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new AnnouncementFragment())
+                .commit();
+        bottomNav.setSelectedItemId(R.id.announcementsItem);
+    }
 }
