@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -33,6 +34,7 @@ import com.group.campus.AnnouncementViewActivity;
 import com.group.campus.R;
 import com.group.campus.adapters.AnnouncementsAdapter;
 import com.group.campus.adapters.SearchAnnouncementsAdapter;
+import com.group.campus.dialogs.AddAnnouncementDialog;
 import com.group.campus.models.Announcement;
 import com.group.campus.utils.AlgoliaApi;
 import com.group.campus.utils.AlgoliaClient;
@@ -53,9 +55,8 @@ public class AnnouncementFragment extends Fragment {
     private RecyclerView recyclerView, rvSearch;
     private FirebaseFirestore db;
     private List<Announcement> announcementList;
-
-
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton fabAddAnnouncement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +67,7 @@ public class AnnouncementFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         SearchView searchView = view.findViewById(R.id.searchView);
         rvSearch = view.findViewById(R.id.rvSearch);
+        fabAddAnnouncement = view.findViewById(R.id.fab_add_announcement);
 
         db = FirebaseFirestore.getInstance();
 
@@ -119,6 +121,12 @@ public class AnnouncementFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+        });
+
+        // Setup FAB click listener
+        fabAddAnnouncement.setOnClickListener(v -> {
+            AddAnnouncementDialog dialog = AddAnnouncementDialog.newInstance();
+            dialog.show(getParentFragmentManager(), "AddAnnouncementDialog");
         });
 
         return view;

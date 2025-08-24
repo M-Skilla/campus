@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_background_highContrast">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_theme_background_highContrast"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Create Announcement"
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:navigationIcon="@drawable/ic_close_24"
+            app:menu="@menu/menu_add_announcement" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Announcement Title"
+                app:boxStrokeColor="@color/md_theme_primary"
+                app:hintTextColor="?attr/colorPrimary"
+                app:hintTextAppearance="@style/InputHintStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLines="2"
+                    android:fontFamily="@font/jakarta_font_family"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Department Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Department"
+                app:boxStrokeColor="@color/md_theme_primary"
+                app:hintTextColor="?attr/colorPrimary"
+                app:hintTextAppearance="@style/InputHintStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:fontFamily="@font/jakarta_font_family"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Visibility Selection -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilVisibility"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Visibility"
+                app:boxStrokeColor="@color/md_theme_primary"
+                app:hintTextColor="?attr/colorPrimary"
+                app:hintTextAppearance="@style/InputHintStyle">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actvVisibility"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:fontFamily="@font/jakarta_font_family"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Rich Text Editor Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:backgroundTint="@color/md_theme_surfaceVariant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+               >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/md_theme_primary"
+                    android:orientation="vertical">
+
+                    <!-- Rich Text Editor Header -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Announcement Content"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:fontFamily="@font/jakarta_medium"
+                        android:padding="12dp"
+                        android:background="@color/md_theme_surfaceVariant" />
+
+                    <!-- Rich Text Editor Toolbar -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/md_theme_surfaceVariant"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnBold"
+                                style="@style/RichEditorButton"
+                                android:contentDescription="Bold"
+                                app:icon="@drawable/ic_bold_24" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnItalic"
+                                style="@style/RichEditorButton"
+                                android:contentDescription="Italic"
+                                app:icon="@drawable/ic_italic_24" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnUnderline"
+                                style="@style/RichEditorButton"
+                                android:contentDescription="Underline"
+                                app:icon="@drawable/ic_underline_24" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="8dp"
+                                android:background="?attr/colorOutline" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnHeading1"
+                                style="@style/RichEditorTextButton"
+                                android:contentDescription="Heading 1"
+                                android:text="H1" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnHeading2"
+                                style="@style/RichEditorTextButton"
+                                android:contentDescription="Heading 2"
+                                android:text="H2" />
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="8dp"
+                                android:background="?attr/colorOutline" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnBulletList"
+                                style="@style/RichEditorButton"
+                                android:contentDescription="Bullet List"
+                                app:icon="@drawable/list_solid_full" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnNumberedList"
+                                style="@style/RichEditorButton"
+                                android:contentDescription="Numbered List"
+                                app:icon="@drawable/ic_list_ol" />
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                    <!-- Rich Text Editor -->
+                    <jp.wasabeef.richeditor.RichEditor
+                        android:id="@+id/richEditor"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="8dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Image Selection Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:backgroundTint="@color/md_theme_surfaceVariant"
+               >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Images"
+                        android:textSize="14sp"
+                        android:textColor="@color/md_theme_primary"
+                        android:fontFamily="@font/jakarta_medium"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Selected Images RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSelectedImages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:visibility="gone" />
+
+                    <!-- Add Images Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSelectImages"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Images"
+                        app:iconTint="@color/md_theme_primary"
+                        android:textColor="@color/md_theme_primary"
+                        android:fontFamily="@font/jakarta_medium"
+                        app:icon="@drawable/ic_add_photo_24"
+                        app:iconGravity="start" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Optional: Add images to your announcement"
+                        android:textSize="12sp"
+                        android:textColor="@color/md_theme_primary"
+                        android:fontFamily="@font/jakarta_regular"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading_overlay_background"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/loading_card_background"
+            android:padding="32dp">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                app:indicatorColor="?attr/colorPrimary"
+                app:trackColor="?attr/colorSurfaceVariant"
+                app:trackThickness="4dp"
+                app:indicatorSize="48dp" />
+
+            <TextView
+                android:id="@+id/loadingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Creating announcement..."
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:fontFamily="@font/jakarta_medium"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

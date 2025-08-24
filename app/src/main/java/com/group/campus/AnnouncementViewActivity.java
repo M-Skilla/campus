@@ -2,6 +2,7 @@ package com.group.campus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.group.campus.models.Announcement;
 import com.group.campus.models.Author;
 import com.group.campus.utils.DateUtils;
+import com.group.campus.utils.HtmlRenderer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +40,7 @@ public class AnnouncementViewActivity extends AppCompatActivity {
     private ShapeableImageView departmentAvatar, announcementImage;
     private TextView departmentName, announcementDate, announcementTitle, announcementContent;
     private TextView viewCount, readTime, contactEmail, contactPhone;
-    private MaterialButton shareButton, bookmarkButton;
+    private MaterialButton shareButton;
     private ExtendedFloatingActionButton fabMoreActions;
     private MaterialCardView imageCard, contactCard;
 
@@ -80,7 +82,7 @@ public class AnnouncementViewActivity extends AppCompatActivity {
         contactPhone = findViewById(R.id.textView_contact_phone);
 
         shareButton = findViewById(R.id.button_share);
-        bookmarkButton = findViewById(R.id.button_bookmark);
+
         fabMoreActions = findViewById(R.id.fab_more_actions);
         imageCard = findViewById(R.id.image_card);
         contactCard = findViewById(R.id.contact_card);
@@ -105,7 +107,16 @@ public class AnnouncementViewActivity extends AppCompatActivity {
 
         // Set announcement title and content
         announcementTitle.setText(announcement.getTitle() != null ? announcement.getTitle() : "No Title");
-        announcementContent.setText(announcement.getBody() != null ? announcement.getBody() : "No content available");
+
+        // Render HTML content properly with ordered list support using HtmlRenderer
+        String bodyContent = announcement.getBody();
+        if (bodyContent != null && bodyContent.contains("<")) {
+            // Content contains HTML, render it properly with ordered list support
+            announcementContent.setText(HtmlRenderer.fromHtml(bodyContent));
+        } else {
+            // Plain text content
+            announcementContent.setText(bodyContent != null ? bodyContent : "No content available");
+        }
 
         // Set department name
         departmentName.setText(announcement.getDepartment() != null ? announcement.getDepartment() : "Unknown Department");
@@ -173,19 +184,39 @@ public class AnnouncementViewActivity extends AppCompatActivity {
 
     private void setupClickListeners() {
         shareButton.setOnClickListener(v -> shareAnnouncement());
-        bookmarkButton.setOnClickListener(v -> bookmarkAnnouncement());
+
         fabMoreActions.setOnClickListener(v -> showMoreActions());
     }
 
     private void shareAnnouncement() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        String shareText = "\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF\uD83C\uDDF9\uD83C\uDDFF" + "\n" +
+
+        // Handle null author gracefully
+        String authorName = "Unknown Author";
+        String collegeName = "UDOM";
+        String collegeAbbrv = "";
+
+        if (announcement.getAuthor() != null) {
+            authorName = announcement.getAuthor().getName() != null ? announcement.getAuthor().getName() : "Unknown Author";
+            if (announcement.getAuthor().getCollege() != null) {
+                collegeName = announcement.getAuthor().getCollege().getName() != null ?
+                        announcement.getAuthor().getCollege().getName() : "UDOM";
+                collegeAbbrv = announcement.getAuthor().getCollege().getAbbrv() != null ?
+                        " (" + announcement.getAuthor().getCollege().getAbbrv() + ")" : "";
+            }
+        }
+
+        // Use HtmlRenderer to convert HTML content to properly formatted plain text
+        String bodyText = HtmlRenderer.toPlainText(announcement.getBody());
+
+        String shareText = "🇹🇿🇹🇿🇹🇿🇹🇿🇹🇿🇹🇿🇹🇿🇹🇿🇹🇿🇹🇿" + "\n" +
                 announcement.getDepartment() + "\n" +
                 formatDate(announcement.getCreatedAt())
                 + "\n\n" + announcement.getTitle() +
-                "\n\n" + announcement.getBody() +
-                "\n\n" + "Authored By: " + announcement.getAuthor().getName() + "\n" + "College: " + announcement.getAuthor().getCollege().getName() + " (" + announcement.getAuthor().getCollege().getAbbrv() + ")";
+                "\n\n" + bodyText +
+                "\n\n" + "Authored By: " + authorName + "\n" + "College: " + collegeName + collegeAbbrv;
+
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, announcement.getTitle());
         startActivity(Intent.createChooser(shareIntent, "Share Announcement"));

@@ -163,6 +163,7 @@
     <color name="card_background">#FFFFFF</color>
     <color name="shadow_color">#1A000000</color>
     <color name="grey">#564C4C</color>
+
+    <!-- Loading overlay colors -->
+    <color name="loading_overlay_background">#80000000</color> <!-- Semi-transparent black -->
 </resources>
-
-
