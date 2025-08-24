@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:background="?attr/colorSurface"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:checkable="false"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:strokeWidth="0dp"
+    app:rippleColor="?attr/colorPrimary">
 
-    <!-- Main content area -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginEnd="12dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <!-- Header with department info and timestamp -->
+        <!-- Header with department info, timestamp and priority indicator -->
         <LinearLayout
             android:id="@+id/header_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="12dp">
+
+            <!-- Priority indicator -->
+            <View
+                android:id="@+id/priority_indicator"
+                android:layout_width="4dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/rounded_button_background"
+                android:backgroundTint="?attr/colorPrimary" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView_department_avatar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="4dp"
                 android:scaleType="centerCrop"
+                android:elevation="1dp"
                 app:shapeAppearanceOverlay="@style/CircularImageView"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:strokeWidth="1dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
@@ -45,16 +55,29 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView_announcement_department"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/jakarta_font_family"
-                    android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:textColor="?attr/colorOnSurface"
-                    android:letterSpacing="0.01"
-                    tools:text="Computer Science Dept" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView_announcement_department"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/jakarta_font_family"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:letterSpacing="0.01"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tools:text="Computer Science Dept" />
+
+                    <!-- Status badge -->
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView_announcement_date"
@@ -63,18 +86,10 @@
                     android:fontFamily="@font/jakarta_font_family"
                     android:textSize="11sp"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="2 hours ago" />
+                    android:layout_marginTop="2dp"
+                    tools:text="2 hours ago • Updated" />
 
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/menu_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_more_vert_24"
-                android:contentDescription="@string/more_options"
-                app:tint="?attr/colorOnSurfaceVariant" />
 
         </LinearLayout>
 
@@ -89,7 +104,9 @@
             android:textColor="?attr/colorOnSurface"
             android:lineSpacingMultiplier="1.2"
             android:letterSpacing="0.005"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             tools:text="Important: Mid-term Examination Schedule Released" />
 
         <TextView
@@ -98,61 +115,122 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/jakarta_font_family"
             android:textSize="14sp"
-            android:lineSpacingMultiplier="1.4"
+            android:lineSpacingMultiplier="1.5"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:maxLines="2"
+            android:maxLines="3"
             android:ellipsize="end"
+            android:layout_marginBottom="16dp"
             tools:text="The mid-term examination schedule for all undergraduate programs has been released. Students are advised to check their respective department portals for detailed timings and venues." />
 
-        <!-- Action bar with only share and bookmark -->
+        <!-- Image container (full width when present) -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView_announcement_image"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+
+            app:shapeAppearanceOverlay="@style/RoundedImageView"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            tools:visibility="visible" />
+
+        <!-- Action bar with enhanced buttons -->
         <LinearLayout
             android:id="@+id/action_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp"
-            android:gravity="start|center_vertical">
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:baselineAligned="false">
 
+            <!-- Share button on the left -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_share"
                 style="@style/Widget.Material3.Button.TextButton.Icon"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="40dp"
                 android:text="@string/share"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:fontFamily="@font/jakarta_font_family"
                 android:textStyle="bold"
-                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColor="?attr/colorPrimary"
                 app:icon="@drawable/ic_share_24"
-                app:iconTint="?attr/colorOnSurfaceVariant"
-                app:iconSize="16dp"
+                app:iconTint="?attr/colorPrimary"
+                app:iconSize="18dp"
                 app:iconGravity="start"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:layout_marginEnd="8dp" />
+                app:rippleColor="?attr/colorPrimary" />
 
-            <ImageButton
+            <!-- Engagement stats in the middle -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:layout_marginHorizontal="16dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_notifications"
+                    app:tint="?attr/colorOnSurfaceVariant"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/views_icon" />
+
+                <TextView
+                    android:id="@+id/textView_view_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_count"
+                    android:textSize="12sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:fontFamily="@font/jakarta_font_family"
+                    android:layout_marginEnd="16dp"
+                    tools:text="124 views" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="?attr/colorOnSurfaceVariant"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/time_icon" />
+
+                <TextView
+                    android:id="@+id/textView_read_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read_time"
+                    android:textSize="12sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:fontFamily="@font/jakarta_font_family"
+                    tools:text="2 min read" />
+
+            </LinearLayout>
+
+            <!-- Bookmark button on the right -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_bookmark"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_bookmark_border_24"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:icon="@drawable/ic_bookmark_border_24"
+                app:iconTint="?attr/colorPrimary"
+                app:iconSize="20dp"
+                app:iconGravity="textStart"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:contentDescription="@string/bookmark"
-                app:tint="?attr/colorOnSurfaceVariant" />
+                app:rippleColor="?attr/colorPrimary" />
 
         </LinearLayout>
 
+
     </LinearLayout>
 
-    <!-- Image container aligned to the right -->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView_announcement_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
-        app:shapeAppearanceOverlay="@style/RoundedImageView"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        tools:visibility="visible" />
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -10,14 +10,25 @@ public class Author {
 
     private College college;
 
+    private String profilePictureUrls;
+
     public Author() {
     }
 
-    public Author(String id, String name, List<String> roles, College college) {
+    public Author(String id, String name, List<String> roles, College college, String profilePictureUrls) {
         this.id = id;
         this.name = name;
         this.roles = roles;
         this.college = college;
+        this.profilePictureUrls = profilePictureUrls;
+    }
+
+    public String getProfilePictureUrls() {
+        return profilePictureUrls;
+    }
+
+    public void setProfilePictureUrls(String profilePictureUrls) {
+        this.profilePictureUrls = profilePictureUrls;
     }
 
     public String getId() {

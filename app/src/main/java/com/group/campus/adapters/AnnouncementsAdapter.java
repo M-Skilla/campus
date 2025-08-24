@@ -3,11 +3,13 @@ package com.group.campus.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.group.campus.R;
 import com.group.campus.models.Announcement;
 import com.group.campus.utils.OnItemClickListener;
@@ -20,9 +22,12 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView departmentText, dateText, titleText, contentText;
+
+        private ImageView image, avatar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            avatar = itemView.findViewById(R.id.imageView_department_avatar);
+            image = itemView.findViewById(R.id.imageView_announcement_image);
             departmentText = itemView.findViewById(R.id.textView_announcement_department);
             dateText = itemView.findViewById(R.id.textView_announcement_date);
             titleText = itemView.findViewById(R.id.textView_announcement_title);
@@ -66,6 +71,38 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         holder.contentText.setText(announcements.get(position).getBody());
         holder.titleText.setText(announcements.get(position).getTitle());
         holder.dateText.setText(DateUtils.getTimeAgo(announcements.get(position).getCreatedAt()));
+        String profilePictureUrls = announcements.get(position).getAuthor().getProfilePictureUrls();
+        if (profilePictureUrls != null && !profilePictureUrls.isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(profilePictureUrls)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .error(R.drawable.ic_profile_placeholder)
+                    .into(holder.avatar);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load((String) null)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .error(R.drawable.ic_profile_placeholder)
+                    .into(holder.avatar);
+        }
+        List<String> imageUrls = announcements.get(position).getImageUrls();
+        if (imageUrls != null && !imageUrls.isEmpty()) {
+            String imageUrl = imageUrls.get(0);
+            System.out.println(imageUrl);
+            Glide.with(holder.itemView.getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.udom_logo)
+                    .error(R.drawable.udom_logo)
+                    .into(holder.image);
+        } else {
+            // No image available, show placeholder
+            Glide.with(holder.itemView.getContext())
+                    .load((String) null)
+                    .placeholder(R.drawable.udom_logo)
+                    .error(R.drawable.udom_logo)
+                    .into(holder.image);
+        }
+
     }
 
     @Override
