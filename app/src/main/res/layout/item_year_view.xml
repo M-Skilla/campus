@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/md_theme_background_highContrast"
+    android:background="@color/md_theme_surfaceContainerLow"
     android:padding="4dp">
 
     <!-- Month Name Header -->
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Jan"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:fontFamily="@font/jakarta_bold"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="S"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:fontFamily="@font/jakarta_regular"
             android:textSize="10sp"
             android:gravity="center" />
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="M"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="10sp"
             android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="T"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:fontFamily="@font/jakarta_regular"
             android:textSize="10sp"
             android:gravity="center" />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="W"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="10sp"
             android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="T"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="10sp"
             android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="F"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="10sp"
             android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="S"
-            android:textColor="@android:color/white"
+            android:textColor="@color/accent_orange"
             android:textSize="10sp"
             android:fontFamily="@font/jakarta_regular"
             android:gravity="center" />
@@ -109,13 +109,13 @@
             android:layout_height="20dp"
             android:fontFamily="@font/jakarta_regular"
             android:orientation="horizontal">
-            <TextView android:id="@+id/day1" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day1" android:textColor="@color/black" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day2" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day3" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day4" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day5" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day6" style="@style/CalendarDayStyle" />
-            <TextView android:id="@+id/day7" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day7" android:textColor="@color/accent_orange" style="@style/CalendarDayStyle" />
         </LinearLayout>
 
         <!-- Week 2 -->
@@ -130,7 +130,7 @@
             <TextView android:id="@+id/day11" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day12" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day13" style="@style/CalendarDayStyle" />
-            <TextView android:id="@+id/day14" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day14" android:textColor="@color/accent_orange" style="@style/CalendarDayStyle" />
         </LinearLayout>
 
         <!-- Week 3 -->
@@ -145,7 +145,7 @@
             <TextView android:id="@+id/day18" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day19" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day20" style="@style/CalendarDayStyle" />
-            <TextView android:id="@+id/day21" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day21" android:textColor="@color/accent_orange" style="@style/CalendarDayStyle" />
         </LinearLayout>
 
         <!-- Week 4 -->
@@ -160,7 +160,7 @@
             <TextView android:id="@+id/day25" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day26" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day27" style="@style/CalendarDayStyle" />
-            <TextView android:id="@+id/day28" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day28" android:textColor="@color/accent_orange" style="@style/CalendarDayStyle" />
         </LinearLayout>
 
         <!-- Week 5 -->
@@ -175,7 +175,7 @@
             <TextView android:id="@+id/day32" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day33" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day34" style="@style/CalendarDayStyle" />
-            <TextView android:id="@+id/day35" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day35" android:textColor="@color/accent_orange" style="@style/CalendarDayStyle" />
         </LinearLayout>
 
         <!-- Week 6 -->
@@ -190,7 +190,7 @@
             <TextView android:id="@+id/day39" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day40" style="@style/CalendarDayStyle" />
             <TextView android:id="@+id/day41" style="@style/CalendarDayStyle" />
-            <TextView android:id="@+id/day42" style="@style/CalendarDayStyle" />
+            <TextView android:id="@+id/day42" android:textColor="@color/accent_orange" style="@style/CalendarDayStyle" />
         </LinearLayout>
 
     </LinearLayout>

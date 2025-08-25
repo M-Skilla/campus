@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event Title"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:fontFamily="@font/jakarta_bold"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event Date"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:fontFamily="@font/jakarta_regular"
         android:textSize="14sp"
         android:layout_marginTop="4dp" />
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event Time"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:fontFamily="@font/jakarta_regular"
         android:textSize="12sp"
         android:layout_marginTop="2dp" />
