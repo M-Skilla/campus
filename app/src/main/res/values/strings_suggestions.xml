@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="suggestions_title">Suggestions</string>
+    <string name="to_label">Department:</string>
+    <string name="select_recipient_hint">Select department</string>
+    <string name="no_messages_hint">No messages yet
+Pick a department and send a suggestion</string>
+    <string name="type_suggestion_hint">Type a suggestion…</string>
+    <string name="send_anonymously">Send anonymously</string>
+    <string name="anonymous_label">Anonymous</string>
+    <string name="attach_files">Attach files</string>
+    <string name="send_suggestion">Send suggestion</string>
+    <string name="replying">Replying…</string>
+    <string name="cancel_reply">Cancel reply</string>
+    <string name="department">Department</string>
+</resources>

@@ -73,4 +73,15 @@
     <string name="category_holidays">🏖️ Holidays</string>
     <string name="category_academic">📚 Academic</string>
     <string name="category_sports">⚽ Sports</string>
+
+    <!-- Suggestions Feature Strings -->
+    <string name="attach_file">Attach file</string>
+    <string name="send_message">Send message</string>
+    <string name="attachment_thumbnail">Attachment thumbnail</string>
+    <string name="attachment_icon">Attachment icon</string>
+    <string name="attachment_preview">Attachment preview</string>
+    <string name="remove_attachment">Remove attachment</string>
+    <string name="message_status">Message status</string>
+    <string name="choose_department">Choose department</string>
+
 </resources>

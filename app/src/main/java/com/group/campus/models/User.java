@@ -1,86 +1,77 @@
 package com.group.campus.models;
 
-import com.google.gson.annotations.SerializedName;
-
 public class User {
-
-    private String id, regNo, fullName;
-
-    private College college;
-
-    private Programme programme;
-
-    private Role roles;
-
-    @SerializedName("created_at")
-    private String createdAt;
+    private String userId;
+    private String name;
+    private String email;
+    private String role; // "student" or "staff"
+    private String department;
+    private String fcmToken;
 
     public User() {
+        // Default constructor required for Firebase
     }
 
-    public User(String id, String regNo, String fullName, College college, Programme programme, Role roles, String createdAt) {
-        this.id = id;
-        this.regNo = regNo;
-        this.fullName = fullName;
-        this.college = college;
-        this.programme = programme;
-        this.roles = roles;
-        this.createdAt = createdAt;
+    public User(String userId, String name, String email, String role, String department) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.department = department;
     }
 
-    public String getId() {
-        return id;
+    // Getters
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
-    public String getRegNo() {
-        return regNo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRegNo(String regNo) {
-        this.regNo = regNo;
+    public String getRole() {
+        return role;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public String getFcmToken() {
+        return fcmToken;
     }
 
-    public College getCollege() {
-        return college;
+    // Setters
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setCollege(College college) {
-        this.college = college;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Programme getProgramme() {
-        return programme;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setProgramme(Programme programme) {
-        this.programme = programme;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public Role getRoles() {
-        return roles;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public void setRoles(Role roles) {
-        this.roles = roles;
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return name + " (" + department + ")";
     }
 }

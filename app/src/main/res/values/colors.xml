@@ -144,25 +144,33 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Suggestions Theme Colors -->
     <color name="purple_primary">#7B1FA2</color>
     <color name="purple_primary_end">#9C27B0</color>
-    <color name="pill_bg">#EDE1FF</color>      <!-- light lilac of fields -->
-    <color name="icon_bubble">#F3E9FF</color>  <!-- even lighter bubble -->
+    <color name="pill_bg">#EDE1FF</color>
+    <color name="icon_bubble">#F3E9FF</color>
     <color name="purple_700">#6200EE</color>
 
-    <!-- Campus Theme Colors -->
-    <color name="primary_blue">#2E86AB</color>
-    <color name="primary_blue_dark">#1A5490</color>
-    <color name="accent_orange">#F24236</color>
-    <color name="accent_green">#A23B72</color>
-    <color name="light_gray">#F5F7FA</color>
-    <color name="text_dark">#2C3E50</color>
-    <color name="text_light">#7F8C8D</color>
-    <color name="background_gradient_start">#667eea</color>
-    <color name="background_gradient_end">#764ba2</color>
-    <color name="card_background">#FFFFFF</color>
-    <color name="shadow_color">#1A000000</color>
-    <color name="grey">#564C4C</color>
+    <!-- Chat Bubble Colors -->
+    <color name="colorBackgroundStart">#0E0F12</color>
+    <color name="colorBackgroundEnd">#131416</color>
+    <color name="colorAccent">#7B1FA2</color>
+    <color name="colorAccentAlt">#9C27B0</color>
+    <color name="bubbleIncoming">#212326</color>
+    <color name="bubbleOutgoing">#7B1FA2</color>
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#BFC2C6</color>
+    <color name="textMuted">#8A8A8A</color>
+    <color name="inputBackground">#1E1E1E</color>
+    <color name="dividerColor">#2C2C2C</color>
+
+    <!-- Missing colors for existing layouts -->
+    <color name="sg_surface_variant">#E0E2EC</color>
+    <color name="incoming_bubble">#212326</color>
+    <color name="outgoing_bubble">#7B1FA2</color>
+    <color name="bubble_text">#FFFFFF</color>
+    <color name="bubble_text_secondary">#BFC2C6</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="text_dark">#1A1C20</color>
+    <color name="text_light">#BFC2C6</color>
 </resources>
-
-
