@@ -2,9 +2,11 @@ package com.group.campus.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class User {
 
-    private String id, regNo, fullName;
+    private String id, regNo, fullName, profilePicUrl;
 
     private College college;
 
@@ -12,20 +14,45 @@ public class User {
 
     private Role roles;
 
-    @SerializedName("created_at")
-    private String createdAt;
+    private Date startDate, endDate;
 
     public User() {
     }
 
-    public User(String id, String regNo, String fullName, College college, Programme programme, Role roles, String createdAt) {
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
+
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public User(String id, String regNo, String fullName, String profilePicUrl, College college, Programme programme, Role roles, Date startDate, Date endDate) {
         this.id = id;
         this.regNo = regNo;
         this.fullName = fullName;
+        this.profilePicUrl = profilePicUrl;
         this.college = college;
         this.programme = programme;
         this.roles = roles;
-        this.createdAt = createdAt;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public String getId() {
@@ -76,11 +103,4 @@ public class User {
         this.roles = roles;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 }
