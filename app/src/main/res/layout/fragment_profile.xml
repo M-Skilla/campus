@@ -37,18 +37,22 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:gravity="center" />
 
-            <ImageView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/settings_icon"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@drawable/settings_icon"
-                android:contentDescription="@string/notifications"
+                style="@style/Widget.Material3.Button.Icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:icon="@drawable/settings_icon"
+                android:contentDescription="@string/settings"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:clickable="true"
-                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="@color/md_theme_background"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="26dp"
+                app:iconSize="32dp"
+                android:paddingLeft="2dp"
+                app:iconTint="?attr/colorOnSurface" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -87,12 +91,12 @@
                     <!-- Profile image -->
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
                         android:padding="0dp"
                         android:contentDescription="@string/alex_johnson"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/profile_image">
+                        android:src="@drawable/profile">
                     </com.google.android.material.imageview.ShapeableImageView>
                 </androidx.cardview.widget.CardView>
 
@@ -176,17 +180,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Email"
+                        android:text="Registration Number"
                         android:textSize="15sp"
                         android:fontFamily="@font/jakarta_bold"
                         android:layout_marginBottom="4dp" />
 
                     <TextView
-                        android:id="@+id/email_input"
+                        android:id="@+id/registrationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:text="@string/email"
                         android:textSize="16sp"
                         android:fontFamily="@font/jakarta_bold"
                         android:textColor="?attr/colorOnSurface"
