@@ -1,4 +1,5 @@
 package com.group.campus.fragments;
+
 import com.group.campus.R;
 import com.group.campus.SettingsActivity;
 
@@ -15,10 +16,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
+import android.widget.Button;
+
 
 
 public class ProfileFragment extends Fragment {
@@ -34,7 +35,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageView settingsIcon = view.findViewById(R.id.settings_icon);
+        Button settingsIcon = view.findViewById(R.id.settings_icon);
 
         // Set click listener to open SettingsActivity
         settingsIcon.setOnClickListener(v -> {
