@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SettingsActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         TextView tvHello = findViewById(R.id.tvHello);

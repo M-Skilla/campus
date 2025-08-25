@@ -30,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        applySavedTheme();
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
@@ -104,26 +103,35 @@ public class SettingsActivity extends AppCompatActivity {
 
         dialogView.findViewById(R.id.option_match_phone).setOnClickListener(v -> {
             int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-            saveTheme(mode);
-            AppCompatDelegate.setDefaultNightMode(mode);
-            dialog.dismiss();
-            recreate();
+            if (currentMode != mode) {
+                saveTheme(mode);
+                AppCompatDelegate.setDefaultNightMode(mode);
+                dialog.dismiss();
+            } else {
+                dialog.dismiss();
+            }
         });
 
         dialogView.findViewById(R.id.option_on).setOnClickListener(v -> {
             int mode = AppCompatDelegate.MODE_NIGHT_YES;
-            saveTheme(mode);
-            AppCompatDelegate.setDefaultNightMode(mode);
-            dialog.dismiss();
-            recreate();
+            if (currentMode != mode) {
+                saveTheme(mode);
+                AppCompatDelegate.setDefaultNightMode(mode);
+                dialog.dismiss();
+            } else {
+                dialog.dismiss();
+            }
         });
 
         dialogView.findViewById(R.id.option_off).setOnClickListener(v -> {
             int mode = AppCompatDelegate.MODE_NIGHT_NO;
-            saveTheme(mode);
-            AppCompatDelegate.setDefaultNightMode(mode);
-            dialog.dismiss();
-            recreate();
+            if (currentMode != mode) {
+                saveTheme(mode);
+                AppCompatDelegate.setDefaultNightMode(mode);
+                dialog.dismiss();
+            } else {
+                dialog.dismiss();
+            }
         });
 
         dialog.show();
@@ -151,13 +159,14 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPreferences.edit().putInt(KEY_THEME, mode).apply();
     }
 
-    private void applySavedTheme() {
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int mode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
-        AppCompatDelegate.setDefaultNightMode(mode);
+    private int getCurrentThemeMode() {
+        return sharedPreferences.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
-    private int getCurrentThemeMode() {
-        return sharedPreferences.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_NO);
+    // Static method to apply theme across all activities
+    public static void applyTheme(android.content.Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int mode = prefs.getInt(KEY_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 }
