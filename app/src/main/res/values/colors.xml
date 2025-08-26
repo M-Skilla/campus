@@ -172,7 +172,7 @@
     <color name="bubble_text">#FFFFFF</color>
     <color name="bubble_text_secondary">#BFC2C6</color>
     <color name="card_background">#1E1E1E</color>
-    <color name="text_dark">#1A1C20</color>
+    
     <color name="text_light">#BFC2C6</color>
 
     <!-- Campus Theme Colors -->
