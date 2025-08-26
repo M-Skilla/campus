@@ -1,20 +1,29 @@
 package com.group.campus.models;
 
-import com.google.gson.annotations.SerializedName;
 
 public class College {
     private String id;
 
     private String name, abbrv;
 
+    private Programme programme;
 
     public College() {
     }
 
-    public College(String id, String name, String abbrv) {
+    public College(String id, String name, String abbrv, Programme programme) {
         this.id = id;
         this.name = name;
         this.abbrv = abbrv;
+        this.programme = programme;
+    }
+
+    public Programme getProgramme() {
+        return programme;
+    }
+
+    public void setProgramme(Programme programme) {
+        this.programme = programme;
     }
 
     public String getId() {

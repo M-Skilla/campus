@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".AnnouncementViewActivity">
+
+    <!-- App Bar Layout -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:elevation="5dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorSurfaceVariant"
+            app:navigationIcon="@drawable/left_arrow_icon"
+            app:navigationIconTint="?attr/colorOnSurface"
+
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleTextColor="?attr/colorOnSurface" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <!-- Priority indicator -->
+                <View
+                    android:id="@+id/priority_indicator"
+                    android:layout_width="4dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="?attr/colorPrimary" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView_department_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:scaleType="centerCrop"
+                    android:elevation="2dp"
+                    app:shapeAppearanceOverlay="@style/CircularImageView"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="2dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/textView_announcement_department"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/jakarta_font_family"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:letterSpacing="0.01"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            tools:text="Computer Science Department" />
+
+                        <!-- Status badge -->
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView_announcement_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jakarta_font_family"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginTop="4dp"
+                        tools:text="Posted 2 hours ago • Last updated 1 hour ago" />
+
+                    <!-- Engagement stats -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="8dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_notifications"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="@string/views_icon" />
+
+                        <TextView
+                            android:id="@+id/textView_view_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/view_count"
+                            android:textSize="12sp"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="@font/jakarta_font_family"
+                            android:layout_marginEnd="16dp"
+                            tools:text="156 views" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="?attr/colorOnSurfaceVariant"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="@string/time_icon" />
+
+                        <TextView
+                            android:id="@+id/textView_read_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/read_time"
+                            android:textSize="12sp"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="@font/jakarta_font_family"
+                            tools:text="3 min read" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Title Section -->
+            <TextView
+                android:id="@+id/textView_announcement_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jakarta_font_family"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:textColor="?attr/colorOnSurface"
+                android:lineSpacingMultiplier="1.2"
+                android:letterSpacing="0.005"
+                android:layout_marginBottom="24dp"
+                tools:text="Important: Mid-term Examination Schedule Released for All Undergraduate Programs" />
+
+            <!-- Featured Image (if available) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/image_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                tools:visibility="visible">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView_announcement_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Content Section -->
+            <TextView
+                android:id="@+id/textView_announcement_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jakarta_font_family"
+                android:textSize="16sp"
+                android:lineSpacingMultiplier="1.6"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="32dp"
+                tools:text="The mid-term examination schedule for all undergraduate programs has been officially released. Students are advised to carefully review their respective department portals for detailed information regarding examination timings, venues, and any special instructions.\n\nKey Information:\n• Examinations will commence on [Date]\n• All students must carry their student ID cards\n• Electronic devices are strictly prohibited\n• Late arrivals will not be permitted after 30 minutes\n\nFor any queries or concerns, please contact your respective department offices during regular business hours. We wish all students the best of luck in their examinations." />
+
+            <!-- Action Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <!-- Share button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_share"
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="@string/share"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/jakarta_font_family"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        app:icon="@drawable/ic_share_24"
+                        app:iconTint="?attr/colorPrimary"
+                        app:iconSize="20dp"
+                        app:iconGravity="start"
+                        android:layout_marginEnd="8dp"
+                        app:rippleColor="?attr/colorPrimary" />
+
+                    <!-- Bookmark button -->
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Contact Information Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/contact_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contact_information"
+                        android:fontFamily="@font/jakarta_font_family"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_mail"
+                            app:tint="?attr/colorPrimary"
+                            android:layout_marginEnd="12dp"
+                            android:contentDescription="Email" />
+
+                        <TextView
+                            android:id="@+id/textView_contact_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email"
+                            android:fontFamily="@font/jakarta_font_family"
+                            android:textSize="14sp"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="cs@udom.ac.tz" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/phone_icon"
+                            app:tint="?attr/colorPrimary"
+                            android:layout_marginEnd="12dp"
+                            android:contentDescription="Phone" />
+
+                        <TextView
+                            android:id="@+id/textView_contact_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+255 123 456 789"
+                            android:fontFamily="@font/jakarta_font_family"
+                            android:textSize="14sp"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="+255 123 456 789" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button for Quick Actions -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_more_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="@string/more_actions"
+        android:textColor="?attr/colorOnPrimary"
+        app:icon="@drawable/ic_more_vert_24"
+        app:iconTint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
+        app:rippleColor="?attr/colorOnPrimary" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
