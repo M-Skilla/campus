@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.group.campus.fragments.ProfileFragment;
 import com.group.campus.utils.PreferenceManager;
 
 import androidx.fragment.app.FragmentManager;
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SettingsActivity.applyTheme(this);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         TextView tvHello = findViewById(R.id.tvHello);

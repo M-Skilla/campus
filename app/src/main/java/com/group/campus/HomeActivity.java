@@ -64,6 +64,8 @@ public class HomeActivity extends AppCompatActivity {
             }
 
 
+
+
             if (selectedFragment != null) {
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -83,5 +85,15 @@ public class HomeActivity extends AppCompatActivity {
 //            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
 //        });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new AnnouncementFragment())
+                .commit();
+        bottomNav.setSelectedItemId(R.id.announcementsItem);
     }
 }

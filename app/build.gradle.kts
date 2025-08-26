@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -56,5 +57,15 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+
     implementation("com.applandeo:material-calendar-view:1.9.0")
+
+    implementation("com.google.firebase:firebase-ai")
+
+    implementation("com.google.guava:guava:31.0.1-android")
+
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
+    implementation("com.applandeo:material-calendar-view:1.9.0")
+    implementation("jp.wasabeef:richeditor-android:2.0.0")
+
 }

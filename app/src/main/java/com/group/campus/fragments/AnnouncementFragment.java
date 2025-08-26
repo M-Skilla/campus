@@ -1,7 +1,9 @@
 package com.group.campus.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,9 +19,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.search.SearchView;
 import com.google.common.reflect.TypeToken;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,15 +30,14 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.group.campus.AnnouncementViewActivity;
 import com.group.campus.R;
 import com.group.campus.adapters.AnnouncementsAdapter;
 import com.group.campus.adapters.SearchAnnouncementsAdapter;
+import com.group.campus.dialogs.AddAnnouncementDialog;
 import com.group.campus.models.Announcement;
 import com.group.campus.utils.AlgoliaApi;
 import com.group.campus.utils.AlgoliaClient;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -54,11 +55,8 @@ public class AnnouncementFragment extends Fragment {
     private RecyclerView recyclerView, rvSearch;
     private FirebaseFirestore db;
     private List<Announcement> announcementList;
-
-    private SearchView searchView;
-
-
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton fabAddAnnouncement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,19 +65,28 @@ public class AnnouncementFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView_announcements);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        searchView = view.findViewById(R.id.searchView);
+        SearchView searchView = view.findViewById(R.id.searchView);
         rvSearch = view.findViewById(R.id.rvSearch);
+        fabAddAnnouncement = view.findViewById(R.id.fab_add_announcement);
 
         db = FirebaseFirestore.getInstance();
 
         announcementList = new ArrayList<>();
 
         adapter = new AnnouncementsAdapter(announcementList, v -> {
-            Toast.makeText(requireContext(), "Item Clicked!", Toast.LENGTH_SHORT).show();
+            int position = recyclerView.getChildAdapterPosition(v);
+            if (position != RecyclerView.NO_POSITION && position < announcementList.size()) {
+                Announcement announcement = announcementList.get(position);
+                openAnnouncementView(announcement);
+            }
         });
 
         searchAdapter = new SearchAnnouncementsAdapter(new ArrayList<>(), v-> {
-            Toast.makeText(requireContext(), "Item Clicked!", Toast.LENGTH_SHORT).show();
+            int position = rvSearch.getChildAdapterPosition(v);
+            if (position != RecyclerView.NO_POSITION) {
+                // Handle search adapter click if needed
+                Toast.makeText(requireContext(), "Search Item Clicked!", Toast.LENGTH_SHORT).show();
+            }
         });
 
         rvSearch.setAdapter(searchAdapter);
@@ -116,6 +123,12 @@ public class AnnouncementFragment extends Fragment {
             }
         });
 
+        // Setup FAB click listener
+        fabAddAnnouncement.setOnClickListener(v -> {
+            AddAnnouncementDialog dialog = AddAnnouncementDialog.newInstance();
+            dialog.show(getParentFragmentManager(), "AddAnnouncementDialog");
+        });
+
         return view;
     }
 
@@ -130,7 +143,7 @@ public class AnnouncementFragment extends Fragment {
         call.enqueue(new Callback<JsonObject>() {
 
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Gson gson = new Gson();
                     JsonObject result = response.body();
@@ -148,7 +161,7 @@ public class AnnouncementFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -184,7 +197,7 @@ public class AnnouncementFragment extends Fragment {
                             adapter.notifyDataSetChanged();
 
                             if (!announcementList.isEmpty()) {
-                                Toast.makeText(requireContext(), "Loaded " + announcementList.size() + " announcements", Toast.LENGTH_SHORT).show();
+                                
                             }
                         } else {
                             announcementList.clear();
@@ -193,5 +206,11 @@ public class AnnouncementFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void openAnnouncementView(Announcement announcement) {
+        Intent intent = new Intent(requireContext(), AnnouncementViewActivity.class);
+        intent.putExtra("announcement", announcement);
+        startActivity(intent);
     }
 }

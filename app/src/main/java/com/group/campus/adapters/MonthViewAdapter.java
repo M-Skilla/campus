@@ -54,6 +54,7 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.DayV
         if (position < 7) {
             // Header row with day names
             holder.dayText.setText(dayNames[position]);
+
             holder.dayText.setTextSize(12f);
             if (holder.eventIndicator != null) {
                 holder.eventIndicator.setVisibility(View.GONE);
@@ -72,6 +73,7 @@ public class MonthViewAdapter extends RecyclerView.Adapter<MonthViewAdapter.DayV
 
         if (day > 0 && day <= daysInMonth) {
             holder.dayText.setText(String.valueOf(day));
+
             holder.dayText.setTextSize(16f);
 
             // Highlight current day (August 20, 2025)

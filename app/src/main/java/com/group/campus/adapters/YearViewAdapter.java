@@ -120,6 +120,7 @@ public class YearViewAdapter extends RecyclerView.Adapter<YearViewAdapter.MonthV
         for (int i = 0; i < 42; i++) {
             holder.dayViews[i].setText("");
             holder.dayViews[i].setBackgroundColor(Color.TRANSPARENT);
+
             holder.dayViews[i].setVisibility(View.INVISIBLE);
         }
 
