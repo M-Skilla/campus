@@ -1,5 +1,6 @@
 package com.group.campus.fragments;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,6 +24,7 @@ import androidx.annotation.Nullable;
 
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class ProfileFragment extends Fragment {
     private TextView nameInput;
     private TextView registrationInput;
     private TextView courseInput;
+
+    private ImageView profileImageView;
 
     @Nullable
     @Override
@@ -57,6 +61,7 @@ public class ProfileFragment extends Fragment {
         nameInput = view.findViewById(R.id.name_input);
         registrationInput = view.findViewById(R.id.registrationEditText);
         courseInput = view.findViewById(R.id.course_input);
+        profileImageView = view.findViewById(R.id.profile_image);
 
         // Fetch user data from Firestore
         fetchUserDataFromFirestore();
@@ -92,13 +97,12 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
-
                         String name = document.getString("fullName");
                         String regNumber = document.getString("regNo");
+                        String imageUrl = document.getString("profilePicUrl");
 
                         // Update UI with fetched data
-                        updateUI(name, regNumber);
-
+                        updateUI(name, regNumber, imageUrl); // New: Pass imageUrl to updateUI
                         Log.d(TAG, "User data fetched successfully");
                     } else {
                         Log.d(TAG, "No user found with registration number: " + registrationNumber);
@@ -111,13 +115,21 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    private void updateUI(String name, String registrationNumber) {
+    private void updateUI(String name, String registrationNumber, String imageUrl) {
         if (name != null && !name.isEmpty()) {
             nameInput.setText(name);
         }
 
         if (registrationNumber != null && !registrationNumber.isEmpty()) {
             registrationInput.setText(registrationNumber);
+        }
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.profile_image) // Optional: Placeholder image
+                    .error(R.drawable.profile_error) // Optional: Error image
+                    .into(profileImageView);
         }
 
 
