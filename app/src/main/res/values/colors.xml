@@ -166,4 +166,8 @@
 
     <!-- Loading overlay colors -->
     <color name="loading_overlay_background">#80000000</color> <!-- Semi-transparent black -->
+
+    <!-- Chat Bubble Colors -->
+    <color name="chat_bubble_user">#425E91</color>
+    <color name="chat_bubble_ai">#E0E2EC</color>
 </resources>
