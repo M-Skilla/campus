@@ -59,6 +59,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
+
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-messaging")
@@ -69,6 +70,9 @@ dependencies {
     implementation("androidx.fragment:fragment:1.6.2")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
+    implementation("com.applandeo:material-calendar-view:1.9.0")
+
+
     implementation("com.google.firebase:firebase-ai")
 
     implementation("com.google.guava:guava:31.0.1-android")
@@ -76,5 +80,6 @@ dependencies {
     implementation("org.reactivestreams:reactive-streams:1.0.4")
     implementation("com.applandeo:material-calendar-view:1.9.0")
     implementation("jp.wasabeef:richeditor-android:2.0.0")
+
 }
 
