@@ -7,8 +7,8 @@
     <string name="alex_johnson">Alex Johnson</string>
     <string name="user_role">Student</string>
     <string name="user_information">User Information</string>
-    <string name="email">Email: student@udom.ac.tz</string>
-    <string name="course">Course: Computer Science</string>
+    <string name="email">student@udom.ac.tz</string>
+    <string name="course">Computer Science</string>
     <string name="year_of_study">Year: 2024/2025</string>
     <string name="event_registration">Event Registration</string>
     <string name="browse_events">Browse Events</string>
@@ -22,7 +22,7 @@
     <string name="change_password">Change Password</string>
     <string name="manage_devices">Manage Devices/Sessions</string>
     <string name="app_preferences">APP PREFERENCES and GENERAL</string>
-    <string name="theme_appearance">Theme/Appearance</string>
+    <string name="theme_appearance">Dark Theme</string>
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="notification_settings">NOTIFICATION SETTINGS</string>
@@ -49,22 +49,23 @@
     <string name="about_legal">ABOUT and LEGAL</string>
     <string name="app_version">App Version</string>
     <string name="version_1_0_0">1.0.0</string>
-    <string name="terms_of_service">Terms of Service</string>
-    <string name="view_terms_of_service">View terms of service</string>
-    <string name="licenses">Licenses</string>
-    <string name="view_licenses">View licenses</string>
-    <string name="acknowledgements">Acknowledgements</string>
-    <string name="view_acknowledgements">View acknowledgements</string>
-    <string name="account_actions">ACCOUNT ACTIONS</string>
-    <string name="announcements_title">Announcements</string>
 
-    <!-- Announcement-related strings -->
-    <string name="add_announcement">Add new announcement</string>
-    <string name="more_options">More options</string>
-    <string name="like">Like</string>
-    <string name="comment">Comment</string>
+    <!-- Announcement list item strings -->
     <string name="share">Share</string>
     <string name="bookmark">Bookmark</string>
+    <string name="more_options">More options</string>
+    <string name="view_count">%d views</string>
+    <string name="read_time">%d min read</string>
+    <string name="status_new">New</string>
+    <string name="status_important">Important</string>
+    <string name="status_urgent">Urgent</string>
+    <string name="views_icon">Views</string>
+    <string name="time_icon">Reading time</string>
+
+    <!-- Announcement view page strings -->
+    <string name="more_actions">More Actions</string>
+    <string name="contact_information">Contact Information</string>
+
 
     <!-- Category strings with emojis -->
     <string name="category_all">📢 All</string>
@@ -83,5 +84,6 @@
     <string name="remove_attachment">Remove attachment</string>
     <string name="message_status">Message status</string>
     <string name="choose_department">Choose department</string>
+
 
 </resources>

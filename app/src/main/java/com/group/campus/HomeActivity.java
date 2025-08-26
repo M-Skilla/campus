@@ -1,6 +1,5 @@
 package com.group.campus;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -11,7 +10,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group.campus.fragments.AnnouncementFragment;
@@ -87,5 +85,15 @@ public class HomeActivity extends AppCompatActivity {
 //            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
 //        });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new AnnouncementFragment())
+                .commit();
+        bottomNav.setSelectedItemId(R.id.announcementsItem);
     }
 }

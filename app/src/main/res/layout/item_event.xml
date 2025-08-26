@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="4dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/event_item_background"
+    android:layout_marginBottom="8dp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
+    <TextView
+        android:id="@+id/eventTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="Event Title"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/jakarta_bold"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/eventTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Event Title"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/eventDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Event Date"
+        android:textColor="@android:color/darker_gray"
+        android:fontFamily="@font/jakarta_regular"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
 
-        <TextView
-            android:id="@+id/eventDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="14sp"
-            android:paddingTop="4dp"/>
+    <TextView
+        android:id="@+id/eventTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Event Time"
+        android:textColor="@android:color/darker_gray"
+        android:fontFamily="@font/jakarta_regular"
+        android:textSize="12sp"
+        android:layout_marginTop="2dp" />
 
-        <TextView
-            android:id="@+id/eventDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="14sp"
-            android:paddingTop="4dp"/>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -1,23 +1,65 @@
 package com.group.campus.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 public class User {
-    private String userId;
-    private String name;
-    private String email;
-    private String role; // "student" or "staff"
-    private String department;
-    private String fcmToken;
+
+    private String id, regNo, fullName, profilePicUrl;
+
+    private College college;
+
+    private Programme programme;
+
+    private Role roles;
+
+    private Date startDate, endDate;
+
 
     public User() {
         // Default constructor required for Firebase
     }
 
-    public User(String userId, String name, String email, String role, String department) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.department = department;
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
+
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public User(String id, String regNo, String fullName, String profilePicUrl, College college, Programme programme, Role roles, Date startDate, Date endDate) {
+        this.id = id;
+        this.regNo = regNo;
+        this.fullName = fullName;
+        this.profilePicUrl = profilePicUrl;
+        this.college = college;
+        this.programme = programme;
+        this.roles = roles;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public String getId() {
+        return id;
+
     }
 
     // Getters
@@ -41,10 +83,6 @@ public class User {
         return department;
     }
 
-    public String getFcmToken() {
-        return fcmToken;
-    }
-
     // Setters
     public void setUserId(String userId) {
         this.userId = userId;
@@ -66,12 +104,6 @@ public class User {
         this.department = department;
     }
 
-    public void setFcmToken(String fcmToken) {
-        this.fcmToken = fcmToken;
-    }
 
-    @Override
-    public String toString() {
-        return name + " (" + department + ")";
-    }
+
 }

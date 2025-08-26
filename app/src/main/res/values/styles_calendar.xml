@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- No XML style support for Applandeo MaterialCalendarView. Use programmatic customization in your Activity/Fragment. -->
+
+    <!-- Calendar day style for date cells -->
+    <style name="CalendarDayStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/jakarta_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:maxLines">1</item>
+    </style>
+</resources>
