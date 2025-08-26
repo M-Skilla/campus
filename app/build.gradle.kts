@@ -62,6 +62,10 @@ dependencies {
 
     implementation("com.google.firebase:firebase-ai")
 
+    implementation("com.airbnb.android:lottie:6.6.7")
+
+    implementation("io.noties.markwon:core:4.6.2")
+
     implementation("com.google.guava:guava:31.0.1-android")
 
     implementation("org.reactivestreams:reactive-streams:1.0.4")

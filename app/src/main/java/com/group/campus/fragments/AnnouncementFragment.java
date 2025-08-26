@@ -35,6 +35,7 @@ import com.group.campus.R;
 import com.group.campus.adapters.AnnouncementsAdapter;
 import com.group.campus.adapters.SearchAnnouncementsAdapter;
 import com.group.campus.dialogs.AddAnnouncementDialog;
+import com.group.campus.dialogs.AiQueryDialog;
 import com.group.campus.models.Announcement;
 import com.group.campus.utils.AlgoliaApi;
 import com.group.campus.utils.AlgoliaClient;
@@ -57,6 +58,7 @@ public class AnnouncementFragment extends Fragment {
     private List<Announcement> announcementList;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton fabAddAnnouncement;
+    private FloatingActionButton fabAi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +70,7 @@ public class AnnouncementFragment extends Fragment {
         SearchView searchView = view.findViewById(R.id.searchView);
         rvSearch = view.findViewById(R.id.rvSearch);
         fabAddAnnouncement = view.findViewById(R.id.fab_add_announcement);
+        fabAi = view.findViewById(R.id.fab_ai);
 
         db = FirebaseFirestore.getInstance();
 
@@ -127,6 +130,11 @@ public class AnnouncementFragment extends Fragment {
         fabAddAnnouncement.setOnClickListener(v -> {
             AddAnnouncementDialog dialog = AddAnnouncementDialog.newInstance();
             dialog.show(getParentFragmentManager(), "AddAnnouncementDialog");
+        });
+
+        fabAi.setOnClickListener(v -> {
+            AiQueryDialog dialog = AiQueryDialog.newInstance();
+            dialog.show(getParentFragmentManager(), "AiQueryDialog");
         });
 
         return view;

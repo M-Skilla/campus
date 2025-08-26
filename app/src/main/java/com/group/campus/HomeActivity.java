@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button button;
 
+    private int previousItemId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,24 +78,31 @@ public class HomeActivity extends AppCompatActivity {
 
             return false;
         });
-
-
-//        prefs = new PreferenceManager(this);
-//
-//        button.setOnClickListener(v -> {
-//            prefs.clearPreferences();
-//            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-//        });
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportFragmentManager()
+        Fragment prevFragment = getSupportFragmentManager().findFragmentById(previousItemId);
+        if (prevFragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, prevFragment)
+                    .commit();
+            bottomNav.setSelectedItemId(previousItemId);
+        } else {
+            getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, new AnnouncementFragment())
                 .commit();
-        bottomNav.setSelectedItemId(R.id.announcementsItem);
+            bottomNav.setSelectedItemId(R.id.announcementsItem);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        previousItemId = bottomNav.getSelectedItemId();
+
     }
 }
