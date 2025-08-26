@@ -60,7 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.item_theme_appearance).setOnClickListener(view -> showThemeDialog());
 
         findViewById(R.id.item_language).setOnClickListener(view ->
-                Toast.makeText(SettingsActivity.this, "Language was clicked", Toast.LENGTH_SHORT).show());
+                Toast.makeText(SettingsActivity.this, "Changing language comming soon", Toast.LENGTH_SHORT).show());
     }
 
     private void setupBackPressedCallback() {
