@@ -1,4 +1,8 @@
 package com.group.campus.fragments;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.group.campus.R;
 import com.group.campus.SettingsActivity;
 
@@ -7,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +20,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 
 public class ProfileFragment extends Fragment {
+    private static final String TAG = "ProfileFragment";
+    private FirebaseFirestore db;
+
+    private FirebaseAuth auth;
+
+    private TextView nameInput;
+    private TextView registrationInput;
+    private TextView courseInput;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,14 +50,77 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Initialize Firestore and UserSession
+        db = FirebaseFirestore.getInstance();
 
-        ImageView settingsIcon = view.findViewById(R.id.settings_icon);
+        // Initialize views
+        nameInput = view.findViewById(R.id.name_input);
+        registrationInput = view.findViewById(R.id.registrationEditText);
+        courseInput = view.findViewById(R.id.course_input);
+
+        // Fetch user data from Firestore
+        fetchUserDataFromFirestore();
+        Button settingsIcon = view.findViewById(R.id.settings_icon);
 
         // Set click listener to open SettingsActivity
         settingsIcon.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), SettingsActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void fetchUserDataFromFirestore() {
+
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            Log.e(TAG, "No authenticated user found");
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String registrationNumber = Objects.requireNonNull(auth.getCurrentUser().getEmail()).split("@")[0].toUpperCase();
+        if (registrationNumber == null) {
+            Log.e(TAG, "User email is null");
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Log.d(TAG, "fetchUserDataFromFirestore: Reg No: " + registrationNumber);
+        // Query Firestore for user data using registration number
+        db.collection("users")
+                .whereEqualTo("regNo", registrationNumber)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
+
+                        String name = document.getString("fullName");
+                        String regNumber = document.getString("regNo");
+
+                        // Update UI with fetched data
+                        updateUI(name, regNumber);
+
+                        Log.d(TAG, "User data fetched successfully");
+                    } else {
+                        Log.d(TAG, "No user found with registration number: " + registrationNumber);
+                        Toast.makeText(getContext(), "User data not found", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error fetching user data", e);
+                    Toast.makeText(getContext(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void updateUI(String name, String registrationNumber) {
+        if (name != null && !name.isEmpty()) {
+            nameInput.setText(name);
+        }
+
+        if (registrationNumber != null && !registrationNumber.isEmpty()) {
+            registrationInput.setText(registrationNumber);
+        }
+
+
     }
 
 }
