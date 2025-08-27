@@ -110,7 +110,7 @@ public class User {
         this.legacyDepartment = department;
         // Also reflect into college placeholder if nothing set
         if (this.college == null && department != null) {
-            this.college = new College(null, department, null);
+            this.college = new College(null, department, null, null);
         }
     }
 
