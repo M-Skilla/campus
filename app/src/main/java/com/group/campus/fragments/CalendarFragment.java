@@ -1,6 +1,8 @@
 package com.group.campus.fragments;
 
 import android.app.DatePickerDialog;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,11 +34,13 @@ import com.group.campus.adapters.MonthViewAdapter;
 import com.group.campus.adapters.EventsAdapter;
 import com.group.campus.models.Event;
 import com.group.campus.managers.EventManager;
+import com.group.campus.managers.ReminderManager;
+import com.group.campus.models.Reminder;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-public class CalendarFragment extends Fragment implements YearViewAdapter.OnMonthClickListener {
+public class CalendarFragment extends Fragment implements YearViewAdapter.OnMonthClickListener, MonthViewAdapter.OnDayClickListener {
 
     // Views
     private RecyclerView yearCalendarRecyclerView, monthCalendarRecyclerView, eventsRecyclerView;
@@ -51,13 +55,21 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private EventsAdapter eventsAdapter;
     private EventManager eventManager;
 
+    // Reminder management
+    private ReminderManager reminderManager;
+
+    // Gesture detection for swipe navigation
+    private GestureDetector gestureDetector;
+
     // Firestore
     private FirebaseFirestore db;
     private static final String COLLECTION_NAME = "events";
     private static final String DOCUMENT_ID = "6HN7DWWYnhuaweIG2T14";
 
-    // Date/Time
-    private int currentYear = 2025, currentMonth = 7;
+    // Date/Time - Initialize with current date
+    private Calendar currentCalendar = Calendar.getInstance();
+    private int currentYear = currentCalendar.get(Calendar.YEAR);
+    private int currentMonth = currentCalendar.get(Calendar.MONTH);
     private final String[] monthNames = {"January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"};
     private Calendar selectedStartDateTime, selectedEndDateTime;
@@ -73,6 +85,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         initViews(view);
         setupAdapters();
         setupClickListeners();
+        setupSwipeNavigation(view);
         fetchEventsFromFirestore();
         showYearView();
 
@@ -98,6 +111,8 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     private void setupAdapters() {
         eventManager = EventManager.getInstance();
+        reminderManager = ReminderManager.getInstance();
+        reminderManager.init(getContext());
 
         yearAdapter = new YearViewAdapter(currentYear);
         yearAdapter.setOnMonthClickListener(this);
@@ -105,6 +120,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         yearCalendarRecyclerView.setAdapter(yearAdapter);
 
         monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthAdapter.setOnDayClickListener(this);
         monthCalendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
         monthCalendarRecyclerView.setAdapter(monthAdapter);
 
@@ -137,6 +153,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
             case 1: // Month view
                 monthCalendarRecyclerView.setVisibility(View.VISIBLE);
                 monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+                monthAdapter.setOnDayClickListener(this);
                 monthCalendarRecyclerView.setAdapter(monthAdapter);
                 titleText.setText(monthNames[currentMonth] + " " + currentYear);
                 break;
@@ -211,8 +228,17 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
         btnCancel.setOnClickListener(v -> dialog.dismiss());
         btnDone.setOnClickListener(v -> {
-            String title = etTitle.getText().toString();
-            if (!title.isEmpty()) dialog.dismiss();
+            String title = etTitle.getText().toString().trim();
+            String selectedEventText = tvSelectedEvent.getText().toString();
+            String reminderTimeText = tvReminderTime.getText().toString();
+            
+            if (!title.isEmpty() && !selectedEventText.equals("Select Event") && !reminderTimeText.equals("Select Time")) {
+                createSoundReminder(selectedEventText, reminderTimeText);
+                showToast("Sound reminder set successfully!");
+                dialog.dismiss();
+            } else {
+                showToast("Please fill in all fields");
+            }
         });
     }
 
@@ -300,7 +326,9 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                 .setTitle("Select Event to Remind")
                 .setItems(events, (dialog, which) -> {
                     Event selectedEvent = allEvents.get(which);
-                    tvSelectedEvent.setText(selectedEvent.getTitle());
+                    // Store the full display text (title + date) to match with createSoundReminder logic
+                    String fullDisplayText = selectedEvent.getTitle() + " - " + selectedEvent.getFormattedDate();
+                    tvSelectedEvent.setText(fullDisplayText);
                     tvSelectedEvent.setTextColor(getResources().getColor(android.R.color.white));
                 })
                 .setNegativeButton("Cancel", null)
@@ -376,7 +404,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
             monthAdapter.notifyDataSetChanged();
         }
         if (yearCalendarRecyclerView.getVisibility() == View.VISIBLE) {
-            yearAdapter.notifyDataSetChanged();
+            yearAdapter.refreshEvents();
         }
     }
 
@@ -387,6 +415,8 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                         List<Event> events = parseEventsFromDocument(task.getResult());
                         eventManager.setEvents(events);
                         eventsAdapter.updateEvents(events);
+                        // Refresh all calendar views to show event indicators immediately
+                        refreshAllViews();
                     } else {
                         showToast("Error fetching events");
                     }
@@ -463,5 +493,229 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         currentMonth = month;
         showMonthView();
         updateButtonSelection(btnMonth);
+    }
+
+    
+    public void onDayClick(int day) {
+        // Handle day click for the month view
+        // This method will be called when a day is clicked in the MonthViewAdapter
+        // You can implement the logic to show events for the selected day or any other action
+        showToast("Day clicked: " + day);
+    }
+
+    @Override
+    public void onDayWithEventsClick(int year, int month, int day) {
+        // Only show dialog if the day has events
+        if (eventManager.hasEventsOnDate(year, month, day)) {
+            showEventDetailsDialog(year, month, day);
+        }
+    }
+
+    private void showEventDetailsDialog(int year, int month, int day) {
+        // Get events for this specific day
+        List<Event> dayEvents = eventManager.getEventsForDate(year, month, day);
+
+        if (dayEvents.isEmpty()) {
+            showToast("No events found for this day");
+            return;
+        }
+
+        // Show dialog for the first event (you can modify this to show all events)
+        Event event = dayEvents.get(0);
+
+        // Create dialog
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_event_details, null);
+        builder.setView(dialogView);
+
+        // Find views in dialog
+        TextView tvEventName = dialogView.findViewById(R.id.tv_event_name);
+        TextView tvEventDate = dialogView.findViewById(R.id.tv_event_date);
+        TextView tvEventTime = dialogView.findViewById(R.id.tv_event_time);
+        TextView tvReminderStatus = dialogView.findViewById(R.id.tv_reminder_status);
+        Button btnClose = dialogView.findViewById(R.id.btn_close);
+
+        // Set event details
+        tvEventName.setText(event.getTitle());
+        tvEventDate.setText(event.getFormattedDate());
+
+        // Format time
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        tvEventTime.setText(timeFormatter.format(event.getStartDate()));
+
+        // Check for reminders
+        String reminderText = getReminderStatusForEvent(event);
+        tvReminderStatus.setText(reminderText);
+
+        // Create and show dialog
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+
+        btnClose.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private String getReminderStatusForEvent(Event event) {
+        List<Reminder> allReminders = reminderManager.getAllReminders();
+
+        for (Reminder reminder : allReminders) {
+            if (reminder.getEventTitle().equals(event.getTitle()) && reminder.isActive()) {
+                return "Reminder set: " + reminder.getReminderTimeText();
+            }
+        }
+
+        return "No reminder set";
+    }
+
+    private void setupSwipeNavigation(View view) {
+        gestureDetector = new GestureDetector(getContext(), new SwipeGestureListener());
+        // Add touch listener to year view
+        yearCalendarRecyclerView.setOnTouchListener((v, event) -> {
+            if (yearCalendarRecyclerView.getVisibility() == View.VISIBLE) {
+                return gestureDetector.onTouchEvent(event);
+            }
+            return false;
+        });
+        // Add touch listener to month view
+        monthCalendarRecyclerView.setOnTouchListener((v, event) -> {
+            if (monthCalendarRecyclerView.getVisibility() == View.VISIBLE) {
+                return gestureDetector.onTouchEvent(event);
+            }
+            return false;
+        });
+    }
+    private class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1 == null || e2 == null) return false;
+            float diffX = e2.getX() - e1.getX();
+            float diffY = e2.getY() - e1.getY();
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX > 0) {
+                        onSwipeRight();
+                    } else {
+                        onSwipeLeft();
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    private void onSwipeLeft() {
+        if (yearCalendarRecyclerView.getVisibility() == View.VISIBLE) {
+            navigateToNextYear();
+        } else if (monthCalendarRecyclerView.getVisibility() == View.VISIBLE) {
+            navigateToNextMonth();
+        }
+    }
+    private void onSwipeRight() {
+        if (yearCalendarRecyclerView.getVisibility() == View.VISIBLE) {
+            navigateToPreviousYear();
+        } else if (monthCalendarRecyclerView.getVisibility() == View.VISIBLE) {
+            navigateToPreviousMonth();
+        }
+    }
+    private void navigateToNextYear() {
+        currentYear++;
+        yearAdapter = new YearViewAdapter(currentYear);
+        yearAdapter.setOnMonthClickListener(this);
+        yearCalendarRecyclerView.setAdapter(yearAdapter);
+        titleText.setText(currentYear + " Calendar");
+        refreshAllViews();
+    }
+    private void navigateToPreviousYear() {
+        currentYear--;
+        yearAdapter = new YearViewAdapter(currentYear);
+        yearAdapter.setOnMonthClickListener(this);
+        yearCalendarRecyclerView.setAdapter(yearAdapter);
+        titleText.setText(currentYear + " Calendar");
+        refreshAllViews();
+    }
+    private void navigateToNextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthAdapter.setOnDayClickListener(this);
+        monthCalendarRecyclerView.setAdapter(monthAdapter);
+        titleText.setText(monthNames[currentMonth] + " " + currentYear);
+        refreshAllViews();
+    }
+    private void navigateToPreviousMonth() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        monthAdapter = new MonthViewAdapter(currentYear, currentMonth);
+        monthAdapter.setOnDayClickListener(this);
+        monthCalendarRecyclerView.setAdapter(monthAdapter);
+        titleText.setText(monthNames[currentMonth] + " " + currentYear);
+        refreshAllViews();
+    }
+
+    private void createSoundReminder(String selectedEventText, String reminderTimeText) {
+        // Find the selected event
+        Event selectedEvent = null;
+        List<Event> allEvents = eventManager.getAllEvents();
+
+        for (Event event : allEvents) {
+            String eventDisplayText = event.getTitle() + " - " + event.getFormattedDate();
+            if (eventDisplayText.equals(selectedEventText)) {
+                selectedEvent = event;
+                break;
+            }
+        }
+
+        if (selectedEvent == null) {
+            showToast("Selected event not found");
+            return;
+        }
+
+        // Parse reminder time
+        int reminderMinutes = parseReminderTime(reminderTimeText);
+        if (reminderMinutes == -1) {
+            showToast("Invalid reminder time");
+            return;
+        }
+
+        // Create reminder
+        String reminderId = "reminder_" + System.currentTimeMillis();
+        Reminder reminder = new Reminder(
+            reminderId,
+            selectedEvent.getTitle(),
+            selectedEvent.getStartDate(),
+            reminderMinutes
+        );
+
+        // Schedule the sound alert
+        reminderManager.addReminder(reminder);
+    }
+
+    private int parseReminderTime(String reminderTimeText) {
+        switch (reminderTimeText) {
+            case "5 minutes before":
+                return 5;
+            case "15 minutes before":
+                return 15;
+            case "30 minutes before":
+                return 30;
+            case "1 hour before":
+                return 60;
+            case "2 hours before":
+                return 120;
+            case "1 day before":
+                return 1440;
+            case "1 week before":
+                return 10080;
+            default:
+                return -1;
+        }
     }
 }

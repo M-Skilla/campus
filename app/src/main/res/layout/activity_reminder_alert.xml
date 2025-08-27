@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/md_theme_background_highContrast"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <!-- Alarm Icon -->
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/bell_icon"
+        android:tint="?attr/colorPrimary" />
+
+    <!-- Event Title -->
+    <TextView
+        android:id="@+id/tv_event_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/jakarta_regular"
+        android:textColor="?attr/colorOnSurface"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Event Time -->
+    <TextView
+        android:id="@+id/tv_event_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09:00"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/jakarta_regular"
+        android:textColor="?attr/colorPrimary"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Reminder Message -->
+    <TextView
+        android:id="@+id/tv_reminder_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event starts on Aug 26, 2025"
+        android:textSize="16sp"
+        android:fontFamily="@font/jakarta_regular"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Buttons Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <!-- Snooze Button -->
+        <Button
+            android:id="@+id/btn_snooze"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Snooze (5 min)"
+            android:textSize="16sp"
+            android:fontFamily="@font/jakarta_regular"
+            android:textColor="@color/white"
+            android:background="@drawable/button_unselected_background"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Dismiss Button -->
+        <Button
+            android:id="@+id/btn_dismiss"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Dismiss"
+            android:textSize="16sp"
+            android:fontFamily="@font/jakarta_regular"
+            android:textColor="@color/white"
+            android:background="@drawable/button_selected_background"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
