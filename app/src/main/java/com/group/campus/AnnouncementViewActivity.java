@@ -148,10 +148,10 @@ public class AnnouncementViewActivity extends AppCompatActivity {
         if (author != null && author.getProfilePictureUrls() != null && !author.getProfilePictureUrls().isEmpty()) {
             Glide.with(this)
                     .load(author.getProfilePictureUrls())
-                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .placeholder(R.drawable.profile_image)
                     .into(departmentAvatar);
         } else {
-            departmentAvatar.setImageResource(R.drawable.ic_profile_placeholder);
+            departmentAvatar.setImageResource(R.drawable.profile_image);
         }
 
         // Handle announcement images
