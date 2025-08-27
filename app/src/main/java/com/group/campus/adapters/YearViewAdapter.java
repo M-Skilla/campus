@@ -1,15 +1,16 @@
 package com.group.campus.adapters;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group.campus.R;
+import com.group.campus.managers.EventManager;
 
 import java.util.Calendar;
 
@@ -19,6 +20,8 @@ public class YearViewAdapter extends RecyclerView.Adapter<YearViewAdapter.MonthV
     private final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private OnMonthClickListener onMonthClickListener;
+    private final EventManager eventManager;
+    private final Calendar currentDate;
 
     public interface OnMonthClickListener {
         void onMonthClick(int month);
@@ -26,6 +29,8 @@ public class YearViewAdapter extends RecyclerView.Adapter<YearViewAdapter.MonthV
 
     public YearViewAdapter(int year) {
         this.year = year;
+        this.eventManager = EventManager.getInstance();
+        this.currentDate = Calendar.getInstance();
     }
 
     public void setOnMonthClickListener(OnMonthClickListener listener) {
@@ -119,22 +124,42 @@ public class YearViewAdapter extends RecyclerView.Adapter<YearViewAdapter.MonthV
         // Clear all day views first
         for (int i = 0; i < 42; i++) {
             holder.dayViews[i].setText("");
-            holder.dayViews[i].setBackgroundColor(Color.TRANSPARENT);
-
+            holder.dayViews[i].setBackground(null);
             holder.dayViews[i].setVisibility(View.INVISIBLE);
         }
 
         // Fill in the days
         for (int day = 1; day <= daysInMonth; day++) {
-            int position_in_grid = firstDayOfWeek + day - 1;
-            if (position_in_grid < 42) {
-                holder.dayViews[position_in_grid].setText(String.valueOf(day));
-                holder.dayViews[position_in_grid].setVisibility(View.VISIBLE);
+            int positionInGrid = firstDayOfWeek + day - 1;
+            if (positionInGrid < 42) {
+                TextView dayView = holder.dayViews[positionInGrid];
+                dayView.setText(String.valueOf(day));
+                dayView.setVisibility(View.VISIBLE);
 
-                // Highlight current day (August 20, 2025 as per context)
-                if (position == 7 && day == 20) { // August is month 7 (0-indexed), day 20
-                    holder.dayViews[position_in_grid].setBackgroundColor(Color.BLUE);
+                // Check if this is the current date
+                boolean isCurrentDate = (year == currentDate.get(Calendar.YEAR) &&
+                        position == currentDate.get(Calendar.MONTH) &&
+                        day == currentDate.get(Calendar.DAY_OF_MONTH));
+
+                // Check if this day has events
+                boolean hasEvents = eventManager.hasEventsOnDate(year, position, day);
+
+                if (isCurrentDate) {
+                    // Apply blue background for current date
+                    dayView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.holo_blue_light));
+                    dayView.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.white));
+                } else if (hasEvents) {
+                    // Apply grey background for days with events
+                    dayView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.darker_gray));
+                    dayView.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), android.R.color.white));
+                } else {
+                    // Reset background for regular days
+                    dayView.setBackground(null);
+
                 }
+
+                // Clear any compound drawables (no dots needed)
+                dayView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             }
         }
     }
@@ -142,5 +167,12 @@ public class YearViewAdapter extends RecyclerView.Adapter<YearViewAdapter.MonthV
     @Override
     public int getItemCount() {
         return 12; // 12 months
+    }
+
+    /**
+     * Refresh the adapter to update event indicators and current date highlighting
+     */
+    public void refreshEvents() {
+        notifyDataSetChanged();
     }
 }
