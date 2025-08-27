@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI Palette (Light Mode) -->
+    <color name="sg_bg">#F7F8FA</color> <!-- Off-white background -->
+    <color name="sg_surface">#FFFFFF</color> <!-- White surface for cards/headers -->
+    <color name="sg_primary">#4A90E2</color> <!-- A modern, friendly blue -->
+    <color name="sg_on_primary">#FFFFFF</color>
+    <color name="sg_text_primary">#2D3748</color> <!-- Dark gray for primary text -->
+    <color name="sg_text_secondary">#718096</color> <!-- Lighter gray for secondary text -->
+    <color name="sg_input_text">#2D3748</color>
+    <color name="sg_hint_text">#A0AEC0</color>
+    <color name="sg_bubble_outgoing">#4A90E2</color>
+    <color name="sg_bubble_incoming">#EAEFF5</color>
+    <color name="sg_bubble_text_outgoing">#FFFFFF</color>
+    <color name="sg_bubble_text_incoming">#2D3748</color>
+</resources>
