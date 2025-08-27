@@ -170,4 +170,23 @@
     <!-- Chat Bubble Colors -->
     <color name="chat_bubble_user">#425E91</color>
     <color name="chat_bubble_ai">#E0E2EC</color>
+
+    <!-- Legacy/compat alias used by some drawables -->
+    <color name="colorAccent">@color/md_theme_primary</color>
+
+    <!-- Suggestions UI palette (mapped to existing theme colors for consistency) -->
+    <color name="bubbleOutgoing">@color/chat_bubble_user</color>
+    <color name="bubbleIncoming">@color/chat_bubble_ai</color>
+
+    <!-- General UI helpers -->
+    <color name="dividerColor">@color/md_theme_outlineVariant</color>
+    <color name="textMuted">@color/text_light</color>
+    <color name="inputBackground">@color/md_theme_surfaceContainer</color>
+
+    <!-- Gradient aliases expected by drawables -->
+    <color name="colorBackgroundStart">@color/background_gradient_start</color>
+    <color name="colorBackgroundEnd">@color/background_gradient_end</color>
+
+    <color name="textPrimary">@color/md_theme_onSurface</color>
+    <color name="textSecondary">@color/md_theme_onSurfaceVariant</color>
 </resources>
