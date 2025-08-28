@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/md_theme_background_highContrast"
+    android:background="?attr/colorSurface"
     android:padding="24dp"
     android:gravity="center">
 
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_weight="1"
-            android:text="Snooze (5 min)"
+            android:text="Snooze"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="@color/white"

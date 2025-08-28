@@ -87,7 +87,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         setupClickListeners();
         setupSwipeNavigation(view);
         fetchEventsFromFirestore();
-        showYearView();
+        showMonthView();
 
         return view;
     }
@@ -125,6 +125,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         monthCalendarRecyclerView.setAdapter(monthAdapter);
 
         eventsAdapter = new EventsAdapter(eventManager.getAllEvents());
+        eventsAdapter.setOnEventClickListener(this::onEventClick);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         eventsRecyclerView.setAdapter(eventsAdapter);
     }
@@ -245,7 +246,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private void initializeDateTimeFields(TextView tvStartDate, TextView tvEndDate, TextView tvStartTime, TextView tvEndTime) {
         selectedStartDateTime = Calendar.getInstance();
         selectedEndDateTime = Calendar.getInstance();
-        selectedEndDateTime.add(Calendar.HOUR_OF_DAY, 1);
+        selectedEndDateTime.add(Calendar.HOUR_OF_DAY, 0);
 
         String currentDate = dateFormat.format(selectedStartDateTime.getTime());
         tvStartDate.setText(currentDate);
@@ -299,9 +300,13 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         btnDone.setOnClickListener(v -> {
             String title = etTitle.getText().toString().trim();
             if (!title.isEmpty()) {
+                // Add null checks for the switches to prevent NullPointerException
+                boolean isAllDay = switchAllDay != null ? switchAllDay.isChecked() : false;
+                boolean hasSoundAlert = switchSoundAlert != null ? switchSoundAlert.isChecked() : false;
+
                 Event newEvent = new Event(title, selectedStartDateTime.getTime(),
                                          selectedEndDateTime.getTime(),
-                                         switchAllDay.isChecked(), switchSoundAlert.isChecked());
+                                         isAllDay, hasSoundAlert);
                 eventManager.addEvent(newEvent);
                 saveEventToFirestore(newEvent);
                 refreshAllViews();
@@ -505,13 +510,14 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     @Override
     public void onDayWithEventsClick(int year, int month, int day) {
-        // Only show dialog if the day has events
+        // Show dialog with events for the selected day
         if (eventManager.hasEventsOnDate(year, month, day)) {
-            showEventDetailsDialog(year, month, day);
+            showDayEventsDialog(year, month, day);
         }
     }
 
-    private void showEventDetailsDialog(int year, int month, int day) {
+    // Add method to show events for a specific day in a dialog
+    private void showDayEventsDialog(int year, int month, int day) {
         // Get events for this specific day
         List<Event> dayEvents = eventManager.getEventsForDate(year, month, day);
 
@@ -520,9 +526,40 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
             return;
         }
 
-        // Show dialog for the first event (you can modify this to show all events)
-        Event event = dayEvents.get(0);
+        // Create a BottomSheetDialog to match the screenshot style
+        BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_day_events, null);
+        dialog.setContentView(dialogView);
 
+        // Find views in dialog
+        TextView tvDayTitle = dialogView.findViewById(R.id.tv_day_title);
+        RecyclerView rvDayEvents = dialogView.findViewById(R.id.rv_day_events);
+
+        // Set title - format: "September 23" or similar
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        SimpleDateFormat dayFormatter = new SimpleDateFormat("MMMM dd", Locale.getDefault());
+        tvDayTitle.setText(dayFormatter.format(calendar.getTime()));
+
+        // Set up RecyclerView for events
+        EventsAdapter dayEventsAdapter = new EventsAdapter(dayEvents);
+        dayEventsAdapter.setOnEventClickListener(event -> {
+            dialog.dismiss();
+            showEventDetailsDialog(event);
+        });
+        rvDayEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvDayEvents.setAdapter(dayEventsAdapter);
+
+        dialog.show();
+    }
+
+    // Add the event click handler method
+    private void onEventClick(Event event) {
+        showEventDetailsDialog(event);
+    }
+
+    // Update the showEventDetailsDialog method to work with Event object
+    private void showEventDetailsDialog(Event event) {
         // Create dialog
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_event_details, null);
@@ -532,7 +569,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         TextView tvEventName = dialogView.findViewById(R.id.tv_event_name);
         TextView tvEventDate = dialogView.findViewById(R.id.tv_event_date);
         TextView tvEventTime = dialogView.findViewById(R.id.tv_event_time);
-        TextView tvReminderStatus = dialogView.findViewById(R.id.tv_reminder_status);
+        SwitchMaterial switchReminder = dialogView.findViewById(R.id.switch_reminder);
         Button btnClose = dialogView.findViewById(R.id.btn_close);
 
         // Set event details
@@ -543,9 +580,20 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         tvEventTime.setText(timeFormatter.format(event.getStartDate()));
 
-        // Check for reminders
-        String reminderText = getReminderStatusForEvent(event);
-        tvReminderStatus.setText(reminderText);
+        // Check if event already has a reminder and set switch accordingly
+        boolean hasReminder = hasReminderForEvent(event);
+        switchReminder.setChecked(hasReminder);
+
+        // Set up switch listener
+        switchReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // When switch is turned on, show reminder dialog
+                showReminderDialogForEvent(event);
+            } else {
+                // When switch is turned off, remove any existing reminder
+                removeReminderForEvent(event);
+            }
+        });
 
         // Create and show dialog
         androidx.appcompat.app.AlertDialog dialog = builder.create();
@@ -555,16 +603,89 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         dialog.show();
     }
 
-    private String getReminderStatusForEvent(Event event) {
+    // Helper method to check if event has a reminder
+    private boolean hasReminderForEvent(Event event) {
         List<Reminder> allReminders = reminderManager.getAllReminders();
-
         for (Reminder reminder : allReminders) {
             if (reminder.getEventTitle().equals(event.getTitle()) && reminder.isActive()) {
-                return "Reminder set: " + reminder.getReminderTimeText();
+                return true;
             }
         }
+        return false;
+    }
 
-        return "No reminder set";
+    // Helper method to remove reminder for an event
+    private void removeReminderForEvent(Event event) {
+        List<Reminder> allReminders = reminderManager.getAllReminders();
+        for (Reminder reminder : allReminders) {
+            if (reminder.getEventTitle().equals(event.getTitle()) && reminder.isActive()) {
+                reminderManager.removeReminder(reminder.getId());
+                showToast("Reminder removed");
+                break;
+            }
+        }
+    }
+
+    // Show reminder dialog specifically for an event
+    private void showReminderDialogForEvent(Event event) {
+        String[] reminderOptions = {"5 minutes before", "15 minutes before", "30 minutes before",
+                                   "1 hour before", "2 hours before", "1 day before", "1 week before"};
+
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Set Reminder")
+                .setItems(reminderOptions, (dialog, which) -> {
+                    String selectedReminderTime = reminderOptions[which];
+                    createReminderForEvent(event, selectedReminderTime);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    // User cancelled, turn switch back off
+                    // Note: We need to find the switch again since this is a different dialog
+                })
+                .show();
+    }
+
+    // Create reminder for a specific event
+    private void createReminderForEvent(Event event, String reminderTimeText) {
+        // Parse reminder time
+        int reminderMinutes = parseReminderTime(reminderTimeText);
+        if (reminderMinutes == -1) {
+            showToast("Invalid reminder time");
+            return;
+        }
+
+        // Create reminder
+        String reminderId = "reminder_" + System.currentTimeMillis();
+        Reminder reminder = new Reminder(
+            reminderId,
+            event.getTitle(),
+            event.getStartDate(),
+            reminderMinutes
+        );
+
+        // Schedule the reminder
+        reminderManager.addReminder(reminder);
+        showToast("Reminder set for " + reminderTimeText);
+    }
+
+    private int parseReminderTime(String reminderTimeText) {
+        switch (reminderTimeText) {
+            case "5 minutes before":
+                return 5;
+            case "15 minutes before":
+                return 15;
+            case "30 minutes before":
+                return 30;
+            case "1 hour before":
+                return 60;
+            case "2 hours before":
+                return 120;
+            case "1 day before":
+                return 1440;
+            case "1 week before":
+                return 10080;
+            default:
+                return -1;
+        }
     }
 
     private void setupSwipeNavigation(View view) {
@@ -696,26 +817,5 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
         // Schedule the sound alert
         reminderManager.addReminder(reminder);
-    }
-
-    private int parseReminderTime(String reminderTimeText) {
-        switch (reminderTimeText) {
-            case "5 minutes before":
-                return 5;
-            case "15 minutes before":
-                return 15;
-            case "30 minutes before":
-                return 30;
-            case "1 hour before":
-                return 60;
-            case "2 hours before":
-                return 120;
-            case "1 day before":
-                return 1440;
-            case "1 week before":
-                return 10080;
-            default:
-                return -1;
-        }
     }
 }
