@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation("androidx.cardview:cardview:1.0.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
@@ -58,7 +59,19 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
+
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
+    implementation("androidx.navigation:navigation-fragment:2.7.6")
+    implementation("androidx.navigation:navigation-ui:2.7.6")
+    implementation("androidx.fragment:fragment:1.6.2")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
     implementation("com.applandeo:material-calendar-view:1.9.0")
+
 
     implementation("com.google.firebase:firebase-ai")
 
@@ -73,3 +86,4 @@ dependencies {
     implementation("jp.wasabeef:richeditor-android:2.0.0")
 
 }
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_margin="4dp"
+    android:orientation="vertical"
+    android:background="@drawable/file_preview_background"
+    android:padding="4dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/ivFilePreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/ivRemove"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="top|end"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/circle_background"
+            android:padding="2dp"
+            android:layout_margin="2dp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvFileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="file.jpg"
+        android:textSize="8sp"
+        android:textColor="@color/purple_700"
+        android:maxLines="1"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:layout_marginTop="2dp" />
+
+</LinearLayout>

@@ -30,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        applyTheme(this);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
@@ -105,8 +106,8 @@ public class SettingsActivity extends AppCompatActivity {
             int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
             if (currentMode != mode) {
                 saveTheme(mode);
-                AppCompatDelegate.setDefaultNightMode(mode);
                 dialog.dismiss();
+                recreate();
             } else {
                 dialog.dismiss();
             }
@@ -116,8 +117,8 @@ public class SettingsActivity extends AppCompatActivity {
             int mode = AppCompatDelegate.MODE_NIGHT_YES;
             if (currentMode != mode) {
                 saveTheme(mode);
-                AppCompatDelegate.setDefaultNightMode(mode);
                 dialog.dismiss();
+                recreate();
             } else {
                 dialog.dismiss();
             }
@@ -127,8 +128,8 @@ public class SettingsActivity extends AppCompatActivity {
             int mode = AppCompatDelegate.MODE_NIGHT_NO;
             if (currentMode != mode) {
                 saveTheme(mode);
-                AppCompatDelegate.setDefaultNightMode(mode);
                 dialog.dismiss();
+                recreate();
             } else {
                 dialog.dismiss();
             }

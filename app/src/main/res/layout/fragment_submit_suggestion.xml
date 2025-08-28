@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit a Suggestion"
+            android:textSize="24sp"
+            android:textColor="@color/purple_primary"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundColor="@color/pill_bg"
+            app:boxStrokeColor="@color/purple_primary">
+
+            <AutoCompleteTextView
+                android:id="@+id/actvReceiver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select staff member to receive suggestion"
+                android:padding="12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundColor="@color/pill_bg"
+            app:boxStrokeColor="@color/purple_primary">
+
+            <EditText
+                android:id="@+id/etSuggestionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your suggestion here..."
+                android:minLines="4"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:padding="12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cbAnonymous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send anonymously"
+            android:textColor="@color/purple_700"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnUploadFiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Files (Optional)"
+            android:backgroundTint="@color/pill_bg"
+            android:textColor="@color/purple_primary"
+            android:layout_marginBottom="16dp"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFilePreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Suggestion"
+            android:backgroundTint="@color/purple_primary"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

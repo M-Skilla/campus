@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI Palette (Dark Mode) -->
+    <color name="sg_bg">#1A202C</color> <!-- Dark blue-gray background -->
+    <color name="sg_surface">#2D3748</color> <!-- Slightly lighter surface -->
+    <color name="sg_primary">#63B3ED</color> <!-- A lighter, vibrant blue for dark mode -->
+    <color name="sg_on_primary">#1A202C</color>
+    <color name="sg_text_primary">#F7FAFC</color> <!-- Off-white for primary text -->
+    <color name="sg_text_secondary">#A0AEC0</color> <!-- Lighter gray for secondary text -->
+    <color name="sg_input_text">#F7FAFC</color>
+    <color name="sg_hint_text">#718096</color>
+    <color name="sg_bubble_outgoing">#63B3ED</color>
+    <color name="sg_bubble_incoming">#2D3748</color>
+    <color name="sg_bubble_text_outgoing">#1A202C</color>
+    <color name="sg_bubble_text_incoming">#F7FAFC</color>
+</resources>
