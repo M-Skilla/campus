@@ -1,6 +1,7 @@
 package com.group.campus.fragments;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +42,8 @@ public class ProfileFragment extends Fragment {
     private TextView registrationInput;
     private TextView courseInput;
 
+    private CircularProgressIndicator progressIndicator;
+
     private ImageView profileImageView;
 
     @Nullable
@@ -63,6 +66,10 @@ public class ProfileFragment extends Fragment {
         courseInput = view.findViewById(R.id.course_input);
         profileImageView = view.findViewById(R.id.profile_image);
 
+        progressIndicator = view.findViewById(R.id.progress_indicator);
+
+        progressIndicator.setVisibility(View.VISIBLE);
+
         // Fetch user data from Firestore
         fetchUserDataFromFirestore();
         Button settingsIcon = view.findViewById(R.id.settings_icon);
@@ -80,12 +87,14 @@ public class ProfileFragment extends Fragment {
         if (auth.getCurrentUser() == null) {
             Log.e(TAG, "No authenticated user found");
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            progressIndicator.setVisibility(View.GONE);
             return;
         }
         String registrationNumber = Objects.requireNonNull(auth.getCurrentUser().getEmail()).split("@")[0].toUpperCase();
         if (registrationNumber == null) {
             Log.e(TAG, "User email is null");
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            progressIndicator.setVisibility(View.GONE);
             return;
         }
 
@@ -95,6 +104,7 @@ public class ProfileFragment extends Fragment {
                 .whereEqualTo("regNo", registrationNumber)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
+                    progressIndicator.setVisibility(View.GONE);
                     if (!queryDocumentSnapshots.isEmpty()) {
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                         String name = document.getString("fullName");
@@ -110,6 +120,7 @@ public class ProfileFragment extends Fragment {
                     }
                 })
                 .addOnFailureListener(e -> {
+                    progressIndicator.setVisibility(View.GONE);
                     Log.e(TAG, "Error fetching user data", e);
                     Toast.makeText(getContext(), "Failed to load user data", Toast.LENGTH_SHORT).show();
                 });
