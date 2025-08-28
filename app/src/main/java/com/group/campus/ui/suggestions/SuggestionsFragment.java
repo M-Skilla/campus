@@ -30,8 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.group.campus.CustomBottomNavView;
 import com.group.campus.HomeActivity;
 import com.group.campus.R;
 import com.group.campus.model.Suggestion;
@@ -41,7 +41,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout.LayoutParams;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -66,7 +65,9 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
     private String selectedAttachmentName;
     private String selectedAttachmentType; // MIME type like image/*, video/*, application/pdf
 
-    private BottomNavigationView bottomNav;
+    private CustomBottomNavView bottomNav;
+
+
 
     private final List<String> departments = Arrays.asList(
         "Computer Science",
@@ -158,7 +159,7 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         btnRemoveAttachment = view.findViewById(R.id.btnRemoveAttachment);
 
         if (getActivity() instanceof HomeActivity) {
-            bottomNav = getActivity().findViewById(R.id.bottomNav);
+            bottomNav = ((HomeActivity) getActivity()).getCustomBottomNavView();
         }
     }
 
@@ -167,7 +168,7 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         toolbar.setNavigationOnClickListener(v -> {
             showBottomNavigation();
             if (getActivity() instanceof HomeActivity && bottomNav != null) {
-                bottomNav.setSelectedItemId(R.id.announcementsItem);
+                bottomNav.selectTab(0);
             }
         });
     }
@@ -223,7 +224,7 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
                 try {
                     final int takeFlags = result.getData().getFlags() &
                         (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    requireContext().getContentResolver().takePersistableUriPermission(selectedAttachmentUri, takeFlags);
+                    requireContext().getContentResolver().takePersistableUriPermission(selectedAttachmentUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception ignored) {}
 
                 selectedAttachmentType = resolveMimeType(selectedAttachmentUri);
