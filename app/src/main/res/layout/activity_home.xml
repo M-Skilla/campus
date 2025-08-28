@@ -10,21 +10,23 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+    <include
+        android:id="@+id/customBottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        layout="@layout/custom_bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/item_nav"
-        app:labelVisibilityMode="unlabeled"
-        android:id="@+id/bottomNav"
-        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="20dp"
         />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

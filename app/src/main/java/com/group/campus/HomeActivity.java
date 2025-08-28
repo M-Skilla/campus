@@ -1,7 +1,9 @@
 package com.group.campus;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private PreferenceManager prefs;
 
-    private BottomNavigationView bottomNav;
+    private FrameLayout bottomNav;
 
     private FloatingActionButton fab;
 
@@ -41,68 +44,73 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
 
-        bottomNav = findViewById(R.id.bottomNav);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new AnnouncementFragment())
-                .commit();
-        bottomNav.setSelectedItemId(R.id.announcementsItem);
+        View navView = findViewById(R.id.customBottomNav);
+        FragmentManager fm = getSupportFragmentManager();
+        CustomBottomNavView bottomNavView = new CustomBottomNavView(navView, fm, R.id.container);
 
-        bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
+        bottomNavView.selectTab(0);
 
-            if (item.getItemId() == R.id.announcementsItem) {
-                selectedFragment = new AnnouncementFragment();
-            } else if (item.getItemId() == R.id.calendarItem) {
-                selectedFragment = new CalendarFragment();
-            } else if (item.getItemId() == R.id.profileItem) {
-                selectedFragment = new ProfileFragment();
-            } else if (item.getItemId() == R.id.suggestionsItem) {
-                selectedFragment = new SuggestionsFragment();
-            }
-            else if (item.getItemId() == R.id.fragment_container) {
-                selectedFragment = new CalendarFragment();
-            }
-
-
-
-
-            if (selectedFragment != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, selectedFragment)
-                        .commit();
-                return true;
-            }
-
-            return false;
-        });
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.container, new AnnouncementFragment())
+//                .commit();
+//        bottomNav.setSelectedItemId(R.id.announcementsItem);
+//
+//        bottomNav.setOnItemSelectedListener(item -> {
+//            Fragment selectedFragment = null;
+//
+//            if (item.getItemId() == R.id.announcementsItem) {
+//                selectedFragment = new AnnouncementFragment();
+//            } else if (item.getItemId() == R.id.calendarItem) {
+//                selectedFragment = new CalendarFragment();
+//            } else if (item.getItemId() == R.id.profileItem) {
+//                selectedFragment = new ProfileFragment();
+//            } else if (item.getItemId() == R.id.suggestionsItem) {
+//                selectedFragment = new SuggestionsFragment();
+//            }
+//            else if (item.getItemId() == R.id.fragment_container) {
+//                selectedFragment = new CalendarFragment();
+//            }
+//
+//
+//
+//
+//            if (selectedFragment != null) {
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.container, selectedFragment)
+//                        .commit();
+//                return true;
+//            }
+//
+//            return false;
+//        });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Fragment prevFragment = getSupportFragmentManager().findFragmentById(previousItemId);
-        if (prevFragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, prevFragment)
-                    .commit();
-            bottomNav.setSelectedItemId(previousItemId);
-        } else {
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new AnnouncementFragment())
-                .commit();
-            bottomNav.setSelectedItemId(R.id.announcementsItem);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        previousItemId = bottomNav.getSelectedItemId();
-
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Fragment prevFragment = getSupportFragmentManager().findFragmentById(previousItemId);
+//        if (prevFragment != null) {
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.container, prevFragment)
+//                    .commit();
+//            bottomNav.setSelectedItemId(previousItemId);
+//        } else {
+//            getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.container, new AnnouncementFragment())
+//                .commit();
+//            bottomNav.setSelectedItemId(R.id.announcementsItem);
+//        }
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        previousItemId = bottomNav.getSelectedItemId();
+//
+//    }
 }
