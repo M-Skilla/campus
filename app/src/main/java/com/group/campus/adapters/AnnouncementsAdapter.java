@@ -92,14 +92,14 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         if (profilePictureUrls != null && !profilePictureUrls.isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(profilePictureUrls)
-                    .placeholder(R.drawable.ic_profile_placeholder)
-                    .error(R.drawable.ic_profile_placeholder)
+                    .placeholder(R.drawable.profile_image)
+                    .error(R.drawable.profile_error)
                     .into(holder.avatar);
         } else {
             Glide.with(holder.itemView.getContext())
                     .load((String) null)
-                    .placeholder(R.drawable.ic_profile_placeholder)
-                    .error(R.drawable.ic_profile_placeholder)
+                    .placeholder(R.drawable.profile_image)
+                    .error(R.drawable.profile_error)
                     .into(holder.avatar);
         }
         List<String> imageUrls = announcements.get(position).getImageUrls();
