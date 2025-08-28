@@ -95,6 +95,11 @@ public class ProfileFragment extends Fragment {
                 .whereEqualTo("regNo", registrationNumber)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    if (!isAdded() || getActivity() == null) {
+                        return;
+                    }
+
                     if (!queryDocumentSnapshots.isEmpty()) {
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                         String name = document.getString("fullName");
@@ -116,6 +121,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateUI(String name, String registrationNumber, String imageUrl) {
+
+        if (!isAdded() || getActivity() == null || isDetached()) {
+            return;
+        }
+
         if (name != null && !name.isEmpty()) {
             nameInput.setText(name);
         }
