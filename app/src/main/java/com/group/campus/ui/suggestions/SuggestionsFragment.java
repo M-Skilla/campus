@@ -66,7 +66,9 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
     private String selectedAttachmentName;
     private String selectedAttachmentType; // MIME type like image/*, video/*, application/pdf
 
-    private BottomNavigationView bottomNav;
+//    private BottomNavigationView bottomNav;
+
+
 
     private final List<String> departments = Arrays.asList(
         "Computer Science",
@@ -137,12 +139,12 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
-        setupToolbar();
+//        setupToolbar();
         setupDepartmentSelector();
         setupRecyclerView();
         setupActivityResultLaunchers();
         setupInputHandling();
-        hideBottomNavigation();
+//        hideBottomNavigation();
     }
 
     private void initViews(View view) {
@@ -157,20 +159,20 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         tvAttachmentName = view.findViewById(R.id.tvAttachmentName);
         btnRemoveAttachment = view.findViewById(R.id.btnRemoveAttachment);
 
-        if (getActivity() instanceof HomeActivity) {
-            bottomNav = getActivity().findViewById(R.id.bottomNav);
-        }
+//        if (getActivity() instanceof HomeActivity) {
+//            bottomNav = getActivity().findViewById(R.id.bottomNav);
+//        }
     }
 
-    private void setupToolbar() {
-        if (toolbar == null) return;
-        toolbar.setNavigationOnClickListener(v -> {
-            showBottomNavigation();
-            if (getActivity() instanceof HomeActivity && bottomNav != null) {
-                bottomNav.setSelectedItemId(R.id.announcementsItem);
-            }
-        });
-    }
+//    private void setupToolbar() {
+//        if (toolbar == null) return;
+//        toolbar.setNavigationOnClickListener(v -> {
+//            showBottomNavigation();
+//            if (getActivity() instanceof HomeActivity && bottomNav != null) {
+//                bottomNav.setSelectedItemId(R.id.announcementsItem);
+//            }
+//        });
+//    }
 
     private void setupDepartmentSelector() {
         if (btnDepartment == null) return;
@@ -223,7 +225,7 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
                 try {
                     final int takeFlags = result.getData().getFlags() &
                         (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    requireContext().getContentResolver().takePersistableUriPermission(selectedAttachmentUri, takeFlags);
+                    requireContext().getContentResolver().takePersistableUriPermission(selectedAttachmentUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception ignored) {}
 
                 selectedAttachmentType = resolveMimeType(selectedAttachmentUri);
@@ -378,19 +380,19 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         updateSendButtonState();
     }
 
-    private void hideBottomNavigation() {
-        if (bottomNav != null) {
-            bottomNav.clearAnimation();
-            bottomNav.setVisibility(View.GONE); // reclaim layout height
-        }
-    }
-
-    private void showBottomNavigation() {
-        if (bottomNav != null) {
-            bottomNav.clearAnimation();
-            bottomNav.setVisibility(View.VISIBLE);
-        }
-    }
+//    private void hideBottomNavigation() {
+//        if (bottomNav != null) {
+//            bottomNav.clearAnimation();
+//            bottomNav.setVisibility(View.GONE); // reclaim layout height
+//        }
+//    }
+//
+//    private void showBottomNavigation() {
+//        if (bottomNav != null) {
+//            bottomNav.clearAnimation();
+//            bottomNav.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     @Override
     public void onSuggestionLongClick(Suggestion suggestion) {
@@ -427,12 +429,12 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        showBottomNavigation();
+//        showBottomNavigation();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        hideBottomNavigation();
+//        hideBottomNavigation();
     }
 }
