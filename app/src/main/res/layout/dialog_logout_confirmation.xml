@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_rounded_bg"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:padding="32dp">
+
+    <!-- Icon -->
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/exit_icon"
+        android:background="@drawable/circular_background"
+        android:backgroundTint="@color/md_theme_errorContainer"
+        android:padding="20dp"
+        app:tint="@color/md_theme_error"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/jakarta_bold"
+        android:textColor="?attr/colorOnSurface"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Message -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you want to log out of your account?"
+        android:textSize="18sp"
+        android:fontFamily="@font/jakarta_regular"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Buttons Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!-- Cancel Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textSize="18sp"
+            android:fontFamily="@font/jakarta_medium"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginEnd="8dp"
+            app:cornerRadius="16dp"
+            app:strokeColor="?attr/colorOutline"
+            app:strokeWidth="1dp" />
+
+        <!-- Logout Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="Log Out"
+            android:textSize="18sp"
+            android:fontFamily="@font/jakarta_medium"
+            android:textColor="@color/md_theme_onError"
+            android:backgroundTint="@color/md_theme_error"
+            app:cornerRadius="16dp"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
