@@ -90,7 +90,7 @@
                         android:layout_height="160dp"
                         app:shapeAppearanceOverlay="@style/CircularImage"
                         android:padding="0dp"
-                        android:contentDescription="@string/alex_johnson"
+                        tools:contentDescription=""
                         android:scaleType="centerCrop">
                     </com.google.android.material.imageview.ShapeableImageView>
 
