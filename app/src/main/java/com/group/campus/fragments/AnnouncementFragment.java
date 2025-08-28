@@ -59,6 +59,7 @@ public class AnnouncementFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton fabAddAnnouncement;
     private FloatingActionButton fabAi;
+    private static final String TAG = "AnnouncementFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -181,6 +182,15 @@ public class AnnouncementFragment extends Fragment {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (!isAdded() || getActivity() == null || isDetached()) {
+                            return;
+                        }
+
+                        if (error != null) {
+                            Log.e(TAG, "Listen failed.", error);
+                            return;
+                        }
+
                         swipeRefreshLayout.setRefreshing(false);
                         if (error != null) {
                             Toast.makeText(requireContext(), "Error fetching data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
