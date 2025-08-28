@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import com.group.campus.fragments.AnnouncementFragment;
 import com.group.campus.fragments.CalendarFragment;
 import com.group.campus.fragments.ProfileFragment;
-import com.group.campus.fragments.SuggestionsFragment;
+import com.group.campus.ui.suggestions.SuggestionsFragment;
 
 public class CustomBottomNavView {
 
