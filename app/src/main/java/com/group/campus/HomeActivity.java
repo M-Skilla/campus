@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group.campus.fragments.AnnouncementFragment;
 import com.group.campus.fragments.CalendarFragment;
 import com.group.campus.fragments.ProfileFragment;
-import com.group.campus.fragments.SuggestionsFragment;
+import com.group.campus.ui.suggestions.SuggestionsFragment;
 import com.group.campus.utils.PreferenceManager;
 
 public class HomeActivity extends AppCompatActivity {

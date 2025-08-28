@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="back">Back</string>
     <string name="notifications">Notifications</string>
-    <string name="alex_johnson">Alex Johnson</string>
+    <string name="Regstration_number"></string>
     <string name="user_role">Student</string>
     <string name="user_information">User Information</string>
     <string name="email">student@udom.ac.tz</string>
@@ -65,5 +65,25 @@
     <!-- Announcement view page strings -->
     <string name="more_actions">More Actions</string>
     <string name="contact_information">Contact Information</string>
+
+
+    <!-- Category strings with emojis -->
+    <string name="category_all">📢 All</string>
+    <string name="category_events">🎉 Events</string>
+    <string name="category_notices">📋 Notices</string>
+    <string name="category_holidays">🏖️ Holidays</string>
+    <string name="category_academic">📚 Academic</string>
+    <string name="category_sports">⚽ Sports</string>
+
+    <!-- Suggestions Feature Strings -->
+    <string name="attach_file">Attach file</string>
+    <string name="send_message">Send message</string>
+    <string name="attachment_thumbnail">Attachment thumbnail</string>
+    <string name="attachment_icon">Attachment icon</string>
+    <string name="attachment_preview">Attachment preview</string>
+    <string name="remove_attachment">Remove attachment</string>
+    <string name="message_status">Message status</string>
+    <string name="choose_department">Choose department</string>
+
 
 </resources>
