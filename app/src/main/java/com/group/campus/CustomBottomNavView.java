@@ -100,4 +100,12 @@ public class CustomBottomNavView {
                 .replace(containerId, fragment)
                 .commit();
     }
+
+    public void clearAnimation() {
+        navView.clearAnimation();
+    }
+
+    public void setVisibility(int visibility) {
+        navView.setVisibility(visibility);
+    }
 }

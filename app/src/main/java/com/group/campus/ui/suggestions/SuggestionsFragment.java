@@ -30,8 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.group.campus.CustomBottomNavView;
 import com.group.campus.HomeActivity;
 import com.group.campus.R;
 import com.group.campus.model.Suggestion;
@@ -41,7 +41,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout.LayoutParams;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -66,7 +65,7 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
     private String selectedAttachmentName;
     private String selectedAttachmentType; // MIME type like image/*, video/*, application/pdf
 
-//    private BottomNavigationView bottomNav;
+    private CustomBottomNavView bottomNav;
 
 
 
@@ -139,12 +138,12 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
-//        setupToolbar();
+        setupToolbar();
         setupDepartmentSelector();
         setupRecyclerView();
         setupActivityResultLaunchers();
         setupInputHandling();
-//        hideBottomNavigation();
+        hideBottomNavigation();
     }
 
     private void initViews(View view) {
@@ -159,20 +158,20 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         tvAttachmentName = view.findViewById(R.id.tvAttachmentName);
         btnRemoveAttachment = view.findViewById(R.id.btnRemoveAttachment);
 
-//        if (getActivity() instanceof HomeActivity) {
-//            bottomNav = getActivity().findViewById(R.id.bottomNav);
-//        }
+        if (getActivity() instanceof HomeActivity) {
+            bottomNav = ((HomeActivity) getActivity()).getCustomBottomNavView();
+        }
     }
 
-//    private void setupToolbar() {
-//        if (toolbar == null) return;
-//        toolbar.setNavigationOnClickListener(v -> {
-//            showBottomNavigation();
-//            if (getActivity() instanceof HomeActivity && bottomNav != null) {
-//                bottomNav.setSelectedItemId(R.id.announcementsItem);
-//            }
-//        });
-//    }
+    private void setupToolbar() {
+        if (toolbar == null) return;
+        toolbar.setNavigationOnClickListener(v -> {
+            showBottomNavigation();
+            if (getActivity() instanceof HomeActivity && bottomNav != null) {
+                bottomNav.selectTab(0);
+            }
+        });
+    }
 
     private void setupDepartmentSelector() {
         if (btnDepartment == null) return;
@@ -380,19 +379,19 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
         updateSendButtonState();
     }
 
-//    private void hideBottomNavigation() {
-//        if (bottomNav != null) {
-//            bottomNav.clearAnimation();
-//            bottomNav.setVisibility(View.GONE); // reclaim layout height
-//        }
-//    }
-//
-//    private void showBottomNavigation() {
-//        if (bottomNav != null) {
-//            bottomNav.clearAnimation();
-//            bottomNav.setVisibility(View.VISIBLE);
-//        }
-//    }
+    private void hideBottomNavigation() {
+        if (bottomNav != null) {
+            bottomNav.clearAnimation();
+            bottomNav.setVisibility(View.GONE); // reclaim layout height
+        }
+    }
+
+    private void showBottomNavigation() {
+        if (bottomNav != null) {
+            bottomNav.clearAnimation();
+            bottomNav.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     public void onSuggestionLongClick(Suggestion suggestion) {
@@ -429,12 +428,12 @@ public class SuggestionsFragment extends Fragment implements SuggestionAdapter.O
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        showBottomNavigation();
+        showBottomNavigation();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        hideBottomNavigation();
+        hideBottomNavigation();
     }
 }

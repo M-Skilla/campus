@@ -30,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private Button button;
-
+    CustomBottomNavView bottomNavView;
     private int previousItemId;
 
     @Override
@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
         View navView = findViewById(R.id.customBottomNav);
         FragmentManager fm = getSupportFragmentManager();
-        CustomBottomNavView bottomNavView = new CustomBottomNavView(navView, fm, R.id.container);
+        bottomNavView = new CustomBottomNavView(navView, fm, R.id.container);
 
         bottomNavView.selectTab(0);
 
@@ -113,4 +113,9 @@ public class HomeActivity extends AppCompatActivity {
 //        previousItemId = bottomNav.getSelectedItemId();
 //
 //    }
+
+
+    public CustomBottomNavView getCustomBottomNavView() {
+        return bottomNavView;
+    }
 }
