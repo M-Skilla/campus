@@ -40,7 +40,7 @@
                 android:text="Year"
                 android:textColor="@color/md_theme_onPrimary"
                 android:fontFamily="@font/jakarta_semibold"
-                android:background="@drawable/button_selected_background"
+                android:background="@drawable/button_unselected_background"
                 android:textSize="14sp"
                 android:layout_marginEnd="2dp" />
 
@@ -52,7 +52,7 @@
                 android:text="Month"
                 android:textColor="@color/md_theme_onPrimary"
                 android:fontFamily="@font/jakarta_semibold"
-                android:background="@drawable/button_unselected_background"
+                android:background="@drawable/button_selected_background"
                 android:textSize="14sp"
                 android:layout_marginEnd="2dp" />
 
@@ -74,15 +74,16 @@
             android:id="@+id/yearCalendarRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:visibility="gone" />
 
-        <!-- Month View RecyclerView (initially hidden) -->
+        <!-- Month View RecyclerView (initially visible) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/monthCalendarRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <!-- Events View (initially hidden) -->
         <LinearLayout
@@ -112,8 +113,9 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:contentDescription="Add Event"
+        app:shapeAppearanceOverlay="@style/CircularImage"
         app:srcCompat="@drawable/ic_add_24"
-        app:backgroundTint="@color/md_theme_primary"
-        app:tint="@color/md_theme_onPrimary" />
+
+         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
