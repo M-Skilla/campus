@@ -1,10 +1,10 @@
 package com.group.campus.models;
 
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
+import java.util.Calendar;
 
 public class Event {
     private String id;
@@ -13,41 +13,58 @@ public class Event {
     private Date endDate;
     private boolean isAllDay;
     private boolean hasSoundAlert;
-    private String description;
+    private String startDateString;
+    private String endDateString;
 
-    // Firestore date format
-    private static final SimpleDateFormat FIRESTORE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
+    // Default constructor for Firebase
     public Event() {
-        // Default constructor
+        this.id = UUID.randomUUID().toString();
     }
 
+    // Constructor with Date objects
     public Event(String title, Date startDate, Date endDate, boolean isAllDay, boolean hasSoundAlert) {
-        this.id = generateId();
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isAllDay = isAllDay;
         this.hasSoundAlert = hasSoundAlert;
+        updateDateStrings();
     }
 
-    // Constructor for Firestore data (with String dates)
+    // Constructor with String dates (for Firebase parsing)
     public Event(String title, String startDate, String endDate) {
+        this.id = UUID.randomUUID().toString();
         this.title = title;
-        try {
-            this.startDate = FIRESTORE_DATE_FORMAT.parse(startDate);
-            this.endDate = FIRESTORE_DATE_FORMAT.parse(endDate);
-        } catch (ParseException e) {
-            // Fallback to current date if parsing fails
-            this.startDate = new Date();
-            this.endDate = new Date();
-        }
+        this.startDateString = startDate;
+        this.endDateString = endDate;
         this.isAllDay = false;
         this.hasSoundAlert = false;
+        parseDateStrings();
     }
 
-    private String generateId() {
-        return "event_" + System.currentTimeMillis();
+    private void updateDateStrings() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        if (startDate != null) {
+            startDateString = format.format(startDate);
+        }
+        if (endDate != null) {
+            endDateString = format.format(endDate);
+        }
+    }
+
+    private void parseDateStrings() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            if (startDateString != null && !startDateString.isEmpty()) {
+                startDate = format.parse(startDateString);
+            }
+            if (endDateString != null && !endDateString.isEmpty()) {
+                endDate = format.parse(endDateString);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Getters and setters
@@ -73,6 +90,7 @@ public class Event {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+        updateDateStrings();
     }
 
     public Date getEndDate() {
@@ -81,6 +99,7 @@ public class Event {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+        updateDateStrings();
     }
 
     public boolean isAllDay() {
@@ -99,60 +118,56 @@ public class Event {
         this.hasSoundAlert = hasSoundAlert;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getFormattedDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        return dateFormat.format(startDate);
-    }
-
-    public String getFormattedTime() {
-        if (isAllDay) {
-            return "All day";
-        }
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        return timeFormat.format(startDate) + " - " + timeFormat.format(endDate);
-    }
-
-    public boolean isOnDate(int year, int month, int day) {
-        Calendar eventCal = Calendar.getInstance();
-        eventCal.setTime(startDate);
-
-        return eventCal.get(Calendar.YEAR) == year &&
-               eventCal.get(Calendar.MONTH) == month &&
-               eventCal.get(Calendar.DAY_OF_MONTH) == day;
-    }
-
-    public int getDay() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDate);
-        return cal.get(Calendar.DAY_OF_MONTH);
-    }
-
-    public int getMonth() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDate);
-        return cal.get(Calendar.MONTH);
-    }
-
-    public int getYear() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDate);
-        return cal.get(Calendar.YEAR);
-    }
-
-    // Methods to get String dates for Firestore
     public String getStartDateString() {
-        return startDate != null ? FIRESTORE_DATE_FORMAT.format(startDate) : "";
+        if (startDateString == null && startDate != null) {
+            updateDateStrings();
+        }
+        return startDateString;
+    }
+
+    public void setStartDateString(String startDateString) {
+        this.startDateString = startDateString;
+        parseDateStrings();
     }
 
     public String getEndDateString() {
-        return endDate != null ? FIRESTORE_DATE_FORMAT.format(endDate) : "";
+        if (endDateString == null && endDate != null) {
+            updateDateStrings();
+        }
+        return endDateString;
+    }
+
+    public void setEndDateString(String endDateString) {
+        this.endDateString = endDateString;
+        parseDateStrings();
+    }
+
+    public String getFormattedDate() {
+        if (startDate != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+            return format.format(startDate);
+        }
+        return "";
+    }
+
+    public String getFormattedTime() {
+        if (startDate != null) {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            return format.format(startDate);
+        }
+        return "";
+    }
+
+    public boolean isOnDate(int year, int month, int day) {
+        if (startDate == null) {
+            return false;
+        }
+
+        Calendar eventCalendar = Calendar.getInstance();
+        eventCalendar.setTime(startDate);
+
+        return eventCalendar.get(Calendar.YEAR) == year &&
+               eventCalendar.get(Calendar.MONTH) == month &&
+               eventCalendar.get(Calendar.DAY_OF_MONTH) == day;
     }
 }
