@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group.campus.R;
-import com.group.campus.model.Suggestion;
+import com.group.campus.models.Suggestion;
 
 import java.util.ArrayList;
 import java.util.List;

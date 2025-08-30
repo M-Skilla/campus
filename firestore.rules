@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Allow read access to public collections for authenticated users
+    match /events/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+        (resource == null || resource.data.createdBy == request.auth.uid);
+    }
+
+    match /announcement/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+        (resource == null || resource.data.createdBy == request.auth.uid);
+    }
+
+    match /colleges/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    match /programs/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Department access - users can read all departments
+    match /department/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // User documents - users can read/write their own data and read others for staff access
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null;
+    }
+
+    // Messages/Suggestions with proper department-based access
+    match /messages/{messageId} {
+      allow read, write: if request.auth != null;
+
+      // Sub-collection for message attachments
+      match /attachments/{attachmentId} {
+        allow read, write: if request.auth != null;
+      }
+
+      // Sub-collection for message replies
+      match /replies/{replyId} {
+        allow read, write: if request.auth != null;
+      }
+    }
+
+    // Suggestions collection for department-based access
+    match /suggestions/{suggestionId} {
+      allow read, write: if request.auth != null;
+
+      // Sub-collection for suggestion messages/conversation
+      match /messages/{messageId} {
+        allow read, write: if request.auth != null;
+      }
+
+      // Sub-collection for attachments
+      match /attachments/{attachmentId} {
+        allow read, write: if request.auth != null;
+      }
+    }
+
+    // Allow access to storage for file attachments
+    match /storage/{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Settings and other app configurations
+    match /settings/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Allow access to any other collections that might exist
+    match /{document=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+  }
+}

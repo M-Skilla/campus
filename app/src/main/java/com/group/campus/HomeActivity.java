@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button button;
 
-    private int previousItemId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +57,9 @@ public class HomeActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.profileItem) {
                 selectedFragment = new ProfileFragment();
             } else if (item.getItemId() == R.id.suggestionsItem) {
+                // Use default constructor for the new suggestions landing page
                 selectedFragment = new SuggestionsFragment();
             }
-            else if (item.getItemId() == R.id.fragment_container) {
-                selectedFragment = new CalendarFragment();
-            }
-
-
-
-
             if (selectedFragment != null) {
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -75,34 +67,7 @@ public class HomeActivity extends AppCompatActivity {
                         .commit();
                 return true;
             }
-
             return false;
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Fragment prevFragment = getSupportFragmentManager().findFragmentById(previousItemId);
-        if (prevFragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, prevFragment)
-                    .commit();
-            bottomNav.setSelectedItemId(previousItemId);
-        } else {
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new AnnouncementFragment())
-                .commit();
-            bottomNav.setSelectedItemId(R.id.announcementsItem);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        previousItemId = bottomNav.getSelectedItemId();
-
     }
 }

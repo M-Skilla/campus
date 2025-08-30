@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.group.campus.R;
-import com.group.campus.model.Suggestion;
+import com.group.campus.models.Suggestion;
 
 import java.util.Objects;
 
@@ -180,7 +180,7 @@ public class SuggestionAdapter extends ListAdapter<Suggestion, RecyclerView.View
             tvMessage.setVisibility(View.VISIBLE);
             tvMessage.setText(suggestion.getText());
             tvTimestamp.setText(suggestion.getFormattedTime());
-            updateStatusIcon(suggestion.getStatus());
+            updateStatusIcon(suggestion.getStatusEnum());
 
             if (suggestion.hasAttachment()) {
                 loadAttachment(ivAttachment, suggestion, itemView.getContext());
