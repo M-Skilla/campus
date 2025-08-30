@@ -14,7 +14,7 @@
         android:text="September 23"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:layout_marginBottom="16dp"
         android:gravity="center" />
 
