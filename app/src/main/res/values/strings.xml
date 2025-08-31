@@ -1,5 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Campus</string>
+
+    <string name="staff_info">%1$s - %2$s Department</string>
+
+    <!-- Announcement / Views -->
+    <string name="views_icon">Views</string>
+    <string name="view_count">%1$d views</string>
+    <string name="time_icon">Time</string>
+    <string name="read_time">%1$s read</string>
+
+    <!-- Actions -->
+    <string name="share">Share</string>
+    <string name="more_actions">More actions</string>
+
+    <!-- Contact -->
+    <string name="contact_information">Contact information</string>
+    <string name="email">Email</string>
+
+    <!-- Settings -->
+
     <string name="campus_connect">CampusConnect</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="back">Back</string>
@@ -7,7 +27,6 @@
     <string name="Regstration_number"></string>
     <string name="user_role">Student</string>
     <string name="user_information">User Information</string>
-    <string name="email">student@udom.ac.tz</string>
     <string name="course">Computer Science</string>
     <string name="year_of_study">Year: 2024/2025</string>
     <string name="event_registration">Event Registration</string>
@@ -17,73 +36,44 @@
     <string name="activity">Recent Activity</string>
     <string name="date_arrow">20/0111 →</string>
     <string name="settings">Settings</string>
-    <string name="log_out">Log Out</string>
-    <string name="account_settings">ACCOUNT SETTINGS</string>
-    <string name="change_password">Change Password</string>
-    <string name="manage_devices">Manage Devices/Sessions</string>
-    <string name="app_preferences">APP PREFERENCES and GENERAL</string>
-    <string name="theme_appearance">Dark Theme</string>
+    <string name="account_settings">Account settings</string>
+    <string name="change_password">Change password</string>
+    <string name="app_preferences">App preferences</string>
+    <string name="theme_appearance">Theme &amp; appearance</string>
     <string name="language">Language</string>
     <string name="english">English</string>
-    <string name="notification_settings">NOTIFICATION SETTINGS</string>
-    <string name="enable_disable_notifications">Enable/Disable Notifications</string>
-    <string name="new_announcements">New Announcements</string>
-    <string name="event_reminders">Event Reminders</string>
-    <string name="new_event_postings">New Event Postings</string>
-    <string name="suggestion_updates">Suggestion/Complaint Updates</string>
-    <string name="sound_vibration_led">Sound, Vibration and LED</string>
-    <string name="customize_notification_style">Customize notification style</string>
-    <string name="privacy_settings">PRIVACY SETTINGS</string>
-    <string name="anonymous_submissions">Anonymous Submissions (default)</string>
-    <string name="data_policy">Data Policy</string>
-    <string name="view_data_policy">View data policy</string>
-    <string name="help_support">HELP and SUPPORT</string>
-    <string name="faq">FAQ (Frequently Asked Questions)</string>
-    <string name="view_faqs">View FAQs</string>
-    <string name="contact_support">Contact Support</string>
-    <string name="contact_support_desc">Contact support</string>
-    <string name="report_bug">Report a Bug</string>
-    <string name="report_bug_desc">Report a bug</string>
-    <string name="send_feedback">Send Feedback</string>
-    <string name="send_feedback_desc">Send feedback</string>
-    <string name="about_legal">ABOUT and LEGAL</string>
-    <string name="app_version">App Version</string>
+    <string name="notification_settings">Notification settings</string>
+    <string name="enable_disable_notifications">Enable / disable notifications</string>
+
+    <!-- Notification Types -->
+    <string name="new_announcements">New announcements</string>
+    <string name="event_reminders">Event reminders</string>
+    <string name="new_event_postings">New event postings</string>
+    <string name="suggestion_updates">Suggestion updates</string>
+
+    <!-- Privacy Settings -->
+    <string name="privacy_settings">Privacy settings</string>
+    <string name="anonymous_submissions">Anonymous submissions</string>
+
+    <!-- About & Legal -->
+    <string name="about_legal">About &amp; Legal</string>
+    <string name="app_version">App version</string>
     <string name="version_1_0_0">1.0.0</string>
 
-    <!-- Announcement list item strings -->
-    <string name="share">Share</string>
-    <string name="bookmark">Bookmark</string>
-    <string name="more_options">More options</string>
-    <string name="view_count">%d views</string>
-    <string name="read_time">%d min read</string>
-    <string name="status_new">New</string>
-    <string name="status_important">Important</string>
-    <string name="status_urgent">Urgent</string>
-    <string name="views_icon">Views</string>
-    <string name="time_icon">Reading time</string>
+    <!-- Profile / UI -->
+    <string name="alex_johnson">Alex Johnson</string>
 
-    <!-- Announcement view page strings -->
-    <string name="more_actions">More Actions</string>
-    <string name="contact_information">Contact Information</string>
-
-
-    <!-- Category strings with emojis -->
-    <string name="category_all">📢 All</string>
-    <string name="category_events">🎉 Events</string>
-    <string name="category_notices">📋 Notices</string>
-    <string name="category_holidays">🏖️ Holidays</string>
-    <string name="category_academic">📚 Academic</string>
-    <string name="category_sports">⚽ Sports</string>
-
-    <!-- Suggestions Feature Strings -->
-    <string name="attach_file">Attach file</string>
-    <string name="send_message">Send message</string>
-    <string name="attachment_thumbnail">Attachment thumbnail</string>
-    <string name="attachment_icon">Attachment icon</string>
+    <!-- Suggestion / Chat -->
     <string name="attachment_preview">Attachment preview</string>
-    <string name="remove_attachment">Remove attachment</string>
     <string name="message_status">Message status</string>
-    <string name="choose_department">Choose department</string>
+    <string name="bookmark">Bookmark</string>
 
+    <!-- Categories (optional) -->
+    <string name="category_all">All</string>
+    <string name="category_events">Events</string>
+    <string name="category_notices">Notices</string>
+    <string name="category_holidays">Holidays</string>
+    <string name="category_academic">Academic</string>
+    <string name="log_out">Logout</string>
 
 </resources>

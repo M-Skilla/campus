@@ -103,7 +103,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/jakarta_medium"
-                    android:text="@string/user_role"
+                    android:text=""
                     android:textColor="@android:color/darker_gray"
                     android:textSize="20sp" />
 
@@ -229,7 +229,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:text="@string/course"
+                        android:text=""
                         android:textSize="16sp"
                         android:fontFamily="@font/jakarta_bold"
                         android:textColor="?attr/colorOnSurface"

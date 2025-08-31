@@ -40,8 +40,10 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private Button button;
+
     CustomBottomNavView bottomNavView;
     private int previousItemId;
+
 
     private final String TAG = "HomeActivity";
     private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "The app won't show notifications", Toast.LENGTH_SHORT).show();
         }
     });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
+
 
 
         View navView = findViewById(R.id.customBottomNav);
@@ -94,4 +98,5 @@ public class HomeActivity extends AppCompatActivity {
     public CustomBottomNavView getCustomBottomNavView() {
         return bottomNavView;
     }
+
 }

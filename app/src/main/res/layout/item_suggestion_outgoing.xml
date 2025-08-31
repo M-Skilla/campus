@@ -29,7 +29,7 @@
             android:layout_gravity="end"
             app:cardCornerRadius="18dp"
             app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/bubbleOutgoing">
+            app:cardBackgroundColor="@color/md_theme_surfaceContainer">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                     android:id="@+id/tvMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textPrimary"
+                    android:textColor="@color/md_theme_onSurface"
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
                     android:textIsSelectable="true"
@@ -75,7 +75,7 @@
                         android:id="@+id/tvTimestamp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/textPrimary"
+                        android:textColor="@color/md_theme_onSurface"
                         android:textSize="12sp"
                         android:alpha="0.8"
                         tools:text="2:34 PM" />
@@ -88,7 +88,7 @@
                         android:layout_marginStart="4dp"
                         android:src="@drawable/ic_check"
                         android:contentDescription="@string/message_status"
-                        app:tint="@color/textPrimary"
+                        app:tint="@color/md_theme_onSurface"
                         android:alpha="0.8" />
 
                 </LinearLayout>

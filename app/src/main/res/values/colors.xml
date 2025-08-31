@@ -150,43 +150,20 @@
     <color name="icon_bubble">#F3E9FF</color>  <!-- even lighter bubble -->
     <color name="purple_700">#6200EE</color>
 
-    <!-- Campus Theme Colors -->
-    <color name="primary_blue">#2E86AB</color>
-    <color name="primary_blue_dark">#1A5490</color>
-    <color name="accent_orange">#F24236</color>
-    <color name="accent_green">#A23B72</color>
-    <color name="light_gray">#F5F7FA</color>
-    <color name="text_dark">#2C3E50</color>
-    <color name="text_light">#7F8C8D</color>
-    <color name="background_gradient_start">#667eea</color>
-    <color name="background_gradient_end">#764ba2</color>
-    <color name="card_background">#FFFFFF</color>
-    <color name="shadow_color">#1A000000</color>
-    <color name="grey">#564C4C</color>
+    <!-- Missing colors for suggestions feature -->
+    <color name="colorAccent">#425E91</color>
+    <color name="colorBackgroundStart">#1A1C20</color>
+    <color name="colorBackgroundEnd">#2E3036</color>
+    <color name="bubbleIncoming">#E8E7EE</color>
+    <color name="bubbleOutgoing">#425E91</color>
+    <color name="inputBackground">#F3F3FA</color>
+    <color name="dividerColor">#C4C6D0</color>
+    <color name="textPrimary">#1A1C20</color>
+    <color name="textSecondary">#74777F</color>
+    <color name="textMuted">#C4C6D0</color>
 
-    <!-- Loading overlay colors -->
-    <color name="loading_overlay_background">#80000000</color> <!-- Semi-transparent black -->
+    <!-- Additional missing colors -->
+    <color name="loading_overlay_background">#80000000</color>
+    <color name="accent_orange">#FF9800</color>
 
-    <!-- Chat Bubble Colors -->
-    <color name="chat_bubble_user">#425E91</color>
-    <color name="chat_bubble_ai">#E0E2EC</color>
-
-    <!-- Legacy/compat alias used by some drawables -->
-    <color name="colorAccent">@color/md_theme_primary</color>
-
-    <!-- Suggestions UI palette (mapped to existing theme colors for consistency) -->
-    <color name="bubbleOutgoing">@color/chat_bubble_user</color>
-    <color name="bubbleIncoming">@color/chat_bubble_ai</color>
-
-    <!-- General UI helpers -->
-    <color name="dividerColor">@color/md_theme_outlineVariant</color>
-    <color name="textMuted">@color/text_light</color>
-    <color name="inputBackground">@color/md_theme_surfaceContainer</color>
-
-    <!-- Gradient aliases expected by drawables -->
-    <color name="colorBackgroundStart">@color/background_gradient_start</color>
-    <color name="colorBackgroundEnd">@color/background_gradient_end</color>
-
-    <color name="textPrimary">@color/md_theme_onSurface</color>
-    <color name="textSecondary">@color/md_theme_onSurfaceVariant</color>
 </resources>

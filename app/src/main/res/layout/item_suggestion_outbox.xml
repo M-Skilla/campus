@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Status Indicator -->
+        <View
+            android:id="@+id/status_indicator"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:background="@color/md_theme_primary" />
+
+        <!-- Department Icon -->
+        <ImageView
+            android:id="@+id/iv_department_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_health"
+            android:background="@drawable/circle_background"
+            android:backgroundTint="@color/health_bg"
+            app:tint="@color/health_icon"
+            android:padding="12dp"
+            android:layout_marginEnd="12dp"/>
+
+        <!-- Content -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Header Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_department"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Health Department"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/md_theme_onSurface" />
+
+                <ImageView
+                    android:id="@+id/iv_status_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_done"
+                    app:tint="@color/status_delivered"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DELIVERED"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_delivered" />
+
+            </LinearLayout>
+
+            <!-- Subject -->
+            <TextView
+                android:id="@+id/tv_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Subject Line"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_onSurfaceVariant"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- Delivery Status -->
+            <TextView
+                android:id="@+id/tv_delivery_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Delivered to Health Department"
+                android:textSize="12sp"
+                android:textColor="@color/md_theme_onSurfaceVariant"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- Time -->
+            <TextView
+                android:id="@+id/tv_last_message_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Aug 29, 14:30"
+                android:textSize="12sp"
+                android:textColor="@color/md_theme_outline" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
