@@ -12,14 +12,17 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+
 import com.group.campus.R;
 import com.group.campus.service.UserRoleService;
 
 public class SuggestionsFragment extends Fragment {
 
+
     private MaterialButton btnOutbox, btnInbox, btnStaffView;
     private MaterialCardView cardHealth, cardFacilities, cardLibrary;
     private UserRoleService userRoleService;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class SuggestionsFragment extends Fragment {
     }
 
     private void initViews(View view) {
+
         btnOutbox = view.findViewById(R.id.btn_outbox);
         btnInbox = view.findViewById(R.id.btn_inbox);
         btnStaffView = view.findViewById(R.id.btn_staff_view);
@@ -55,11 +59,13 @@ public class SuggestionsFragment extends Fragment {
         btnInbox.setOnClickListener(v -> openInbox());
         btnStaffView.setOnClickListener(v -> navigateToStaffIfAllowed());
 
+
         // Department card clicks
         cardHealth.setOnClickListener(v -> openWriteSuggestion("Health"));
         cardFacilities.setOnClickListener(v -> openWriteSuggestion("Facilities"));
         cardLibrary.setOnClickListener(v -> openWriteSuggestion("Library"));
     }
+
 
     private void openWriteSuggestion(String department) {
         WriteSuggestionFragment fragment = WriteSuggestionFragment.newInstance(department, null, false);
@@ -67,6 +73,7 @@ public class SuggestionsFragment extends Fragment {
             .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit();
+
     }
 
     private void openOutbox() {

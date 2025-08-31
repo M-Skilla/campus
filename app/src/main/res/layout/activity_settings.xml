@@ -480,6 +480,58 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="@color/md_theme_surfaceContainerLow"
+                    app:cardElevation="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:padding="8dp">
+                        <LinearLayout
+                            android:id="@+id/item_logout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="12dp"
+                            android:clickable="true"
+                            android:background="?android:attr/selectableItemBackground"
+                            >
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/exit_icon"
+                                android:layout_marginEnd="9dp"
+                                app:tint="@color/md_theme_errorContainer_mediumContrast"
+                                />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/jakarta_medium"
+                                android:text="@string/log_out"
+                                android:textSize="16sp"
+                                android:textColor="@color/md_theme_errorContainer_mediumContrast" />
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                app:tint="@color/md_theme_errorContainer_mediumContrast"
+                                android:src="@drawable/chevron_right_icon"
+                                android:contentDescription="@string/log_out" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
         </ScrollView>
 

@@ -98,31 +98,30 @@
             android:textColor="?attr/colorOnSurfaceVariant" />
     </LinearLayout>
 
-    <!-- Reminder Status -->
+    <!-- Reminder Switch -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reminder: "
+            android:text="Set Reminder: "
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="?attr/colorOnSurface" />
 
-        <TextView
-            android:id="@+id/tv_reminder_status"
-            android:layout_width="0dp"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_reminder"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="No reminder set"
-            android:textSize="16sp"
-            android:fontFamily="@font/jakarta_regular"
-            android:textColor="?attr/colorOnSurfaceVariant" />
+            android:layout_marginStart="8dp"
+            android:checked="false" />
+
     </LinearLayout>
 
     <!-- Close Button -->
