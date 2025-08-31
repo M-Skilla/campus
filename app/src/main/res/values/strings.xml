@@ -74,5 +74,6 @@
     <string name="category_notices">Notices</string>
     <string name="category_holidays">Holidays</string>
     <string name="category_academic">Academic</string>
+    <string name="log_out">Logout</string>
 
 </resources>

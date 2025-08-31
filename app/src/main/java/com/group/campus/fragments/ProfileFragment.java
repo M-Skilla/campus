@@ -133,7 +133,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void updateUI(String name, String registrationNumber, String imageUrl) {
+    private void updateUI(String name, String registrationNumber, String course, String role, String imageUrl) {
 
         if (!isAdded() || getActivity() == null || isDetached()) {
             return;
