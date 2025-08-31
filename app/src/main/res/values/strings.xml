@@ -27,7 +27,6 @@
     <string name="Regstration_number"></string>
     <string name="user_role">Student</string>
     <string name="user_information">User Information</string>
-    <string name="email">student@udom.ac.tz</string>
     <string name="course">Computer Science</string>
     <string name="year_of_study">Year: 2024/2025</string>
     <string name="event_registration">Event Registration</string>
