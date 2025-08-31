@@ -61,10 +61,7 @@
     <string name="version_1_0_0">1.0.0</string>
 
     <!-- Profile / UI -->
-    <string name="campus_connect">Campus Connect</string>
     <string name="alex_johnson">Alex Johnson</string>
-    <string name="user_role">Student</string>
-    <string name="course">Computer Science</string>
 
     <!-- Suggestion / Chat -->
     <string name="attachment_preview">Attachment preview</string>
