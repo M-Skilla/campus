@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 public class Announcement implements Parcelable {
+
+    private String id;
+
+
     private String body, title, department;
 
     private Date createdAt;
@@ -17,6 +21,13 @@ public class Announcement implements Parcelable {
     public Announcement() {
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public List<String> getImageUrls() {
         return imageUrls;
     }

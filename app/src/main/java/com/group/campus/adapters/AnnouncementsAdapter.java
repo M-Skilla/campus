@@ -7,11 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.group.campus.R;
 import com.group.campus.models.Announcement;
+import com.group.campus.utils.AnnouncementDiffCallback;
 import com.group.campus.utils.OnItemClickListener;
 import com.group.campus.utils.DateUtils;
 import com.group.campus.utils.HtmlRenderer;
@@ -61,9 +63,10 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     }
 
     public void updateList(List<Announcement> newList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new AnnouncementDiffCallback(this.announcements, newList));
         announcements.clear();
         announcements.addAll(newList);
-        notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -93,13 +96,13 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
             Glide.with(holder.itemView.getContext())
                     .load(profilePictureUrls)
                     .placeholder(R.drawable.profile_image)
-                    .error(R.drawable.profile_error)
+                    .error(R.drawable.profile_image)
                     .into(holder.avatar);
         } else {
             Glide.with(holder.itemView.getContext())
                     .load((String) null)
                     .placeholder(R.drawable.profile_image)
-                    .error(R.drawable.profile_error)
+                    .error(R.drawable.profile_image)
                     .into(holder.avatar);
         }
         List<String> imageUrls = announcements.get(position).getImageUrls();
