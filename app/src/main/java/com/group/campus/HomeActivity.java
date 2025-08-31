@@ -30,8 +30,10 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private Button button;
+
     CustomBottomNavView bottomNavView;
     private int previousItemId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
+
 
 
         View navView = findViewById(R.id.customBottomNav);
@@ -118,4 +121,5 @@ public class HomeActivity extends AppCompatActivity {
     public CustomBottomNavView getCustomBottomNavView() {
         return bottomNavView;
     }
+
 }

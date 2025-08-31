@@ -41,6 +41,7 @@ public class ProfileFragment extends Fragment {
     private TextView nameInput;
     private TextView registrationInput;
     private TextView courseInput;
+    private TextView userRoleTextView;
 
     private CircularProgressIndicator progressIndicator;
 
@@ -64,6 +65,7 @@ public class ProfileFragment extends Fragment {
         nameInput = view.findViewById(R.id.name_input);
         registrationInput = view.findViewById(R.id.registrationEditText);
         courseInput = view.findViewById(R.id.course_input);
+        userRoleTextView = view.findViewById(R.id.user_id);
         profileImageView = view.findViewById(R.id.profile_image);
 
         progressIndicator = view.findViewById(R.id.progress_indicator);
@@ -111,10 +113,12 @@ public class ProfileFragment extends Fragment {
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                         String name = document.getString("fullName");
                         String regNumber = document.getString("regNo");
+                        String course = document.getString("course");
+                        String role = document.getString("role");
                         String imageUrl = document.getString("profilePicUrl");
 
                         // Update UI with fetched data
-                        updateUI(name, regNumber, imageUrl); // New: Pass imageUrl to updateUI
+                        updateUI(name, regNumber, course, role, imageUrl);
                         Log.d(TAG, "User data fetched successfully");
                     } else {
                         Log.d(TAG, "No user found with registration number: " + registrationNumber);
@@ -128,11 +132,13 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    private void updateUI(String name, String registrationNumber, String imageUrl) {
+
+    private void updateUI(String name, String registrationNumber, String course, String role, String imageUrl) {
 
         if (!isAdded() || getActivity() == null || isDetached()) {
             return;
         }
+
 
         if (name != null && !name.isEmpty()) {
             nameInput.setText(name);
@@ -142,6 +148,14 @@ public class ProfileFragment extends Fragment {
             registrationInput.setText(registrationNumber);
         }
 
+        if (course != null && !course.isEmpty()) {
+            courseInput.setText(course);
+        }
+
+        if (role != null && !role.isEmpty()) {
+            userRoleTextView.setText(role);
+        }
+
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(this)
                     .load(imageUrl)
@@ -149,7 +163,6 @@ public class ProfileFragment extends Fragment {
                     .error(R.drawable.profile_error) // Optional: Error image
                     .into(profileImageView);
         }
-
 
     }
 

@@ -18,7 +18,7 @@
         android:background="@drawable/avatar_background"
         android:gravity="center"
         tools:text="U"
-        android:textColor="@color/textPrimary"
+        android:textColor="@color/md_theme_onSurface"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
             android:layout_gravity="start"
             app:cardCornerRadius="18dp"
             app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/bubbleIncoming">
+            app:cardBackgroundColor="@color/md_theme_surfaceContainer">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                     android:id="@+id/tvMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textSecondary"
+                    android:textColor="@color/md_theme_onSurface"
                     android:textSize="16sp"
                     android:lineSpacingExtra="2dp"
                     android:textIsSelectable="true"
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="4dp"
-                    android:textColor="@color/textMuted"
+                    android:textColor="@color/md_theme_onSurfaceVariant"
                     android:textSize="12sp"
                     tools:text="2:34 PM" />
 

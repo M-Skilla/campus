@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -247,20 +248,47 @@ public class SuggestionViewModel extends ViewModel {
                                 String text, boolean isAnonymous, ArrayList<String> fileUrls,
                                 SubmissionCallback callback) {
 
-        Suggestion suggestion = new Suggestion(suggestionId, senderId, receiverId, text,
-                                             isAnonymous, System.currentTimeMillis());
-        suggestion.setFiles(fileUrls);
+        // Get user info first for the new constructor
+        FirebaseFirestore.getInstance().collection("users").document(senderId)
+            .get()
+            .addOnSuccessListener(userDoc -> {
+                String senderName = userDoc.getString("fullName");
+                String senderRegNo = userDoc.getString("regNo");
 
-        databaseRef.child("suggestions").child(suggestionId).setValue(suggestion)
-            .addOnSuccessListener(aVoid -> {
-                uploadProgressLiveData.setValue(false);
-                successMessageLiveData.setValue("Suggestion submitted successfully");
-                sendNotificationToReceiver(receiverId, text, isAnonymous);
-                if (callback != null) callback.onSuccess();
+                // Use the new Suggestion constructor
+                Suggestion suggestion = new Suggestion(
+                    suggestionId,
+                    senderId,
+                    senderName != null ? senderName : "",
+                    senderRegNo != null ? senderRegNo : "",
+                    receiverId, // department name
+                    "Suggestion", // subject
+                    text,
+                    isAnonymous,
+                    System.currentTimeMillis()
+                );
+
+                // Add file URLs as attachments
+                for (String url : fileUrls) {
+                    suggestion.addAttachment("file", url, "file", 0);
+                }
+
+                databaseRef.child("suggestions").child(suggestionId).setValue(suggestion)
+                    .addOnSuccessListener(aVoid -> {
+                        uploadProgressLiveData.setValue(false);
+                        successMessageLiveData.setValue("Suggestion submitted successfully");
+                        sendNotificationToReceiver(receiverId, text, isAnonymous);
+                        if (callback != null) callback.onSuccess();
+                    })
+                    .addOnFailureListener(e -> {
+                        uploadProgressLiveData.setValue(false);
+                        errorMessageLiveData.setValue("Failed to submit suggestion: " + e.getMessage());
+                        if (callback != null) callback.onFailure(e.getMessage());
+                    });
             })
             .addOnFailureListener(e -> {
                 uploadProgressLiveData.setValue(false);
-                errorMessageLiveData.setValue("Failed to submit suggestion: " + e.getMessage());
+                errorMessageLiveData.setValue("Failed to get user info: " + e.getMessage());
                 if (callback != null) callback.onFailure(e.getMessage());
             });
     }
@@ -362,20 +390,47 @@ public class SuggestionViewModel extends ViewModel {
     private void createSuggestionForDepartment(String suggestionId, String senderId, String department,
                                                String text, boolean isAnonymous, ArrayList<String> fileUrls,
                                                SubmissionCallback callback) {
-        Suggestion suggestion = new Suggestion(suggestionId, senderId, department, text,
-                isAnonymous, System.currentTimeMillis(), true);
-        suggestion.setFiles(fileUrls);
 
-        databaseRef.child("suggestions").child(suggestionId).setValue(suggestion)
-            .addOnSuccessListener(aVoid -> {
-                uploadProgressLiveData.setValue(false);
-                successMessageLiveData.setValue("Suggestion submitted successfully");
-                // Optionally notify all staff in department via a Cloud Function (not implemented here)
-                if (callback != null) callback.onSuccess();
+        // Get user info first for the new constructor
+        FirebaseFirestore.getInstance().collection("users").document(senderId)
+            .get()
+            .addOnSuccessListener(userDoc -> {
+                String senderName = userDoc.getString("fullName");
+                String senderRegNo = userDoc.getString("regNo");
+
+                // Use the new Suggestion constructor with department routing
+                Suggestion suggestion = new Suggestion(
+                    suggestionId,
+                    senderId,
+                    senderName != null ? senderName : "",
+                    senderRegNo != null ? senderRegNo : "",
+                    department, // receiver department
+                    "Suggestion", // subject
+                    text,
+                    isAnonymous,
+                    System.currentTimeMillis()
+                );
+
+                // Add file URLs as attachments
+                for (String url : fileUrls) {
+                    suggestion.addAttachment("file", url, "file", 0);
+                }
+
+                databaseRef.child("suggestions").child(suggestionId).setValue(suggestion)
+                    .addOnSuccessListener(aVoid -> {
+                        uploadProgressLiveData.setValue(false);
+                        successMessageLiveData.setValue("Suggestion submitted successfully");
+                        if (callback != null) callback.onSuccess();
+                    })
+                    .addOnFailureListener(e -> {
+                        uploadProgressLiveData.setValue(false);
+                        errorMessageLiveData.setValue("Failed to submit suggestion: " + e.getMessage());
+                        if (callback != null) callback.onFailure(e.getMessage());
+                    });
             })
             .addOnFailureListener(e -> {
                 uploadProgressLiveData.setValue(false);
-                errorMessageLiveData.setValue("Failed to submit suggestion: " + e.getMessage());
+                errorMessageLiveData.setValue("Failed to get user info: " + e.getMessage());
                 if (callback != null) callback.onFailure(e.getMessage());
             });
     }
