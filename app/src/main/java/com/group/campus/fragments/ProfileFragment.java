@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.group.campus.R;
 import com.group.campus.SettingsActivity;
+import com.group.campus.models.Programme;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -52,13 +54,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        // Initialize Firestore and UserSession
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         db = FirebaseFirestore.getInstance();
 
         // Initialize views
@@ -81,6 +77,7 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(requireActivity(), SettingsActivity.class);
             startActivity(intent);
         });
+        return view;
     }
 
     private void fetchUserDataFromFirestore() {
@@ -113,12 +110,17 @@ public class ProfileFragment extends Fragment {
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                         String name = document.getString("fullName");
                         String regNumber = document.getString("regNo");
-                        String course = document.getString("course");
-                        String role = document.getString("role");
                         String imageUrl = document.getString("profilePicUrl");
+                        Programme programme = document.get("programme", Programme.class);
+                        String course = "N/A";
+                        if (programme != null) {
+                            course = String.format("%s (%s)", programme.getName(), programme.getAbbrv());
+                        }
 
                         // Update UI with fetched data
-                        updateUI(name, regNumber, course, role, imageUrl);
+
+                        updateUI(name, regNumber, imageUrl, course); // New: Pass imageUrl to updateUI
+
                         Log.d(TAG, "User data fetched successfully");
                     } else {
                         Log.d(TAG, "No user found with registration number: " + registrationNumber);
@@ -133,7 +135,8 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void updateUI(String name, String registrationNumber, String course, String role, String imageUrl) {
+    private void updateUI(String name, String registrationNumber, String imageUrl, String course) {
+
 
         if (!isAdded() || getActivity() == null || isDetached()) {
             return;
@@ -150,10 +153,6 @@ public class ProfileFragment extends Fragment {
 
         if (course != null && !course.isEmpty()) {
             courseInput.setText(course);
-        }
-
-        if (role != null && !role.isEmpty()) {
-            userRoleTextView.setText(role);
         }
 
         if (imageUrl != null && !imageUrl.isEmpty()) {

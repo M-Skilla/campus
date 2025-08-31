@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/jakarta_font_family"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="?attr/colorOnSurface"
             android:lineSpacingMultiplier="1.2"
             android:letterSpacing="0.005"
@@ -129,106 +129,18 @@
             android:layout_height="180dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-
             app:shapeAppearanceOverlay="@style/RoundedImageView"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             tools:visibility="visible" />
 
         <!-- Action bar with enhanced buttons -->
-        <LinearLayout
-            android:id="@+id/action_bar"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"
-            android:baselineAligned="false">
-
-            <!-- Share button on the left -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_share"
-                style="@style/Widget.Material3.Button.TextButton.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="@string/share"
-                android:textSize="13sp"
-                android:fontFamily="@font/jakarta_font_family"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"
-                app:icon="@drawable/ic_share_24"
-                app:iconTint="?attr/colorPrimary"
-                app:iconSize="18dp"
-                app:iconGravity="start"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:rippleColor="?attr/colorPrimary" />
-
-            <!-- Engagement stats in the middle -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:visibility="invisible"
-                android:layout_marginHorizontal="16dp">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_notifications"
-                    app:tint="?attr/colorOnSurfaceVariant"
-                    android:layout_marginEnd="4dp"
-                    android:contentDescription="@string/views_icon" />
-
-                <TextView
-                    android:id="@+id/textView_view_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_count"
-                    android:textSize="12sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:fontFamily="@font/jakarta_font_family"
-                    android:layout_marginEnd="16dp"
-                    tools:text="124 views" />
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_calendar"
-                    app:tint="?attr/colorOnSurfaceVariant"
-                    android:layout_marginEnd="4dp"
-                    android:contentDescription="@string/time_icon" />
-
-                <TextView
-                    android:id="@+id/textView_read_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/read_time"
-                    android:textSize="12sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:fontFamily="@font/jakarta_font_family"
-                    tools:text="2 min read" />
-
-            </LinearLayout>
-
-            <!-- Bookmark button on the right -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_bookmark"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:icon="@drawable/ic_bookmark_border_24"
-                app:iconTint="?attr/colorPrimary"
-                app:iconSize="20dp"
-                app:iconGravity="textStart"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:contentDescription="@string/bookmark"
-                app:rippleColor="?attr/colorPrimary" />
-
-        </LinearLayout>
+            android:text="Click to view more..."
+            android:fontFamily="@font/jakarta_regular"
+            android:textColor="@color/md_theme_primary"
+            />
 
 
     </LinearLayout>

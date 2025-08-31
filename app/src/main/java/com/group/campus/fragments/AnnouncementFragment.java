@@ -37,6 +37,7 @@ import com.group.campus.adapters.SearchAnnouncementsAdapter;
 import com.group.campus.dialogs.AddAnnouncementDialog;
 import com.group.campus.dialogs.AiQueryDialog;
 import com.group.campus.models.Announcement;
+import com.group.campus.service.FBMessagingService;
 import com.group.campus.utils.AlgoliaApi;
 import com.group.campus.utils.AlgoliaClient;
 
@@ -138,6 +139,8 @@ public class AnnouncementFragment extends Fragment {
             dialog.show(getParentFragmentManager(), "AiQueryDialog");
         });
 
+
+
         return view;
     }
 
@@ -188,23 +191,20 @@ public class AnnouncementFragment extends Fragment {
 
                         if (error != null) {
                             Log.e(TAG, "Listen failed.", error);
-                            return;
-                        }
-
-                        swipeRefreshLayout.setRefreshing(false);
-                        if (error != null) {
                             Toast.makeText(requireContext(), "Error fetching data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        if (value != null && !value.isEmpty()) {
-                            announcementList.clear();
+                        swipeRefreshLayout.setRefreshing(false);
 
+                        if (value != null && !value.isEmpty()) {
+                            List<Announcement> announcements = new ArrayList<>();
                             for (DocumentSnapshot document : value.getDocuments()) {
                                 try {
                                     Announcement announcement = document.toObject(Announcement.class);
                                     if (announcement != null) {
-                                        announcementList.add(announcement);
+                                        announcement.setId(document.getId());
+                                        announcements.add(announcement);
                                     }
                                 } catch (Exception e) {
                                     Toast.makeText(requireContext(), "Error parsing announcement" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -212,14 +212,13 @@ public class AnnouncementFragment extends Fragment {
                                 }
                             }
 
-                            adapter.notifyDataSetChanged();
+                            adapter.updateList(announcements);
 
-                            if (!announcementList.isEmpty()) {
-                                
+                            if (announcementList.isEmpty()) {
+                                Toast.makeText(requireContext(), "List Empty", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            announcementList.clear();
-                            adapter.notifyDataSetChanged();
+                            adapter.updateList(new ArrayList<>());
                             Toast.makeText(requireContext(), "No announcements found", Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -46,7 +46,7 @@ public class AddAnnouncementDialog extends DialogFragment implements SelectedIma
     private TextInputEditText etTitle, etDepartment;
     private AutoCompleteTextView actvVisibility;
     private RichEditor richEditor;
-    private MaterialButton btnBold, btnItalic, btnUnderline, btnHeading1, btnHeading2, btnBulletList, btnNumberedList;
+    private MaterialButton btnBold, btnItalic, btnUnderline, btnBulletList, btnNumberedList;
     private MaterialButton btnSelectImages;
     private RecyclerView rvSelectedImages;
     private FirebaseFirestore db;
@@ -152,8 +152,6 @@ public class AddAnnouncementDialog extends DialogFragment implements SelectedIma
         btnBold = view.findViewById(R.id.btnBold);
         btnItalic = view.findViewById(R.id.btnItalic);
         btnUnderline = view.findViewById(R.id.btnUnderline);
-        btnHeading1 = view.findViewById(R.id.btnHeading1);
-        btnHeading2 = view.findViewById(R.id.btnHeading2);
         btnBulletList = view.findViewById(R.id.btnBulletList);
         btnNumberedList = view.findViewById(R.id.btnNumberedList);
 
@@ -287,19 +285,6 @@ public class AddAnnouncementDialog extends DialogFragment implements SelectedIma
             toggleButtonState(btnUnderline);
         });
 
-        btnHeading1.setOnClickListener(v -> {
-            richEditor.setHeading(1);
-            // Clear other heading states
-            setButtonActive(btnHeading2, false);
-            toggleButtonState(btnHeading1);
-        });
-
-        btnHeading2.setOnClickListener(v -> {
-            richEditor.setHeading(2);
-            // Clear other heading states
-            setButtonActive(btnHeading1, false);
-            toggleButtonState(btnHeading2);
-        });
 
         btnBulletList.setOnClickListener(v -> {
             richEditor.setBullets();
@@ -343,8 +328,6 @@ public class AddAnnouncementDialog extends DialogFragment implements SelectedIma
         setButtonActive(btnBold, false);
         setButtonActive(btnItalic, false);
         setButtonActive(btnUnderline, false);
-        setButtonActive(btnHeading1, false);
-        setButtonActive(btnHeading2, false);
         setButtonActive(btnBulletList, false);
         setButtonActive(btnNumberedList, false);
 
@@ -360,12 +343,6 @@ public class AddAnnouncementDialog extends DialogFragment implements SelectedIma
                         break;
                     case UNDERLINE:
                         setButtonActive(btnUnderline, true);
-                        break;
-                    case H1:
-                        setButtonActive(btnHeading1, true);
-                        break;
-                    case H2:
-                        setButtonActive(btnHeading2, true);
                         break;
                     case UNORDEREDLIST:
                         setButtonActive(btnBulletList, true);

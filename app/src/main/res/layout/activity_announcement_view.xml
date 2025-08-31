@@ -346,6 +346,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:text="@string/more_actions"
+        android:fontFamily="@font/jakarta_bold"
         android:textColor="?attr/colorOnPrimary"
         app:icon="@drawable/ic_more_vert_24"
         app:iconTint="?attr/colorOnPrimary"

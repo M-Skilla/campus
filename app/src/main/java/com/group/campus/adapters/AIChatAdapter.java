@@ -57,8 +57,8 @@ public class AIChatAdapter extends RecyclerView.Adapter<AIChatAdapter.ViewHolder
         holder.tvPrompt.setText(messages.get(position).getPrompt());
         Messages message = messages.get(position);
         if (message.getResponse() == null || message.getResponse().isEmpty()) {
-            holder.lottieLoading.setVisibility(View.VISIBLE);
             holder.responseSection.setVisibility(View.GONE);
+            holder.lottieLoading.setVisibility(View.VISIBLE);
         } else {
             holder.lottieLoading.setVisibility(View.GONE);
             holder.responseSection.setVisibility(View.VISIBLE);

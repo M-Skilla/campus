@@ -1,5 +1,7 @@
 package com.group.campus.models;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class Author {
@@ -10,25 +12,25 @@ public class Author {
 
     private College college;
 
-    private String profilePictureUrls;
+    private String profilePicUrl;
 
     public Author() {
     }
 
-    public Author(String id, String name, List<String> roles, College college, String profilePictureUrls) {
+    public Author(String id, String name, List<String> roles, College college, String profilePicUrl) {
         this.id = id;
         this.name = name;
         this.roles = roles;
         this.college = college;
-        this.profilePictureUrls = profilePictureUrls;
+        this.profilePicUrl = profilePicUrl;
     }
 
-    public String getProfilePictureUrls() {
-        return profilePictureUrls;
+    public String getProfilePicUrl() {
+        return profilePicUrl;
     }
 
-    public void setProfilePictureUrls(String profilePictureUrls) {
-        this.profilePictureUrls = profilePictureUrls;
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
     }
 
     public String getId() {
@@ -61,5 +63,17 @@ public class Author {
 
     public void setCollege(College college) {
         this.college = college;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", roles=" + roles +
+                ", college=" + college +
+                ", profilePicUrl='" + profilePicUrl + '\'' +
+                '}';
     }
 }
