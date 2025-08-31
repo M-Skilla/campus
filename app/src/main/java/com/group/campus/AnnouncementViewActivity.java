@@ -2,10 +2,7 @@ package com.group.campus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +16,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.group.campus.models.Announcement;
 import com.group.campus.models.Author;
-import com.group.campus.utils.DateUtils;
 import com.group.campus.utils.HtmlRenderer;
 
 import java.text.SimpleDateFormat;
@@ -145,9 +140,9 @@ public class AnnouncementViewActivity extends AppCompatActivity {
     private void handleImages() {
         // Handle department avatar
         Author author = announcement.getAuthor();
-        if (author != null && author.getProfilePictureUrls() != null && !author.getProfilePictureUrls().isEmpty()) {
+        if (author != null && author.getProfilePicUrl() != null && !author.getProfilePicUrl().isEmpty()) {
             Glide.with(this)
-                    .load(author.getProfilePictureUrls())
+                    .load(author.getProfilePicUrl())
                     .placeholder(R.drawable.profile_image)
                     .into(departmentAvatar);
         } else {

@@ -1,5 +1,6 @@
 package com.group.campus.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,11 @@ import com.group.campus.utils.OnItemClickListener;
 import com.group.campus.utils.DateUtils;
 import com.group.campus.utils.HtmlRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdapter.ViewHolder> {
-
+    private static final String TAG = "AnnouncementsAdapter";
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView departmentText, dateText, titleText, contentText;
@@ -63,7 +65,8 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     }
 
     public void updateList(List<Announcement> newList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new AnnouncementDiffCallback(this.announcements, newList));
+        List<Announcement> oldList = new ArrayList<>(this.announcements);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new AnnouncementDiffCallback(oldList, newList));
         announcements.clear();
         announcements.addAll(newList);
         diffResult.dispatchUpdatesTo(this);
@@ -86,15 +89,15 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         holder.titleText.setText(announcements.get(position).getTitle());
         holder.dateText.setText(DateUtils.getTimeAgo(announcements.get(position).getCreatedAt()));
 
-        // Handle null author gracefully
-        String profilePictureUrls = null;
-        if (announcements.get(position).getAuthor() != null) {
-            profilePictureUrls = announcements.get(position).getAuthor().getProfilePictureUrls();
-        }
 
-        if (profilePictureUrls != null && !profilePictureUrls.isEmpty()) {
+        String profilePic = null;
+        if (announcements.get(position).getAuthor() != null) {
+            profilePic = announcements.get(position).getAuthor().getProfilePicUrl();
+        }
+        Log.d(TAG, "onBindViewHolder: AnnouncementAuthor -> " + announcements.get(position).getAuthor().toString());
+        if (profilePic != null && !profilePic.isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(profilePictureUrls)
+                    .load(profilePic)
                     .placeholder(R.drawable.profile_image)
                     .error(R.drawable.profile_image)
                     .into(holder.avatar);

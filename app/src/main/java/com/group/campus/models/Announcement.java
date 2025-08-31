@@ -2,6 +2,9 @@ package com.group.campus.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +97,21 @@ public class Announcement implements Parcelable {
         this.author = author;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "Announcement{" +
+                "id='" + id + '\'' +
+                ", body='" + body + '\'' +
+                ", title='" + title + '\'' +
+                ", department='" + department + '\'' +
+                ", createdAt=" + createdAt +
+                ", visibility=" + visibility +
+                ", imageUrls=" + imageUrls +
+                ", author=" + author +
+                '}';
+    }
+
     // Parcelable implementation
     protected Announcement(Parcel in) {
         body = in.readString();
@@ -111,7 +129,7 @@ public class Announcement implements Parcelable {
             author.setId(in.readString());
             author.setName(in.readString());
             author.setRoles(in.createStringArrayList());
-            author.setProfilePictureUrls(in.readString());
+            author.setProfilePicUrl(in.readString());
 
             // Read College fields individually
             boolean hasCollege = in.readByte() != 0;
@@ -157,7 +175,7 @@ public class Announcement implements Parcelable {
             dest.writeString(author.getId());
             dest.writeString(author.getName());
             dest.writeStringList(author.getRoles());
-            dest.writeString(author.getProfilePictureUrls());
+            dest.writeString(author.getProfilePicUrl());
 
             College college = author.getCollege();
             if (college != null) {
