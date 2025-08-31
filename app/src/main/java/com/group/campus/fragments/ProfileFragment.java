@@ -110,8 +110,6 @@ public class ProfileFragment extends Fragment {
                         DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                         String name = document.getString("fullName");
                         String regNumber = document.getString("regNo");
-                        String course = document.getString("course");
-                        String role = document.getString("role");
                         String imageUrl = document.getString("profilePicUrl");
                         Programme programme = document.get("programme", Programme.class);
                         String course = "N/A";
