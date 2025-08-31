@@ -64,7 +64,6 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     // Firestore
     private FirebaseFirestore db;
     private static final String COLLECTION_NAME = "events";
-    private static final String DOCUMENT_ID = "6HN7DWWYnhuaweIG2T14";
 
     // Date/Time - Initialize with current date
     private Calendar currentCalendar = Calendar.getInstance();
@@ -414,10 +413,16 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     }
 
     private void fetchEventsFromFirestore() {
-        db.collection(COLLECTION_NAME).document(DOCUMENT_ID).get()
+        db.collection(COLLECTION_NAME).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        List<Event> events = parseEventsFromDocument(task.getResult());
+                        List<Event> events = new ArrayList<>();
+                        for (DocumentSnapshot document : task.getResult()) {
+                            Event event = document.toObject(Event.class);
+                            if (event != null) {
+                                events.add(event);
+                            }
+                        }
                         eventManager.setEvents(events);
                         eventsAdapter.updateEvents(events);
                         // Refresh all calendar views to show event indicators immediately
@@ -428,61 +433,10 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                 });
     }
 
-    private List<Event> parseEventsFromDocument(DocumentSnapshot document) {
-        List<Event> events = new ArrayList<>();
-
-        if (document.exists()) {
-            Object eventsArrayObj = document.get("events");
-            if (eventsArrayObj instanceof List) {
-                List<Map<String, Object>> eventsArray = (List<Map<String, Object>>) eventsArrayObj;
-
-                for (Map<String, Object> eventData : eventsArray) {
-                    Object titleObj = eventData.get("title");
-                    Object startDateObj = eventData.get("startDate");
-                    Object endDateObj = eventData.get("endDate");
-
-                    if (titleObj != null && startDateObj != null && endDateObj != null) {
-                        events.add(new Event(titleObj.toString(), startDateObj.toString(), endDateObj.toString()));
-                    }
-                }
-            }
-        }
-
-        return events;
-    }
-
     private void saveEventToFirestore(Event event) {
-        db.collection(COLLECTION_NAME).document(DOCUMENT_ID).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        updateFirestoreWithNewEvent(task.getResult(), event);
-                    } else {
-                        showToast("Error fetching existing events");
-                    }
-                });
-    }
-
-    private void updateFirestoreWithNewEvent(DocumentSnapshot document, Event event) {
-        List<Map<String, Object>> eventsArray = new ArrayList<>();
-
-        if (document.exists()) {
-            Object existingEventsObj = document.get("events");
-            if (existingEventsObj instanceof List) {
-                eventsArray = (List<Map<String, Object>>) existingEventsObj;
-            }
-        }
-
-        Map<String, Object> newEventData = new HashMap<>();
-        newEventData.put("title", event.getTitle());
-        newEventData.put("startDate", event.getStartDateString());
-        newEventData.put("endDate", event.getEndDateString());
-        eventsArray.add(newEventData);
-
-        Map<String, Object> documentData = new HashMap<>();
-        documentData.put("events", eventsArray);
-
-        db.collection(COLLECTION_NAME).document(DOCUMENT_ID).set(documentData)
-                .addOnSuccessListener(aVoid -> {
+        db.collection(COLLECTION_NAME).add(event)
+                .addOnSuccessListener(documentReference -> {
+                    event.setId(documentReference.getId()); // Set the document ID to the event object
                     showToast("Event saved successfully");
                     fetchEventsFromFirestore();
                 })
@@ -498,14 +452,6 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         currentMonth = month;
         showMonthView();
         updateButtonSelection(btnMonth);
-    }
-
-    
-    public void onDayClick(int day) {
-        // Handle day click for the month view
-        // This method will be called when a day is clicked in the MonthViewAdapter
-        // You can implement the logic to show events for the selected day or any other action
-        showToast("Day clicked: " + day);
     }
 
     @Override
