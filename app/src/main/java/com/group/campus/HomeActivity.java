@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
     private final String TAG = "HomeActivity";
     private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
         if (isGranted) {
-            Toast.makeText(this, "Can post notifications", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Can post notifications");
         } else {
             Toast.makeText(this, "The app won't show notifications", Toast.LENGTH_SHORT).show();
         }
@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Can post notifications", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "askNotificationPermission: Can post notifications");
             } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
                 Toast.makeText(this, "Allow notification from settings", Toast.LENGTH_SHORT).show();
             } else {

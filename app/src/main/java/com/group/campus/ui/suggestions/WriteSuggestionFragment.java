@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.group.campus.HomeActivity;
 import com.group.campus.R;
 import com.group.campus.model.SuggestionMessage;
 import com.group.campus.models.Suggestion;
@@ -131,6 +132,8 @@ public class WriteSuggestionFragment extends Fragment {
         setupUI();
         setupInputHandling();
 
+        hideBottomNavigation();
+
         if (conversationId != null) {
             // Existing conversation - load messages
             loadConversationMessages();
@@ -144,6 +147,7 @@ public class WriteSuggestionFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        showBottomNavigation();
         if (messageListener != null) {
             messageListener.remove();
         }
@@ -428,6 +432,26 @@ public class WriteSuggestionFragment extends Fragment {
     private void navigateBack() {
         if (getParentFragmentManager().getBackStackEntryCount() > 0) {
             getParentFragmentManager().popBackStack();
+        }
+    }
+    private void hideBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * Show the bottom navigation when leaving this fragment
+     */
+    private void showBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.VISIBLE);
+            }
         }
     }
 
