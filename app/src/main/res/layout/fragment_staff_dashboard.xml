@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Staff Dashboard"
+                android:text="@string/staff_dashboard"
                 android:textColor="@color/md_theme_inverseSurface"
                 android:textSize="22sp"
                 android:fontFamily="@font/jakarta_bold" />
@@ -40,7 +40,7 @@
                 android:id="@+id/tv_department_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Computer Science Department"
+                android:text="@string/computer_science_department"
                 android:textColor="@color/md_theme_inverseSurface"
                 android:textSize="14sp"
                 android:fontFamily="@font/jakarta_medium"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Student View"
+            android:text="@string/student_view"
             android:textColor="@color/md_theme_inverseSurface"
             android:fontFamily="@font/jakarta_semibold"
             android:drawableLeft="@drawable/ic_swap_horiz"
@@ -90,7 +90,7 @@
                     android:id="@+id/tv_new_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5"
+                    android:text="@string/_5"
                     android:textSize="24sp"
                     android:textColor="@color/md_theme_onPrimaryContainer"
                     android:fontFamily="@font/jakarta_bold" />
@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New"
+                    android:text="new"
                     android:textSize="12sp"
                     android:textColor="@color/md_theme_onPrimaryContainer"
                     android:fontFamily="@font/jakarta_medium" />
@@ -126,7 +126,7 @@
                     android:id="@+id/tv_pending_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"
+                    android:text="@string/_3"
                     android:textSize="24sp"
                     android:textColor="@color/md_theme_onTertiaryContainer"
                     android:fontFamily="@font/jakarta_bold" />
@@ -134,7 +134,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pending"
+                    android:text="@string/pending"
                     android:textSize="12sp"
                     android:textColor="@color/md_theme_onTertiaryContainer"
                     android:fontFamily="@font/jakarta_medium" />
@@ -161,7 +161,7 @@
                     android:id="@+id/tv_total_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12"
+                    android:text="@string/_12"
                     android:textSize="24sp"
                     android:textColor="@color/md_theme_onSecondaryContainer"
                     android:fontFamily="@font/jakarta_bold" />
@@ -169,7 +169,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total"
+                    android:text="@string/total"
                     android:textSize="12sp"
                     android:textColor="@color/md_theme_onSecondaryContainer"
                     android:fontFamily="@font/jakarta_medium" />
@@ -194,7 +194,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All" />
+            android:text="@string/all" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -204,12 +204,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pending" />
+            android:text="@string/pending" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Resolved" />
+            android:text="@string/resolved" />
     </com.google.android.material.tabs.TabLayout>
 
     <!-- Suggestions List -->
@@ -248,7 +248,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No suggestions yet"
+            android:text="@string/no_suggestions_yet"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:textSize="18sp"
             android:fontFamily="@font/jakarta_medium"
@@ -257,7 +257,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Suggestions from students will appear here"
+            android:text="@string/suggestions_from_students_will_appear_here"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:textSize="14sp"
             android:fontFamily="@font/jakarta_regular"

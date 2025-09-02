@@ -22,7 +22,7 @@
             android:layout_height="40dp"
             android:padding="8dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back"
             app:tint="@color/md_theme_inverseSurface"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="My Conversations"
+            android:text="@string/my_conversations"
             android:textColor="@color/md_theme_inverseSurface"
             android:textSize="20sp"
             android:fontFamily="@font/jakarta_semibold"
@@ -60,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No conversations yet"
+            android:text="@string/no_conversations_yet"
             android:textSize="18sp"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:fontFamily="@font/jakarta_medium"
@@ -69,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start a conversation by tapping the + button"
+            android:text="@string/start_a_conversation_by_tapping_the_button"
             android:textSize="14sp"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:gravity="center"/>
@@ -84,7 +84,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
-        android:contentDescription="Start new conversation"
+        android:contentDescription="@string/start_new_conversation"
         app:tint="@color/white" />
 
 </LinearLayout>

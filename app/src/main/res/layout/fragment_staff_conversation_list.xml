@@ -22,7 +22,7 @@
             android:layout_height="40dp"
             android:padding="8dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back"
             app:tint="@color/md_theme_inverseSurface"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Staff Dashboard"
+            android:text="@string/staff_dashboard"
             android:textColor="@color/md_theme_inverseSurface"
             android:textSize="20sp"
             android:fontFamily="@font/jakarta_semibold"
@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Department"
+            android:text="@string/select_department"
             android:textSize="16sp"
             android:textColor="@color/md_theme_onSurface"
             android:fontFamily="@font/jakarta_semibold"
@@ -66,7 +66,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CS"
+                android:text="@string/cs"
                 android:checked="true" />
 
             <com.google.android.material.chip.Chip
@@ -74,35 +74,35 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IT" />
+                android:text="@string/it" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_biz_staff"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BIZ" />
+                android:text="@string/biz" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_eng_staff"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ENG" />
+                android:text="@string/eng" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_med_staff"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MED" />
+                android:text="@string/med" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_edu_staff"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EDU" />
+                android:text="@string/edu" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -130,7 +130,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No conversations for this department"
+            android:text="@string/no_conversations_for_this_department"
             android:textSize="18sp"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:fontFamily="@font/jakarta_medium"
@@ -140,7 +140,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Conversations will appear here when students contact this department"
+            android:text="@string/conversations_will_appear_here_when_students_contact_this_department"
             android:textSize="14sp"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:gravity="center"/>

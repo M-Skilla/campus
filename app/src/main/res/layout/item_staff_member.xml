@@ -24,7 +24,7 @@
                 android:id="@+id/tv_staff_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Staff Name"
+                android:text="@string/staff_name"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/md_theme_onSurface" />
@@ -33,7 +33,7 @@
                 android:id="@+id/tv_staff_registration_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="REG123456"
+                android:text="@string/reg123456"
                 android:textSize="14sp"
                 android:textColor="@color/md_theme_onSurfaceVariant"
                 android:layout_marginTop="2dp" />
@@ -42,7 +42,7 @@
                 android:id="@+id/tv_staff_department"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Department"
+                android:text="@string/department"
                 android:textSize="14sp"
                 android:textColor="@color/md_theme_primary"
                 android:layout_marginTop="4dp" />
@@ -53,7 +53,7 @@
             android:id="@+id/tv_staff_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ACTIVE"
+            android:text="@string/active"
             android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_primary"

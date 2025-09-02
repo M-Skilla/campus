@@ -19,7 +19,7 @@
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textColor="@color/md_theme_primary"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="New reminder"
+            android:text="@string/new_reminder"
             android:textColor="@color/md_theme_onSurface"
             android:textSize="18sp"
             android:fontFamily="@font/jakarta_bold"
@@ -42,7 +42,7 @@
             android:id="@+id/btn_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:text="@string/done"
             android:textColor="@color/md_theme_onSurfaceVariant"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
@@ -77,7 +77,7 @@
                     android:id="@+id/chip_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Event"
+                    android:text="@string/event"
                     android:fontFamily="@font/jakarta_regular"
                     style="@style/Widget.MaterialComponents.Chip.Choice" />
 
@@ -85,7 +85,7 @@
                     android:id="@+id/chip_reminder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reminder"
+                    android:text="@string/reminder"
                     android:checked="true"
                     android:fontFamily="@font/jakarta_regular"
                     style="@style/Widget.MaterialComponents.Chip.Choice" />
@@ -103,7 +103,7 @@
                     android:id="@+id/et_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Reminder Title"
+                    android:hint="@string/reminder_title"
                     android:textColor="@color/md_theme_onSurface"
                     android:textColorHint="@color/md_theme_onSurfaceVariant"
                     android:fontFamily="@font/jakarta_regular"
@@ -129,7 +129,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Select Event"
+                    android:text="@string/select_event"
                     android:textColor="@color/md_theme_onSurface"
                     android:textSize="16sp"
                     android:fontFamily="@font/jakarta_regular" />
@@ -138,7 +138,7 @@
                     android:id="@+id/tv_selected_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Choose an event"
+                    android:text="@string/choose_an_event"
                     android:textColor="@color/md_theme_onSurfaceVariant"
                     android:textSize="14sp"
                     android:fontFamily="@font/jakarta_regular" />
@@ -149,7 +149,7 @@
                     android:src="@drawable/ic_arrow_forward_24"
                     android:layout_marginStart="8dp"
                     app:tint="@color/md_theme_onSurfaceVariant"
-                    android:contentDescription="Select event" />
+                    android:contentDescription="@string/select_event" />
 
             </LinearLayout>
 
@@ -170,7 +170,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Reminder Time"
+                    android:text="@string/reminder_time"
                     android:textColor="@color/md_theme_onSurface"
                     android:textSize="16sp"
                     android:fontFamily="@font/jakarta_regular" />
@@ -179,7 +179,7 @@
                     android:id="@+id/tv_reminder_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15 minutes before"
+                    android:text="@string/_15_minutes_before"
                     android:textColor="@color/md_theme_onSurfaceVariant"
                     android:textSize="14sp"
                     android:fontFamily="@font/jakarta_regular" />
@@ -190,7 +190,7 @@
                     android:src="@drawable/ic_arrow_forward_24"
                     android:layout_marginStart="8dp"
                     app:tint="@color/md_theme_onSurfaceVariant"
-                    android:contentDescription="Select reminder time" />
+                    android:contentDescription="@string/select_reminder_time" />
 
             </LinearLayout>
 
@@ -208,7 +208,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Sound Alert"
+                    android:text="@string/sound_alert"
                     android:textColor="@color/md_theme_onSurface"
                     android:textSize="16sp"
                     android:fontFamily="@font/jakarta_regular" />

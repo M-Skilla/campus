@@ -13,7 +13,7 @@
         android:id="@+id/monthNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Jan"
+        android:text="@string/jan"
 
         android:textColor="?attr/colorOnSurfaceVariant"
 
@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="S"
+            android:text="@string/s"
             android:textColor="?attr/colorOnSurfaceVariant"
 
             android:fontFamily="@font/jakarta_regular"
@@ -44,31 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="M"
-
-            android:textColor="?attr/colorOnSurfaceVariant"
-
-            android:textSize="10sp"
-            android:fontFamily="@font/jakarta_regular"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="T"
-
-            android:textColor="?attr/colorOnSurfaceVariant"
-
-            android:fontFamily="@font/jakarta_regular"
-            android:textSize="10sp"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="W"
+            android:text="@string/m"
 
             android:textColor="?attr/colorOnSurfaceVariant"
 
@@ -80,7 +56,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="T"
+            android:text="@string/t"
+
+            android:textColor="?attr/colorOnSurfaceVariant"
+
+            android:fontFamily="@font/jakarta_regular"
+            android:textSize="10sp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/w"
+
             android:textColor="?attr/colorOnSurfaceVariant"
 
             android:textSize="10sp"
@@ -91,7 +80,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="F"
+            android:text="@string/t"
+            android:textColor="?attr/colorOnSurfaceVariant"
+
+            android:textSize="10sp"
+            android:fontFamily="@font/jakarta_regular"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/f"
 
             android:textColor="?attr/colorOnSurfaceVariant"
 
@@ -103,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="S"
+            android:text="@string/s"
 
             android:textColor="@color/accent_orange"
 
