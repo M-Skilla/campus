@@ -94,7 +94,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         if (announcements.get(position).getAuthor() != null) {
             profilePic = announcements.get(position).getAuthor().getProfilePicUrl();
         }
-        Log.d(TAG, "onBindViewHolder: AnnouncementAuthor -> " + announcements.get(position).getAuthor().toString());
+
         if (profilePic != null && !profilePic.isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(profilePic)
