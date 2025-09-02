@@ -5,27 +5,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
-import com.group.campus.AnnouncementViewActivity;
 import com.group.campus.MainActivity;
+import com.group.campus.R;
 import com.group.campus.utils.FCMHelper;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class FBMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -63,6 +52,7 @@ public class FBMessagingService extends com.google.firebase.messaging.FirebaseMe
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "default_channel")
+                .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
