@@ -76,4 +76,8 @@
     <string name="category_academic">Academic</string>
     <string name="log_out">Logout</string>
 
+    <!-- Department -->
+    <string name="department_name">Department Name</string>
+    <string name="department_description">Department Description</string>
+
 </resources>

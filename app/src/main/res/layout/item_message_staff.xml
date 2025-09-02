@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/status_background"
-            android:padding="10dp"
+            android:padding="14dp"
             android:layout_marginTop="2dp">
 
             <TextView
@@ -32,8 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_theme_onPrimaryContainer"
-                android:textSize="14sp"
-                android:maxWidth="280dp"/>
+                android:textSize="15sp"
+                android:lineSpacingExtra="2dp"
+                android:maxWidth="320dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -48,7 +50,8 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_attachment"
-                android:tint="@color/md_theme_outline"
+                app:tint="@color/md_theme_outline"
+                android:contentDescription="Attachment icon"
                 android:visibility="gone"
                 android:layout_marginEnd="6dp"/>
 
