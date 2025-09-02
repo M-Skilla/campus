@@ -31,7 +31,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Staff Name (staff)"
+                    android:text="@string/staff_name_staff"
                     android:textSize="12sp"
                     android:textColor="@color/purple_primary"
                     android:textStyle="bold" />
@@ -40,7 +40,7 @@
                     android:id="@+id/tvReplyTimestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dec 15 at 14:30"
+                    android:text="@string/dec_15_at_14_30"
                     android:textSize="10sp"
                     android:textColor="@color/purple_700" />
 
@@ -50,7 +50,7 @@
                 android:id="@+id/tvReplyText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reply text will appear here..."
+                android:text="@string/reply_text_will_appear_here"
                 android:textSize="14sp"
                 android:textColor="@android:color/black"
                 android:lineSpacingExtra="2dp" />

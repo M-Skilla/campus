@@ -11,7 +11,7 @@
         android:id="@+id/tv_day_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="September 23"
+        android:text="@string/september_23"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnSurfaceVariant"

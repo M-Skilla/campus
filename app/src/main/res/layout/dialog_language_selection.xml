@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- File: app/src/main/res/layout/dialog_language_selection.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -9,8 +9,29 @@
     android:layout_marginEnd="24dp"
     android:padding="32dp">
 
+    <!-- Header Icon -->
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/language_icon"
+        android:layout_marginBottom="20dp"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_language"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:textColor="?attr/colorOnSurface"
+        android:fontFamily="@font/jakarta_bold" />
+
+    <!-- English Option -->
     <LinearLayout
-        android:id="@+id/option_match_phone"
+        android:id="@+id/option_english"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -19,27 +40,33 @@
         android:clickable="true"
         android:gravity="center_vertical">
 
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/uk_icon"
+            android:layout_marginEnd="16dp"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/jakarta_regular"
-            android:text="@string/match_phone_setting"
+            android:text="@string/english"
             android:textSize="16sp"
+            android:fontFamily="@font/jakarta_regular"
             android:textColor="?attr/colorOnSurface" />
 
         <ImageView
-            android:id="@+id/tick_match_phone"
+            android:id="@+id/tick_english"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/check_icon"
             android:visibility="gone"
-            app:tint="?attr/colorOnSurface" />
-
+            app:tint="?attr/colorPrimary" />
     </LinearLayout>
 
+    <!-- Swahili Option -->
     <LinearLayout
-        android:id="@+id/option_on"
+        android:id="@+id/option_swahili"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -48,52 +75,27 @@
         android:clickable="true"
         android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/dark_theme"
-            android:fontFamily="@font/jakarta_regular"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface" />
-
         <ImageView
-            android:id="@+id/tick_on"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/check_icon"
-            android:visibility="gone"
-            app:tint="?attr/colorOnSurface" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/option_off"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:gravity="center_vertical">
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/tz_icon"
+            android:layout_marginEnd="16dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/light_theme"
+            android:text="@string/swahili"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="?attr/colorOnSurface" />
 
         <ImageView
-            android:id="@+id/tick_off"
+            android:id="@+id/tick_swahili"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/check_icon"
             android:visibility="gone"
-            app:tint="?attr/colorOnSurface" />
-
+            app:tint="?attr/colorPrimary" />
     </LinearLayout>
-
 </LinearLayout>

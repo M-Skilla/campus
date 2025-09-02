@@ -124,7 +124,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/jakarta_bold"
-                    android:text="User Information"
+                    android:text="@string/user_information"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -157,7 +157,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name"
+                        android:text="@string/name"
                         android:textSize="15sp"
                         android:fontFamily="@font/jakarta_bold"
                         android:layout_marginBottom="4dp" />
@@ -188,7 +188,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Registration Number"
+                        android:text="@string/registration_number"
                         android:textSize="15sp"
                         android:fontFamily="@font/jakarta_bold"
                         android:layout_marginBottom="4dp" />
@@ -219,7 +219,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Course"
+                        android:text="@string/course"
                         android:textSize="15sp"
                         android:fontFamily="@font/jakarta_bold"
                         android:layout_marginBottom="4dp" />

@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Announcement Title"
+                android:hint="@string/announcement_title"
                 app:boxStrokeColor="@color/md_theme_primary"
                 app:hintTextColor="?attr/colorPrimary"
                 app:hintTextAppearance="@style/InputHintStyle">
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Department"
+                android:hint="@string/department"
                 app:boxStrokeColor="@color/md_theme_primary"
                 app:hintTextColor="?attr/colorPrimary"
                 app:hintTextAppearance="@style/InputHintStyle">
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Visibility"
+                android:hint="@string/visibility"
                 app:boxStrokeColor="@color/md_theme_primary"
                 app:hintTextColor="?attr/colorPrimary"
                 app:hintTextAppearance="@style/InputHintStyle">
@@ -119,7 +119,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Announcement Content"
+                        android:text="@string/announcement_content"
                         android:textSize="14sp"
                         android:textColor="?attr/colorOnSurface"
                         android:fontFamily="@font/jakarta_medium"
@@ -142,19 +142,19 @@
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnBold"
                                 style="@style/RichEditorButton"
-                                android:contentDescription="Bold"
+                                android:contentDescription="@string/bold"
                                 app:icon="@drawable/ic_bold_24" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnItalic"
                                 style="@style/RichEditorButton"
-                                android:contentDescription="Italic"
+                                android:contentDescription="@string/italic"
                                 app:icon="@drawable/ic_italic_24" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnUnderline"
                                 style="@style/RichEditorButton"
-                                android:contentDescription="Underline"
+                                android:contentDescription="@string/underline"
                                 app:icon="@drawable/ic_underline_24" />
 
                             <View
@@ -166,13 +166,13 @@
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnBulletList"
                                 style="@style/RichEditorButton"
-                                android:contentDescription="Bullet List"
+                                android:contentDescription="@string/bullet_list"
                                 app:icon="@drawable/list_solid_full" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnNumberedList"
                                 style="@style/RichEditorButton"
-                                android:contentDescription="Numbered List"
+                                android:contentDescription="@string/numbered_list"
                                 app:icon="@drawable/ic_list_ol" />
 
                         </LinearLayout>
@@ -209,7 +209,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Images"
+                        android:text="@string/images"
                         android:textSize="14sp"
                         android:textColor="@color/md_theme_primary"
                         android:fontFamily="@font/jakarta_medium"
@@ -229,7 +229,7 @@
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Select Images"
+                        android:text="@string/select_images"
                         app:iconTint="@color/md_theme_primary"
                         android:textColor="@color/md_theme_primary"
                         android:fontFamily="@font/jakarta_medium"
@@ -239,7 +239,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Optional: Add images to your announcement"
+                        android:text="@string/optional_add_images_to_your_announcement"
                         android:textSize="12sp"
                         android:textColor="@color/md_theme_primary"
                         android:fontFamily="@font/jakarta_regular"
@@ -286,7 +286,7 @@
                 android:id="@+id/loadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Creating announcement..."
+                android:text="@string/creating_announcement"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/jakarta_medium"

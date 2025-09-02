@@ -28,7 +28,7 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="Search Announcements"
+        android:hint="@string/search_announcements"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSearch"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="15dp"
         app:shapeAppearanceOverlay="@style/CircularImage"
         android:layout_marginBottom="120dp"
-        android:contentDescription="Add Announcement"
+        android:contentDescription="@string/add_announcement"
         app:srcCompat="@drawable/ic_add_24"
          />
 
@@ -78,7 +78,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="200dp"
-        android:contentDescription="Add Announcement"
+        android:contentDescription="@string/add_announcement"
         app:shapeAppearanceOverlay="@style/CircularImage"
         app:srcCompat="@drawable/ic_robot"
         />

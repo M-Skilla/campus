@@ -27,7 +27,7 @@
         android:id="@+id/eventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Event Title"
+        android:text="@string/event_title"
 
         android:textColor="?attr/colorOnSurfaceVariant"
 
@@ -39,7 +39,7 @@
         android:id="@+id/eventDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Event Date"
+        android:text="@string/event_date"
 
         android:textColor="?attr/colorOnSurfaceVariant"
 
@@ -51,7 +51,7 @@
         android:id="@+id/eventTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Event Time"
+        android:text="@string/event_time"
 
         android:textColor="?attr/colorOnSurfaceVariant"
 

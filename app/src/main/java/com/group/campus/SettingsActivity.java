@@ -2,9 +2,14 @@ package com.group.campus;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 
@@ -22,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.button.MaterialButton;
 import com.group.campus.fragments.ChangePasswordFragment;
 
+import java.util.Locale;
+
 public class SettingsActivity extends AppCompatActivity {
 
     // Constants for SharedPreferences
@@ -37,6 +44,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
+
+        TextView currentLanguage = findViewById(R.id.current_language);
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        String lang = prefs.getString("app_lang", "en");
+        if ("sw".equals(lang)) {
+            currentLanguage.setText("Swahili");
+        } else {
+            currentLanguage.setText("English");
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settingsActivity), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -62,8 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         findViewById(R.id.item_theme_appearance).setOnClickListener(view -> showThemeDialog());
 
-        findViewById(R.id.item_language).setOnClickListener(view ->
-                Toast.makeText(SettingsActivity.this, "Changing language comming soon", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.item_language).setOnClickListener(view ->  showLanguageDialog());
 
         findViewById(R.id.item_logout).setOnClickListener(view -> showLogoutDialog());
     }
@@ -143,12 +158,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         dialog.show();
 
-        // Apply the same wider dialog styling as logout dialog
         if (dialog.getWindow() != null) {
             dialog.getWindow().getAttributes().windowAnimations = R.style.LogoutDialogAnimation;
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-            // Make dialog wider - same as logout dialog
             int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
             dialog.getWindow().setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
@@ -242,6 +255,72 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
 
         Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showLanguageDialog() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.dialog_language_selection, null);
+
+        LinearLayout optionEnglish = dialogView.findViewById(R.id.option_english);
+        LinearLayout optionSwahili = dialogView.findViewById(R.id.option_swahili);
+        View tickEnglish = dialogView.findViewById(R.id.tick_english);
+        View tickSwahili = dialogView.findViewById(R.id.tick_swahili);
+
+        // Get saved language, default to "en"
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        String lang = prefs.getString("app_lang", "en");
+
+        // Show tick for current language
+        if ("sw".equals(lang)) {
+            tickEnglish.setVisibility(View.GONE);
+            tickSwahili.setVisibility(View.VISIBLE);
+        } else {
+            tickEnglish.setVisibility(View.VISIBLE);
+            tickSwahili.setVisibility(View.GONE);
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        optionEnglish.setOnClickListener(v -> {
+            tickEnglish.setVisibility(View.VISIBLE);
+            tickSwahili.setVisibility(View.GONE);
+            setLocale("en");
+            dialog.dismiss();
+        });
+
+        optionSwahili.setOnClickListener(v -> {
+            tickEnglish.setVisibility(View.GONE);
+            tickSwahili.setVisibility(View.VISIBLE);
+            setLocale("sw");
+            dialog.dismiss();
+        });
+
+        dialog.show();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().getAttributes().windowAnimations = R.style.LogoutDialogAnimation;
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+            int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
+            dialog.getWindow().setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
+
+    private void setLocale(String langCode) {
+        Locale locale = new Locale(langCode);
+        Locale.setDefault(locale);
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+
+        // Save preference
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        prefs.edit().putString("app_lang", langCode).apply();
+
+        // Restart activity to apply changes
+        recreate();
     }
 
 }

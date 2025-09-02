@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event Details"
+        android:text="@string/event_details"
         android:textSize="20sp"
         android:textStyle="bold"
         android:fontFamily="@font/jakarta_regular"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Event: "
+            android:text="@string/event"
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="@font/jakarta_regular"
@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Meeting"
+            android:text="@string/meeting"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="?attr/colorOnSurfaceVariant" />
@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date: "
+            android:text="@string/date"
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="@font/jakarta_regular"
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="August 26, 2025"
+            android:text="@string/august_26_2025"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="?attr/colorOnSurfaceVariant" />
@@ -81,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time: "
+            android:text="@string/time"
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="@font/jakarta_regular"
@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="09:00 AM"
+            android:text="@string/_09_00_am"
             android:textSize="16sp"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="?attr/colorOnSurfaceVariant" />
@@ -109,7 +109,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Reminder: "
+            android:text="@string/set_reminder"
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="@font/jakarta_regular"
@@ -129,7 +129,7 @@
         android:id="@+id/btn_close"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="Close"
+        android:text="@string/close"
         android:textSize="16sp"
         android:fontFamily="@font/jakarta_regular"
         android:textColor="@color/white"
