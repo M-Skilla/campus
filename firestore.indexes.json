@@ -1,0 +1,47 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "suggestions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receiverDepartment",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "suggestions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "senderId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "replyCount",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "suggestions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "senderId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

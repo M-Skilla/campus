@@ -46,19 +46,19 @@ public class CustomBottomNavView {
 
         switch (index) {
             case 0:
-                setActive(R.id.news_item, R.id.tvNews);
+                setActive(R.id.news_item, R.id.tvNews, R.id.newsImage);
                 loadFragment(new AnnouncementFragment());
                 break;
             case 1:
-                setActive(R.id.suggestions_item, R.id.tvSuggestion);
+                setActive(R.id.suggestions_item, R.id.tvSuggestion, R.id.suggestionImage);
                 loadFragment(new SuggestionsFragment());
                 break;
             case 2:
-                setActive(R.id.calendar_item, R.id.tvCalendar);
+                setActive(R.id.calendar_item, R.id.tvCalendar, R.id.calendarImage);
                 loadFragment(new CalendarFragment());
                 break;
             case 3:
-                setActive(R.id.profile_item, R.id.tvProfile);
+                setActive(R.id.profile_item, R.id.tvProfile, R.id.profileImage);
                 loadFragment(new ProfileFragment());
                 break;
 
@@ -66,14 +66,14 @@ public class CustomBottomNavView {
     }
 
     private void resetAllTabs() {
-        setInactive(R.id.news_item, R.id.tvNews);
-        setInactive(R.id.suggestions_item, R.id.tvSuggestion);
-        setInactive(R.id.calendar_item, R.id.tvCalendar);
-        setInactive(R.id.profile_item, R.id.tvProfile);
+        setInactive(R.id.news_item, R.id.tvNews, R.id.newsImage);
+        setInactive(R.id.suggestions_item, R.id.tvSuggestion, R.id.suggestionImage);
+        setInactive(R.id.calendar_item, R.id.tvCalendar, R.id.calendarImage);
+        setInactive(R.id.profile_item, R.id.tvProfile, R.id.profileImage);
 
     }
 
-    private void setActive(@IdRes int itemContainerId, @IdRes int textId) {
+    private void setActive(@IdRes int itemContainerId, @IdRes int textId, @IdRes int imageId) {
         LinearLayout container = navView.findViewById(itemContainerId);
         TextView textView = navView.findViewById(textId);
 
@@ -89,10 +89,12 @@ public class CustomBottomNavView {
     }
 
 
-    private void setInactive(@IdRes int itemContainerId, @IdRes int textId) {
+    private void setInactive(@IdRes int itemContainerId, @IdRes int textId, @IdRes int imageId) {
         ((LinearLayout) navView.findViewById(itemContainerId)).setBackground(null);
         ((TextView) navView.findViewById(textId))
                 .setVisibility(GONE);
+
+
     }
 
     private void loadFragment(Fragment fragment) {

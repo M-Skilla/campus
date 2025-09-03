@@ -38,7 +38,7 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
             android:maxLines="1"
-            android:text="News"
+            android:text="@string/news"
             android:textColor="@color/md_theme_inverseSurface" />
     </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
             android:maxLines="1"
-            android:text="Inputs"
+            android:text="@string/inputs"
             android:textColor="@color/md_theme_inverseSurface"
             android:visibility="gone" />
     </LinearLayout>
@@ -103,7 +103,7 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
             android:maxLines="1"
-            android:text="Events"
+            android:text="@string/events"
             android:textColor="@color/md_theme_inverseSurface"
             android:visibility="gone" />
     </LinearLayout>
@@ -136,7 +136,7 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
             android:maxLines="1"
-            android:text="Profile"
+            android:text="@string/profile"
             android:textColor="@color/md_theme_inverseSurface"
             android:visibility="gone" />
     </LinearLayout>

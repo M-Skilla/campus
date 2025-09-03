@@ -34,8 +34,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.group.campus.R;
 import com.group.campus.model.SuggestionMessage;
 import com.group.campus.models.Suggestion;
@@ -142,6 +144,8 @@ public class WriteSuggestionFragment extends Fragment {
         applyBottomNavOffset();
         setupInputHandling();
 
+        hideBottomNavigation();
+
         if (conversationId != null) {
             // Existing conversation - load messages
             loadConversationMessages();
@@ -151,6 +155,7 @@ public class WriteSuggestionFragment extends Fragment {
             showEmptyState();
         }
     }
+
 
     private void applyBottomNavOffset() {
         if (getActivity() == null) return;
@@ -204,6 +209,7 @@ public class WriteSuggestionFragment extends Fragment {
             if (empty.getPaddingBottom() != padBottom) {
                 empty.setPadding(empty.getPaddingLeft(), empty.getPaddingTop(), empty.getPaddingRight(), padBottom);
             }
+
         }
     }
 
@@ -467,6 +473,26 @@ public class WriteSuggestionFragment extends Fragment {
     private void navigateBack() {
         if (getParentFragmentManager().getBackStackEntryCount() > 0) {
             getParentFragmentManager().popBackStack();
+        }
+    }
+    private void hideBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * Show the bottom navigation when leaving this fragment
+     */
+    private void showBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.VISIBLE);
+            }
         }
     }
 

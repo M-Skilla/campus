@@ -137,7 +137,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Click to view more..."
+            android:text="@string/click_to_view_more"
             android:fontFamily="@font/jakarta_regular"
             android:textColor="@color/md_theme_primary"
             />

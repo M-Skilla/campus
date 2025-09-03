@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.group.campus.fragments.ProfileFragment;
 import com.group.campus.models.Announcement;
+import com.group.campus.utils.FCMHelper;
 import com.group.campus.utils.PreferenceManager;
 
 import androidx.fragment.app.FragmentManager;
@@ -61,14 +62,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         handleIntent(intent);
-
+        FCMHelper.getNewToken(token -> {
+            Log.i(TAG, "onCreate: Existing Token -> " + token);
+        });
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        fAuth = FirebaseAuth.getInstance();
         FirebaseUser user = fAuth.getCurrentUser();
         if (user != null) {
             Toast.makeText(this, "User Logged In", Toast.LENGTH_SHORT).show();

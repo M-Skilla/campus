@@ -52,7 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Health Department"
+                    android:text="@string/health_department"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/md_theme_onSurface" />
@@ -69,7 +69,7 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DELIVERED"
+                    android:text="@string/delivered"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="@color/status_delivered" />
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Subject Line"
+                android:text="@string/subject_line"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/md_theme_onSurfaceVariant"
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Delivered to Health Department"
+                android:text="@string/delivered_to_health_department"
                 android:textSize="12sp"
                 android:textColor="@color/md_theme_onSurfaceVariant"
                 android:maxLines="1"
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Aug 29, 14:30"
+                android:text="@string/aug_29_14_30"
                 android:textSize="12sp"
                 android:textColor="@color/md_theme_outline" />
 

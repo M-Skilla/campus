@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
-                android:text="URGENT"
+                android:text="@string/urgent"
                 android:textColor="@color/md_theme_onErrorContainer"
                 android:textSize="10sp"
                 android:fontFamily="@font/jakarta_bold" />
@@ -185,7 +185,7 @@
             android:id="@+id/btn_reply"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="Reply"
+            android:text="@string/reply"
             android:textSize="12sp"
             android:fontFamily="@font/jakarta_semibold"
             style="@style/Widget.Material3.Button"

@@ -161,6 +161,12 @@ public class ProfileFragment extends Fragment {
                     .placeholder(R.drawable.profile_image) // Optional: Placeholder image
                     .error(R.drawable.profile_error) // Optional: Error image
                     .into(profileImageView);
+        } else {
+            Glide.with(this)
+                    .load(R.drawable.profile_image)
+                    .placeholder(R.drawable.profile_image) // Optional: Placeholder image
+                    .error(R.drawable.profile_error) // Optional: Error image
+                    .into(profileImageView);
         }
 
     }

@@ -36,7 +36,7 @@
                     app:icon="@drawable/left_arrow_icon"
                     app:iconSize="24dp"
                     app:iconTint="?attr/colorOnSurface"
-                    android:contentDescription="Back" />
+                    android:contentDescription="@string/back" />
 
                 <TextView
                     android:id="@+id/settings_title"
@@ -200,6 +200,7 @@
                                 android:textSize="16sp"
                                 android:textColor="?attr/colorOnSurface" />
                             <TextView
+                                android:id="@+id/current_language"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/english"

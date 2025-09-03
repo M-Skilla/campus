@@ -39,7 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Student Name"
+                    android:text="@string/student_name"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/md_theme_onSurface" />
@@ -48,7 +48,7 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OPEN"
+                    android:text="@string/open"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="@color/md_theme_primary" />
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Subject Line"
+                android:text="@string/subject_line"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/md_theme_onSurfaceVariant" />
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Last message preview..."
+                android:text="@string/last_message_preview"
                 android:textSize="14sp"
                 android:maxLines="2"
                 android:ellipsize="end"
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Aug 28, 2025 10:30"
+                android:text="@string/aug_28_2025_10_30"
                 android:textSize="12sp"
                 android:textColor="@color/md_theme_outline" />
 

@@ -21,6 +21,7 @@ import com.group.campus.models.Suggestion;
 import com.group.campus.model.SuggestionConversation;
 import com.group.campus.service.SuggestionsService;
 import com.group.campus.service.UserRoleService;
+import com.group.campus.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,21 +49,25 @@ public class SuggestionStaffDashboardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         suggestionsService = new SuggestionsService();
         userRoleService = new UserRoleService();
         findViews(view);
         setupRecyclerView();
         btnBack.setOnClickListener(v -> navigateBack());
         checkUserAccess();
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         if (conversationListener != null) {
             conversationListener.remove();
             conversationListener = null;
         }
+
     }
 
     private void findViews(View view) {
@@ -202,5 +207,6 @@ public class SuggestionStaffDashboardFragment extends Fragment {
     private void showAccessDenied(String message) {
         if (tvAccessDeniedMessage != null) tvAccessDeniedMessage.setText(message);
         showState(StateType.ACCESS_DENIED);
+
     }
 }

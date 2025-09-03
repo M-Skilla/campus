@@ -23,6 +23,7 @@ import com.group.campus.R;
 import com.group.campus.models.Suggestion;
 import com.group.campus.service.SuggestionsService;
 import com.group.campus.service.UserRoleService;
+import com.group.campus.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,9 @@ public class SuggestionInboxFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Hide bottom navigation when this fragment is shown
+        hideBottomNavigation();
+
         initializeServices();
         initViews(view);
         setupRecyclerView();
@@ -68,6 +72,10 @@ public class SuggestionInboxFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        // Show bottom navigation when this fragment is destroyed
+        showBottomNavigation();
+
         if (conversationListener != null) {
             conversationListener.remove();
         }
@@ -265,6 +273,30 @@ public class SuggestionInboxFragment extends Fragment {
     private void navigateBack() {
         if (getParentFragmentManager().getBackStackEntryCount() > 0) {
             getParentFragmentManager().popBackStack();
+        }
+    }
+
+    /**
+     * Hide the bottom navigation when this fragment is active
+     */
+    private void hideBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * Show the bottom navigation when leaving this fragment
+     */
+    private void showBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.VISIBLE);
+            }
         }
     }
 }
