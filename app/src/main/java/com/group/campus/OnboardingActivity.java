@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.group.campus.adapters.OnboardingAdapter;
 import com.group.campus.models.OnboardingItem;
 import com.group.campus.utils.PreferenceManager;
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +20,8 @@ import java.util.List;
 public class OnboardingActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager2;
-
-    private WormDotsIndicator wormDotsIndicator;
     private PreferenceManager preferenceManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +35,6 @@ public class OnboardingActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(this);
         viewPager2 = findViewById(R.id.viewPagerOnboarding);
-        wormDotsIndicator = findViewById(R.id.dotsIndicator);
 
         List<OnboardingItem> onboardingItems = new ArrayList<>();
         onboardingItems.add(new OnboardingItem(
@@ -76,7 +73,5 @@ public class OnboardingActivity extends AppCompatActivity {
             startActivity(new Intent(OnboardingActivity.this, LoginActivity.class));
             finish(); // Prevent going back to onboarding
         }));
-
-        wormDotsIndicator.attachTo(viewPager2);
     }
 }

@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,12 +26,19 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.group.campus.HomeActivity;
+
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+
 import com.group.campus.R;
 import com.group.campus.model.SuggestionMessage;
 import com.group.campus.models.Suggestion;
@@ -39,6 +47,7 @@ import com.group.campus.service.UserRoleService;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WriteSuggestionFragment extends Fragment {
@@ -69,6 +78,9 @@ public class WriteSuggestionFragment extends Fragment {
 
     // File picker
     private ActivityResultLauncher<Intent> filePickerLauncher;
+
+    // Track last IME bottom inset
+    private int lastImeBottom = 0;
 
     public static WriteSuggestionFragment newInstance(String department, String conversationId, boolean replyAsStaff) {
         WriteSuggestionFragment fragment = new WriteSuggestionFragment();
@@ -130,6 +142,7 @@ public class WriteSuggestionFragment extends Fragment {
 
         initViews(view);
         setupUI();
+        applyBottomNavOffset();
         setupInputHandling();
 
         hideBottomNavigation();
@@ -144,12 +157,60 @@ public class WriteSuggestionFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        showBottomNavigation();
-        if (messageListener != null) {
-            messageListener.remove();
+
+    private void applyBottomNavOffset() {
+        if (getActivity() == null) return;
+        View nav = getActivity().findViewById(R.id.customBottomNav);
+        if (nav == null || getView() == null) return;
+        View root = getView();
+        View input = root.findViewById(R.id.input_container);
+        View list = root.findViewById(R.id.rv_chat);
+        View empty = root.findViewById(R.id.empty_state);
+
+        ViewTreeObserver.OnGlobalLayoutListener navSizeListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override public void onGlobalLayout() { updateBottomInsets(nav, input, list, empty, lastImeBottom); }
+        };
+        nav.getViewTreeObserver().addOnGlobalLayoutListener(navSizeListener);
+
+        // Re-apply when input grows/shrinks (multiline)
+        input.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (bottom - top != oldBottom - oldTop) {
+                updateBottomInsets(nav, input, list, empty, lastImeBottom);
+            }
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            lastImeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+            updateBottomInsets(nav, input, list, empty, lastImeBottom);
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(root);
+    }
+
+    private void updateBottomInsets(View nav, View input, View list, View empty, int imeBottom) {
+        int navHeight = nav != null ? nav.getHeight() : 0;
+        int bottomSpace = Math.max(navHeight, imeBottom);
+        int inputHeight = input != null ? input.getHeight() : 0;
+        if (input != null && input.getLayoutParams() instanceof ConstraintLayout.LayoutParams) {
+            ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) input.getLayoutParams();
+            if (lp.bottomMargin != bottomSpace) {
+                lp.bottomMargin = bottomSpace;
+                input.setLayoutParams(lp);
+            }
+        }
+        if (list != null) {
+            int padBottom = inputHeight + bottomSpace;
+            if (list.getPaddingBottom() != padBottom) {
+                list.setPadding(list.getPaddingLeft(), list.getPaddingTop(), list.getPaddingRight(), padBottom);
+            }
+            list.setClipToOutline(false);
+        }
+        if (empty != null) {
+            int padBottom = inputHeight + bottomSpace;
+            if (empty.getPaddingBottom() != padBottom) {
+                empty.setPadding(empty.getPaddingLeft(), empty.getPaddingTop(), empty.getPaddingRight(), padBottom);
+            }
+
         }
     }
 
@@ -175,32 +236,13 @@ public class WriteSuggestionFragment extends Fragment {
     }
 
     private void setupUI() {
-        // Set department info
+        // Set department info label only (no hardcoded colors/icons per department)
         tvDepartmentName.setText(department + " Department");
 
-        // Set department-specific colors and icons
-        int iconRes, bgColor, iconColor;
-        switch (department) {
-            case "Health":
-                iconRes = R.drawable.ic_health;
-                bgColor = R.color.health_bg;
-                iconColor = R.color.health_icon;
-                break;
-            case "Facilities":
-                iconRes = R.drawable.ic_facilities;
-                bgColor = R.color.facilities_bg;
-                iconColor = R.color.facilities_icon;
-                break;
-            case "Library":
-                iconRes = R.drawable.ic_library;
-                bgColor = R.color.library_bg;
-                iconColor = R.color.library_icon;
-                break;
-            default:
-                iconRes = R.drawable.ic_suggestion;
-                bgColor = R.color.md_theme_primary;
-                iconColor = R.color.md_theme_onPrimary;
-        }
+        // Use a single consistent icon and theme colors
+        int iconRes = R.drawable.ic_department;
+        int bgColor = R.color.md_theme_primary;
+        int iconColor = R.color.md_theme_onPrimary;
 
         ivDepartmentIcon.setImageResource(iconRes);
         ivDepartmentIcon.setBackgroundTintList(getResources().getColorStateList(bgColor, null));
@@ -456,8 +498,25 @@ public class WriteSuggestionFragment extends Fragment {
     }
 
     private SuggestionMessage convertReplyToMessage(Suggestion.Reply reply) {
-        // TODO: Implement this method to convert Suggestion.Reply to SuggestionMessage
-        // This is necessary because your adapter and message list are based on SuggestionMessage
-        return new SuggestionMessage(); // Replace with actual conversion logic
+        SuggestionMessage m = new SuggestionMessage();
+        m.setId(reply.getReplyId());
+        m.setSenderId(reply.getSenderId());
+        m.setSenderName(reply.getSenderName());
+        m.setText(reply.getText());
+        // Timestamp from long
+        try {
+            m.setTimestamp(new Timestamp(new Date(reply.getTimestamp())));
+        } catch (Exception ignored) { /* leave default */ }
+        String currentUid = FirebaseAuth.getInstance().getUid();
+        boolean isMine = currentUid != null && currentUid.equals(reply.getSenderId());
+        boolean fromStaff;
+        if (isMine) {
+            fromStaff = isStaffUser && replyAsStaff;
+        } else {
+            // Other party: if I'm student (replyAsStaff=false) then other is staff; if I'm staff then other is student
+            fromStaff = !replyAsStaff;
+        }
+        m.setFromStaff(fromStaff);
+        return m;
     }
 }

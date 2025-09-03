@@ -230,16 +230,13 @@ public class SuggestionInboxFragment extends Fragment {
      * Handle conversation click - navigate to conversation detail
      */
     private void onConversationClick(com.group.campus.model.SuggestionConversation conversation) {
-        // Navigate to conversation detail where user can see replies
-        Bundle args = new Bundle();
-        args.putString("conversationId", conversation.getId());
-        args.putBoolean("replyAsStaff", false);
-
-        SuggestionsFragment chat = new SuggestionsFragment();
-        chat.setArguments(args);
-
+        WriteSuggestionFragment fragment = WriteSuggestionFragment.newInstance(
+                conversation.getDepartment(),
+                conversation.getId(),
+                false
+        );
         getParentFragmentManager().beginTransaction()
-            .replace(R.id.container, chat)
+            .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit();
     }
