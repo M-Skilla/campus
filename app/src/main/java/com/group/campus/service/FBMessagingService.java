@@ -5,7 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
+
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -25,18 +27,37 @@ public class FBMessagingService extends com.google.firebase.messaging.FirebaseMe
         FCMHelper.sendTokenToServer(token);
     }
 
+//    @Override
+//    public void onMessageReceived(@NonNull RemoteMessage message) {
+//        super.onMessageReceived(message);
+//
+//        String title = message.getData().get("title");
+//        String body = message.getData().get("body");
+//        String screen = message.getData().get("screen");
+//        String announcementId = message.getData().get("announcementId");
+//
+//        sendNotification(title, body, screen != null ? screen : "", announcementId);
+//    }
+
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
 
-        String title = message.getData().get("title");
-        String body = message.getData().get("body");
-        String screen = message.getData().get("screen");
-        String announcementId = message.getData().get("announcementId");
+        if ("new_announcements".equals(message.getData().get("topic"))) {
+            SharedPreferences sharedPreferences = getSharedPreferences("NotificationSettings", MODE_PRIVATE);
+            boolean isSubscribed = sharedPreferences.getBoolean("new_announcements", true);
 
-        sendNotification(title, body, screen != null ? screen : "", announcementId);
+            if (isSubscribed) {
+                String title = message.getData().get("title");
+                String body = message.getData().get("body");
+                String screen = message.getData().get("screen");
+                String announcementId = message.getData().get("announcementId");
+
+                sendNotification(title, body, screen != null ? screen : "", announcementId);
+            }
+        }
     }
-
     private void sendNotification(String title, String body, String screen, String announcementId) {
         Intent intent;
 

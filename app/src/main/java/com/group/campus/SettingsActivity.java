@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -23,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.group.campus.utils.FCMHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.button.MaterialButton;
 import com.group.campus.fragments.ChangePasswordFragment;
@@ -38,12 +40,29 @@ public class SettingsActivity extends AppCompatActivity {
     private MaterialButton backButton;
     private SharedPreferences sharedPreferences;
 
+    private SwitchCompat switchNewAnnouncements;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         applyTheme(this);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
+
+        // Initialize sharedPreferences with the consistent PREFS_NAME
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        switchNewAnnouncements = findViewById(R.id.switch_new_announcements);
+
+        // Retrieve the saved state of the switch, defaulting to true
+        boolean isSubscribed = sharedPreferences.getBoolean("new_announcements", true);
+        switchNewAnnouncements.setChecked(isSubscribed);
+
+        switchNewAnnouncements.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Use the correct method to save the state
+            saveSwitchState("new_announcements", isChecked);
+            FCMHelper.manageNewAnnouncementsSubscription(isChecked);
+        });
 
         TextView currentLanguage = findViewById(R.id.current_language);
         SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
@@ -60,11 +79,15 @@ public class SettingsActivity extends AppCompatActivity {
             return insets;
         });
 
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
         initializeViews();
         setupClickListeners();
         setupBackPressedCallback();
+    }
+
+    private void saveSwitchState(String key, boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
     }
 
     private void initializeViews() {
@@ -242,9 +265,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .commitNowAllowingStateLoss();
         }
 
-
         sharedPreferences.edit().clear().apply();
-
 
         FirebaseAuth.getInstance().signOut();
 
