@@ -33,9 +33,11 @@ import com.group.campus.adapters.YearViewAdapter;
 import com.group.campus.adapters.MonthViewAdapter;
 import com.group.campus.adapters.EventsAdapter;
 import com.group.campus.models.Event;
+import com.group.campus.models.User;
 import com.group.campus.managers.EventManager;
 import com.group.campus.managers.ReminderManager;
 import com.group.campus.models.Reminder;
+import com.group.campus.service.UserRoleService;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -87,6 +89,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         setupSwipeNavigation(view);
         fetchEventsFromFirestore();
         showMonthView();
+        checkUserRoleAndUpdateFab();
 
         return view;
     }
@@ -101,11 +104,49 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         eventsLayout = view.findViewById(R.id.eventsLayout);
         titleText = view.findViewById(R.id.titleText);
         fabAddEvent = view.findViewById(R.id.fab_add_event);
-
-        // Buttons
         btnYear = view.findViewById(R.id.btnYear);
         btnMonth = view.findViewById(R.id.btnMonth);
         btnEvents = view.findViewById(R.id.btnEvents);
+
+        eventManager = EventManager.getInstance();
+        reminderManager = ReminderManager.getInstance();
+
+        fabAddEvent.setVisibility(View.GONE); // Hide FAB by default
+    }
+
+    /**
+     * Check user role and update FAB visibility based on role
+     */
+    private void checkUserRoleAndUpdateFab() {
+        UserRoleService roleService = new UserRoleService();
+
+        roleService.getCurrentUser(new UserRoleService.UserCallback() {
+            @Override
+            public void onUserLoaded(User user) {
+                if (roleService.isStaff(user)) {
+                    fabAddEvent.setVisibility(View.VISIBLE);
+                    setupFabClickListener();
+                } else {
+                    fabAddEvent.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                // Hide FAB on error for security
+                fabAddEvent.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * Setup FAB click listener for staff users
+     */
+    private void setupFabClickListener() {
+        fabAddEvent.setOnClickListener(v -> {
+            // Show add event dialog or navigate to add event screen
+            showNewEventDialog();
+        });
     }
 
     private void setupAdapters() {

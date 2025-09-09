@@ -125,7 +125,8 @@
     <string name="creating_announcement">Creating announcement...</string>
     <string name="september_23">September 23</string>
     <string name="event_details">Event Details</string>
-    <string name="event">Event:</string>
+    <string name="event">Event</string>
+    <string name="eventdetail" translatable="false">Event:</string>
     <string name="meeting">Meeting</string>
     <string name="date">Date:</string>
     <string name="august_26_2025">August 26, 2025</string>

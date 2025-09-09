@@ -183,4 +183,6 @@
     <string name="delivered_to_health_department">Imetumwa Idara ya Afya</string>
     <string name="aug_29_14_30">Agosti 29, 14:30</string>
     <string name="click_to_view_more">Bofya kuona zaidi...</string>
+    <string name="department_name">Department Name</string>
+    <string name="department_description">Department Description</string>
 </resources>

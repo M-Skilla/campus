@@ -119,6 +119,8 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
                     .into(holder.image);
         } else {
             // No image available, show placeholder
+
+            holder.image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             Glide.with(holder.itemView.getContext())
                     .load((String) null)
                     .placeholder(R.drawable.ic_image_loading_24)

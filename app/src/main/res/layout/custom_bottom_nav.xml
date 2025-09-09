@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_nav"
     android:elevation="10dp"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:layout_marginBottom="12dp">
 
     <!-- News Item -->
     <LinearLayout
@@ -25,8 +26,8 @@
 
         <ImageView
             android:id="@+id/newsImage"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/ic_announcements"
             app:tint="@color/md_theme_inverseSurface"
             tools:contentDescription="null" />
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
+            android:textSize="11sp"
             android:fontFamily="@font/jakarta_semibold"
             android:maxLines="1"
             android:text="@string/news"
@@ -57,8 +59,8 @@
 
         <ImageView
             android:id="@+id/suggestionImage"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/ic_suggestion"
             app:tint="@color/md_theme_inverseSurface"
             tools:contentDescription="null" />
@@ -70,6 +72,7 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
             android:maxLines="1"
+            android:textSize="11sp"
             android:text="@string/inputs"
             android:textColor="@color/md_theme_inverseSurface"
             android:visibility="gone" />
@@ -90,8 +93,8 @@
 
         <ImageView
             android:id="@+id/calendarImage"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/ic_calendar"
             app:tint="@color/md_theme_inverseSurface"
             tools:contentDescription="null" />
@@ -102,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
+            android:textSize="11sp"
             android:maxLines="1"
             android:text="@string/events"
             android:textColor="@color/md_theme_inverseSurface"
@@ -123,8 +127,8 @@
 
         <ImageView
             android:id="@+id/profileImage"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/ic_profile"
             app:tint="@color/md_theme_inverseSurface"
             tools:contentDescription="null" />
@@ -135,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/jakarta_semibold"
+            android:textSize="11sp"
             android:maxLines="1"
             android:text="@string/profile"
             android:textColor="@color/md_theme_inverseSurface"

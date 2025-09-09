@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
+import com.group.campus.models.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +15,11 @@ import java.util.Map;
 
 /**
  * Service for managing user roles and staff access
- * Uses registration number instead of email for user identification
  */
 public class UserRoleService {
 
     private static final String TAG = "UserRoleService";
     private static final String USERS_COLLECTION = "users";
-    private static final String DEPARTMENT_COLLECTION = "department";
 
     private final FirebaseFirestore db;
     private final FirebaseAuth auth;
@@ -36,12 +34,17 @@ public class UserRoleService {
         void onError(Exception error);
     }
 
+    public interface UserCallback {
+        void onUserLoaded(User user);
+        void onError(String error);
+    }
+
     public static class UserRole {
         public String userId;
         public String name;
         public String registrationNumber;
-        public String role; // primary role string for backward compat
-        public String department; // staff department if staff
+        public String role;
+        public String department;
         public boolean isActive;
 
         public UserRole() {}
@@ -57,12 +60,47 @@ public class UserRoleService {
     }
 
     public UserRoleService() {
-        db = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+        this.db = FirebaseFirestore.getInstance();
+        this.auth = FirebaseAuth.getInstance();
     }
 
     /**
-     * Check if current logged-in user is staff and get their department
+     * Get current user and check their role
+     */
+    public void getCurrentUser(UserCallback callback) {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            callback.onError("No user logged in");
+            return;
+        }
+
+        String userId = currentUser.getUid();
+        Log.d(TAG, "Getting user data for: " + userId);
+
+        db.collection(USERS_COLLECTION)
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        User user = documentSnapshot.toObject(User.class);
+                        if (user != null) {
+                            user.setId(userId);
+                            callback.onUserLoaded(user);
+                        } else {
+                            callback.onError("Failed to parse user data");
+                        }
+                    } else {
+                        callback.onError("User document not found");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting user document", e);
+                    callback.onError("Error loading user: " + e.getMessage());
+                });
+    }
+
+    /**
+     * Check current user's role with detailed information
      */
     public void checkCurrentUserRole(RoleCheckListener listener) {
         FirebaseUser currentUser = auth.getCurrentUser();
@@ -76,69 +114,117 @@ public class UserRoleService {
         Log.d(TAG, "Checking user role for userId: " + userId);
 
         db.collection(USERS_COLLECTION)
-            .document(userId)
-            .get()
-            .addOnSuccessListener(userDoc -> {
-                if (userDoc.exists()) {
-                    Log.d(TAG, "User document found: " + userDoc.getData());
+                .document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        try {
+                            // Get user data
+                            String fullName = documentSnapshot.getString("fullName");
+                            String regNo = documentSnapshot.getString("regNo");
 
-                    // Get user basic info
-                    String fullName = getStringSafe(userDoc, "fullName");
-                    String regNo = getStringSafe(userDoc, "regNo");
+                            // Check for staff role in roles array
+                            boolean isStaff = false;
+                            String department = "General";
 
-                    // Check for staff role in roles array
-                    boolean isStaff = false;
-                    String department = null;
+                            List<String> rolesArray = (List<String>) documentSnapshot.get("roles");
+                            if (rolesArray != null) {
+                                isStaff = rolesArray.contains("staff");
+                                Log.d(TAG, "Roles array: " + rolesArray + ", isStaff: " + isStaff);
+                            }
 
-                    List<String> rolesArray = (List<String>) userDoc.get("roles");
-                    if (rolesArray != null) {
-                        isStaff = rolesArray.contains("staff");
-                        Log.d(TAG, "Roles array: " + rolesArray + ", isStaff: " + isStaff);
-                    }
+                            // If staff, try to get department info
+                            if (isStaff) {
+                                Object collegeObj = documentSnapshot.get("college");
+                                if (collegeObj instanceof Map) {
+                                    Map<String, Object> college = (Map<String, Object>) collegeObj;
+                                    String collegeName = (String) college.get("name");
+                                    if (collegeName != null && !collegeName.isEmpty()) {
+                                        department = collegeName;
+                                    }
+                                }
+                            }
 
-                    // If user is staff, get their department
-                    if (isStaff) {
-                        // Check multiple possible field names for department
-                        department = getStringSafe(userDoc, "staffDepartment");
-                        if (department == null || department.isEmpty()) {
-                            department = getStringSafe(userDoc, "department");
+                            // Create UserRole object
+                            UserRole userRole = new UserRole(
+                                userId,
+                                fullName != null ? fullName : "Unknown User",
+                                regNo != null ? regNo : "Unknown",
+                                isStaff ? "staff" : "student",
+                                department,
+                                true
+                            );
+
+                            listener.onRoleChecked(isStaff, department, userRole);
+
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error parsing user data", e);
+                            listener.onError(e);
                         }
-
-                        Log.d(TAG, "Staff user found with department: " + department);
-
-                        // Verify department is valid (Health, Facilities, Library)
-                        if (department != null && isValidDepartment(department)) {
-                            UserRole userRole = new UserRole(userId, fullName, regNo, "staff", department, true);
-                            listener.onRoleChecked(true, department, userRole);
-                            return;
-                        } else {
-                            Log.w(TAG, "Invalid or missing department for staff user: " + department);
-                        }
+                    } else {
+                        listener.onError(new Exception("User document not found"));
                     }
-
-                    // User is not staff or has invalid department
-                    UserRole userRole = new UserRole(userId, fullName, regNo, "student", null, true);
-                    listener.onRoleChecked(false, null, userRole);
-                } else {
-                    Log.w(TAG, "User document does not exist for userId: " + userId);
-                    listener.onRoleChecked(false, null, null);
-                }
-            })
-            .addOnFailureListener(error -> {
-                Log.e(TAG, "Error checking user role", error);
-                listener.onError(error);
-            });
+                })
+                .addOnFailureListener(error -> {
+                    Log.e(TAG, "Error checking user role", error);
+                    listener.onError(error);
+                });
     }
 
     /**
-     * Check if department is valid
+     * Check if user is staff
      */
-    private boolean isValidDepartment(String department) {
-        return department != null && (
-            department.equalsIgnoreCase("Health") ||
-            department.equalsIgnoreCase("Facilities") ||
-            department.equalsIgnoreCase("Library")
-        );
+    public boolean isStaff(User user) {
+        if (user == null) return false;
+
+        // Check if user has staff role
+        if (user.getRoles() != null) {
+            return checkStaffRole(user);
+        }
+
+        return false;
+    }
+
+    /**
+     * Helper method to check staff role
+     */
+    private boolean checkStaffRole(User user) {
+        try {
+            Object roles = user.getRoles();
+            if (roles != null) {
+                return roles.toString().contains("staff");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking staff role", e);
+        }
+
+        return false;
+    }
+
+    /**
+     * Add staff role to user
+     */
+    public void addStaffRole(String userId, String department) {
+        db.collection(USERS_COLLECTION)
+                .document(userId)
+                .update("roles", FieldValue.arrayUnion("staff"))
+                .addOnSuccessListener(aVoid ->
+                    Log.d(TAG, "Staff role added successfully"))
+                .addOnFailureListener(e ->
+                    Log.e(TAG, "Error adding staff role", e));
+    }
+
+    /**
+     * Remove staff role from user
+     */
+    public void removeStaffRole(String userId) {
+        db.collection(USERS_COLLECTION)
+                .document(userId)
+                .update("roles", FieldValue.arrayRemove("staff"))
+                .addOnSuccessListener(aVoid ->
+                    Log.d(TAG, "Staff role removed successfully"))
+                .addOnFailureListener(e ->
+                    Log.e(TAG, "Error removing staff role", e));
     }
 
     /**
@@ -146,12 +232,6 @@ public class UserRoleService {
      */
     public void grantStaffAccess(String registrationNumber, String department, String userName, AdminOperationCallback callback) {
         Log.d(TAG, "Granting staff access to: " + registrationNumber + " for department: " + department);
-
-        // Validate department first
-        if (!isValidDepartment(department)) {
-            callback.onError(new Exception("Invalid department. Must be Health, Facilities, or Library"));
-            return;
-        }
 
         db.collection(USERS_COLLECTION)
             .whereEqualTo("regNo", registrationNumber)
@@ -175,14 +255,8 @@ public class UserRoleService {
                         .update(updates)
                         .addOnSuccessListener(aVoid -> {
                             // Add staff role to roles array
-                            db.collection(USERS_COLLECTION)
-                                .document(userId)
-                                .update("roles", FieldValue.arrayUnion("staff"))
-                                .addOnSuccessListener(a2 -> {
-                                    Log.d(TAG, "Successfully granted staff access to " + registrationNumber);
-                                    callback.onSuccess("Staff access granted successfully to " + registrationNumber + " for " + department + " department");
-                                })
-                                .addOnFailureListener(callback::onError);
+                            addStaffRole(userId, department);
+                            callback.onSuccess("Staff access granted successfully to " + registrationNumber + " for " + department + " department");
                         })
                         .addOnFailureListener(callback::onError);
                 } else {
@@ -212,13 +286,8 @@ public class UserRoleService {
                         .update(updates)
                         .addOnSuccessListener(aVoid -> {
                             // Remove staff role from roles array
-                            db.collection(USERS_COLLECTION)
-                                .document(userId)
-                                .update("roles", FieldValue.arrayRemove("staff"))
-                                .addOnSuccessListener(a2 -> {
-                                    callback.onSuccess("Staff access revoked successfully from " + registrationNumber);
-                                })
-                                .addOnFailureListener(callback::onError);
+                            removeStaffRole(userId);
+                            callback.onSuccess("Staff access revoked successfully from " + registrationNumber);
                         })
                         .addOnFailureListener(callback::onError);
                 } else {
@@ -226,18 +295,5 @@ public class UserRoleService {
                 }
             })
             .addOnFailureListener(callback::onError);
-    }
-
-    /**
-     * Helper method to safely get string from document
-     */
-    private String getStringSafe(DocumentSnapshot doc, String field) {
-        Object value = doc.get(field);
-        return value != null ? value.toString() : null;
-    }
-
-    public interface StaffListCallback {
-        void onStaffListReceived(java.util.List<UserRole> staffList);
-        void onError(Exception error);
     }
 }
