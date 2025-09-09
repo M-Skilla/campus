@@ -77,6 +77,8 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
+    private SwitchMaterial currentReminderSwitch;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -528,11 +530,15 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         SimpleDateFormat dayFormatter = new SimpleDateFormat("MMMM dd", Locale.getDefault());
         tvDayTitle.setText(dayFormatter.format(calendar.getTime()));
 
+        // Check if selected date is before current date
+        Calendar currentDate = Calendar.getInstance();
+        boolean isPastDate = calendar.before(currentDate);
+
         // Set up RecyclerView for events
         EventsAdapter dayEventsAdapter = new EventsAdapter(dayEvents);
         dayEventsAdapter.setOnEventClickListener(event -> {
             dialog.dismiss();
-            showEventDetailsDialog(event);
+            showEventDetailsDialog(event, isPastDate);
         });
         rvDayEvents.setLayoutManager(new LinearLayoutManager(getContext()));
         rvDayEvents.setAdapter(dayEventsAdapter);
@@ -542,11 +548,16 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     // Add the event click handler method
     private void onEventClick(Event event) {
-        showEventDetailsDialog(event);
+        Calendar currentDate = Calendar.getInstance();
+        Calendar eventDate = Calendar.getInstance();
+        eventDate.setTime(event.getStartDate());
+
+        boolean isPastDate = eventDate.before(currentDate);
+        showEventDetailsDialog(event, isPastDate);
     }
 
     // Update the showEventDetailsDialog method to work with Event object
-    private void showEventDetailsDialog(Event event) {
+    private void showEventDetailsDialog(Event event, boolean hideReminder) {
         // Create dialog
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_event_details, null);
@@ -556,8 +567,10 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         TextView tvEventName = dialogView.findViewById(R.id.tv_event_name);
         TextView tvEventDate = dialogView.findViewById(R.id.tv_event_date);
         TextView tvEventTime = dialogView.findViewById(R.id.tv_event_time);
+        TextView tvSetReminder = dialogView.findViewById(R.id.set_reminder_text);
         SwitchMaterial switchReminder = dialogView.findViewById(R.id.switch_reminder);
         Button btnClose = dialogView.findViewById(R.id.btn_close);
+        currentReminderSwitch = switchReminder;
 
         // Set event details
         tvEventName.setText(event.getTitle());
@@ -567,25 +580,31 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
         tvEventTime.setText(timeFormatter.format(event.getStartDate()));
 
-        // Check if event already has a reminder and set switch accordingly
-        boolean hasReminder = hasReminderForEvent(event);
-        switchReminder.setChecked(hasReminder);
 
-        // Set up switch listener
-        switchReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // When switch is turned on, show reminder dialog
-                showReminderDialogForEvent(event);
-            } else {
-                // When switch is turned off, remove any existing reminder
-                removeReminderForEvent(event);
-            }
-        });
+        // Hide reminder switch if it's a past date
+        if (hideReminder) {
+            switchReminder.setVisibility(View.GONE);
+            tvSetReminder.setVisibility(View.GONE);
+        } else {
+            boolean hasReminder = hasReminderForEvent(event);
+            switchReminder.setChecked(hasReminder);
+
+            switchReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    showReminderDialogForEvent(event);
+                } else {
+                    removeReminderForEvent(event);
+                }
+            });
+        }
 
         // Create and show dialog
         androidx.appcompat.app.AlertDialog dialog = builder.create();
 
-        btnClose.setOnClickListener(v -> dialog.dismiss());
+        btnClose.setOnClickListener(v -> {
+            currentReminderSwitch = null; // Clear reference when dialog is closed
+            dialog.dismiss();
+        });
 
         dialog.show();
     }
@@ -626,7 +645,9 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> {
                     // User cancelled, turn switch back off
-                    // Note: We need to find the switch again since this is a different dialog
+                    if (currentReminderSwitch != null) {
+                        currentReminderSwitch.setChecked(false);
+                    }
                 })
                 .show();
     }
