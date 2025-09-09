@@ -262,6 +262,7 @@ public class SuggestionsService {
 
     /**
      * Listen to messages in a conversation/suggestion
+     * Now returns a list whose first element is a synthetic Reply representing the original suggestion message.
      */
     public ListenerRegistration listenToMessages(String suggestionId, MessageListener listener) {
         return db.collection(SUGGESTIONS_COLLECTION)
@@ -271,14 +272,30 @@ public class SuggestionsService {
                     listener.onError(error);
                     return;
                 }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Suggestion suggestion = snapshot.toObject(Suggestion.class);
-                    if (suggestion != null && suggestion.getReplies() != null) {
-                        listener.onMessagesChanged(suggestion.getReplies());
-                    } else {
-                        listener.onMessagesChanged(new ArrayList<>());
+                try {
+                    if (snapshot != null && snapshot.exists()) {
+                        Suggestion suggestion = snapshot.toObject(Suggestion.class);
+                        if (suggestion != null) {
+                            List<Suggestion.Reply> combined = new ArrayList<>();
+                            Suggestion.Reply root = new Suggestion.Reply();
+                            root.setReplyId((suggestion.getSuggestionId() != null ? suggestion.getSuggestionId() : suggestionId) + "_root");
+                            root.setSenderId(suggestion.getSenderId());
+                            root.setSenderName(suggestion.getSenderName() != null ? suggestion.getSenderName() : "User");
+                            root.setSenderRegNo(suggestion.getSenderRegNo());
+                            root.setText(suggestion.getText() != null ? suggestion.getText() : "");
+                            root.setTimestamp(suggestion.getTimestamp());
+                            combined.add(root);
+                            if (suggestion.getReplies() != null) {
+                                combined.addAll(suggestion.getReplies());
+                            }
+                            listener.onMessagesChanged(combined);
+                        } else {
+                            listener.onMessagesChanged(new ArrayList<>());
+                        }
                     }
+                } catch (Exception ex) {
+                    Log.e(TAG, "listenToMessages parse failure", ex);
+                    listener.onError(ex);
                 }
             });
     }

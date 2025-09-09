@@ -20,14 +20,21 @@ public class SuggestionConversationAdapter extends RecyclerView.Adapter<Suggesti
     private final List<SuggestionConversation> conversations;
     private final OnConversationClickListener listener;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
+    // New flag to know if adapter is used in staff dashboard
+    private final boolean isStaffContext;
 
     public interface OnConversationClickListener {
         void onConversationClick(SuggestionConversation conversation);
     }
 
     public SuggestionConversationAdapter(List<SuggestionConversation> conversations, OnConversationClickListener listener) {
+        this(conversations, listener, false);
+    }
+
+    public SuggestionConversationAdapter(List<SuggestionConversation> conversations, OnConversationClickListener listener, boolean isStaffContext) {
         this.conversations = conversations;
         this.listener = listener;
+        this.isStaffContext = isStaffContext;
     }
 
     @NonNull
@@ -41,7 +48,7 @@ public class SuggestionConversationAdapter extends RecyclerView.Adapter<Suggesti
     @Override
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         SuggestionConversation conversation = conversations.get(position);
-        holder.bind(conversation, listener);
+        holder.bind(conversation, listener, isStaffContext);
     }
 
     @Override
@@ -67,8 +74,18 @@ public class SuggestionConversationAdapter extends RecyclerView.Adapter<Suggesti
             statusIndicator = itemView.findViewById(R.id.status_indicator);
         }
 
-        public void bind(SuggestionConversation conversation, OnConversationClickListener listener) {
-            tvStudentName.setText(conversation.getStudentName());
+        public void bind(SuggestionConversation conversation, OnConversationClickListener listener, boolean isStaffContext) {
+            // Display logic:
+            // - In user inbox (isStaffContext=false): show department name instead of student name
+            // - In staff dashboard (isStaffContext=true): hide real student name -> show Anonymous Student
+            if (isStaffContext) {
+                tvStudentName.setText("Anonymous Student");
+            } else {
+                String dept = conversation.getDepartment();
+                if (dept == null || dept.isEmpty()) dept = "Department";
+                tvStudentName.setText(dept + " Department");
+            }
+
             tvSubject.setText(conversation.getSubject());
 
             String lastMessage = conversation.getLastMessageText();
@@ -81,30 +98,27 @@ public class SuggestionConversationAdapter extends RecyclerView.Adapter<Suggesti
             if (conversation.getLastMessageAt() != null) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
                 tvLastMessageTime.setText(dateFormat.format(conversation.getLastMessageAt().toDate()));
+            } else if (conversation.getCreatedAt() != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
+                tvLastMessageTime.setText(dateFormat.format(conversation.getCreatedAt().toDate()));
             }
 
-            // Set status
-            tvStatus.setText(conversation.getStatus().toUpperCase());
+            tvStatus.setText(conversation.getStatus() != null ? conversation.getStatus().toUpperCase() : "");
 
-            // Set status indicator color
-            if ("open".equals(conversation.getStatus())) {
+            if ("open".equalsIgnoreCase(conversation.getStatus())) {
                 statusIndicator.setBackgroundColor(itemView.getContext().getColor(android.R.color.holo_green_light));
             } else {
                 statusIndicator.setBackgroundColor(itemView.getContext().getColor(android.R.color.darker_gray));
             }
 
-            // Highlight unread conversations
             if (conversation.isHasUnreadMessages()) {
                 itemView.setBackgroundColor(itemView.getContext().getColor(R.color.md_theme_surfaceContainerHighest));
             } else {
                 itemView.setBackgroundColor(itemView.getContext().getColor(R.color.md_theme_surface));
             }
 
-            // Click listener
             itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onConversationClick(conversation);
-                }
+                if (listener != null) listener.onConversationClick(conversation);
             });
         }
     }

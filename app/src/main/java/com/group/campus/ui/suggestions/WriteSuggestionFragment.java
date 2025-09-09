@@ -34,8 +34,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.group.campus.HomeActivity;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.group.campus.R;
 import com.group.campus.model.SuggestionMessage;
 import com.group.campus.models.Suggestion;
@@ -142,6 +145,8 @@ public class WriteSuggestionFragment extends Fragment {
         applyBottomNavOffset();
         setupInputHandling();
 
+        hideBottomNavigation();
+
         if (conversationId != null) {
             // Existing conversation - load messages
             loadConversationMessages();
@@ -151,6 +156,7 @@ public class WriteSuggestionFragment extends Fragment {
             showEmptyState();
         }
     }
+
 
     private void applyBottomNavOffset() {
         if (getActivity() == null) return;
@@ -204,6 +210,7 @@ public class WriteSuggestionFragment extends Fragment {
             if (empty.getPaddingBottom() != padBottom) {
                 empty.setPadding(empty.getPaddingLeft(), empty.getPaddingTop(), empty.getPaddingRight(), padBottom);
             }
+
         }
     }
 
@@ -469,6 +476,26 @@ public class WriteSuggestionFragment extends Fragment {
             getParentFragmentManager().popBackStack();
         }
     }
+    private void hideBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * Show the bottom navigation when leaving this fragment
+     */
+    private void showBottomNavigation() {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            if (homeActivity.getCustomBottomNavView() != null) {
+                homeActivity.getCustomBottomNavView().setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
     private SuggestionMessage convertReplyToMessage(Suggestion.Reply reply) {
         SuggestionMessage m = new SuggestionMessage();
@@ -484,12 +511,16 @@ public class WriteSuggestionFragment extends Fragment {
         boolean isMine = currentUid != null && currentUid.equals(reply.getSenderId());
         boolean fromStaff;
         if (isMine) {
-            fromStaff = isStaffUser && replyAsStaff;
+            fromStaff = isStaffUser && replyAsStaff; // my own perspective
         } else {
-            // Other party: if I'm student (replyAsStaff=false) then other is staff; if I'm staff then other is student
+            // Other party: if I'm acting as staff, other is student; else other is staff
             fromStaff = !replyAsStaff;
         }
         m.setFromStaff(fromStaff);
+        // Anonymize student messages in staff context
+        if (!fromStaff && isStaffUser && replyAsStaff) {
+            m.setSenderName("Anonymous Student");
+        }
         return m;
     }
 }

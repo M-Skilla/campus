@@ -93,7 +93,8 @@ public class SuggestionInboxFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new SuggestionConversationAdapter(conversations, this::onConversationClick);
+        // Adapter now internally shows department instead of student name for user inbox
+        adapter = new SuggestionConversationAdapter(conversations, this::onConversationClick, false);
         rvConversations.setLayoutManager(new LinearLayoutManager(getContext()));
         rvConversations.setAdapter(adapter);
     }

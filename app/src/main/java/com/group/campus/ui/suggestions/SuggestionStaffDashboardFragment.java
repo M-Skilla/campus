@@ -77,7 +77,7 @@ public class SuggestionStaffDashboardFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new SuggestionConversationAdapter(conversations, this::handleConversationClick);
+        adapter = new SuggestionConversationAdapter(conversations, this::handleConversationClick, true); // staff context true
         rvConversations.setLayoutManager(new LinearLayoutManager(getContext()));
         rvConversations.setAdapter(adapter);
     }

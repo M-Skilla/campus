@@ -66,20 +66,29 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
 
-
-
         View navView = findViewById(R.id.customBottomNav);
+        if (navView == null) {
+            Toast.makeText(this, "Navigation view missing", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "customBottomNav include not found. Check activity_home.xml");
+            return; // Prevent further crashes
+        }
         FragmentManager fm = getSupportFragmentManager();
-        bottomNavView = new CustomBottomNavView(navView, fm, R.id.container);
+        try {
+            bottomNavView = new CustomBottomNavView(navView, fm, R.id.container);
+        } catch (Exception e) {
+            Log.e(TAG, "Error creating CustomBottomNavView", e);
+            Toast.makeText(this, "Failed to init navigation", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         askNotificationPermission();
 
-        bottomNavView.selectTab(0);
+        if (bottomNavView != null) {
+            bottomNavView.selectTab(0);
+        }
         Log.i(TAG, "onCreate: Is this working!");
 
-        FCMHelper.getNewToken(token -> {
-            Log.i(TAG, "onCreate: Existing Token -> " + token);
-        });
+        FCMHelper.getNewToken(token -> Log.i(TAG, "onCreate: Existing Token -> " + token));
 
 
     }
