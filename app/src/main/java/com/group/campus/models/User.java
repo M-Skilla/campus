@@ -3,6 +3,7 @@ package com.group.campus.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -12,14 +13,14 @@ public class User {
 
     private Programme programme;
 
-    private Role roles;
+    private List<String> roles;
 
     private Date startDate, endDate;
 
     public User() {
     }
 
-    public User(String id, String regNo, String fullName, String profilePicUrl, College college, Programme programme, Role roles, Date startDate, Date endDate) {
+    public User(String id, String regNo, String fullName, String profilePicUrl, College college, Programme programme, List<String> roles, Date startDate, Date endDate) {
         this.id = id;
         this.regNo = regNo;
         this.fullName = fullName;
@@ -95,11 +96,11 @@ public class User {
         this.programme = programme;
     }
 
-    public Role getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Role roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
@@ -109,7 +110,7 @@ public class User {
     }
 
     public String getRole() {
-        return roles != null ? roles.getName() : null;
+        return roles != null ? roles.get(0) : null;
     }
 
     public String getDepartment() {

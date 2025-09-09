@@ -1,5 +1,7 @@
 package com.group.campus.fragments;
 
+import static android.view.View.GONE;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -37,7 +39,9 @@ import com.group.campus.adapters.SearchAnnouncementsAdapter;
 import com.group.campus.dialogs.AddAnnouncementDialog;
 import com.group.campus.dialogs.AiQueryDialog;
 import com.group.campus.models.Announcement;
+import com.group.campus.models.User;
 import com.group.campus.service.FBMessagingService;
+import com.group.campus.service.UserRoleService;
 import com.group.campus.utils.AlgoliaApi;
 import com.group.campus.utils.AlgoliaClient;
 
@@ -74,9 +78,35 @@ public class AnnouncementFragment extends Fragment {
         fabAddAnnouncement = view.findViewById(R.id.fab_add_announcement);
         fabAi = view.findViewById(R.id.fab_ai);
 
+        fabAddAnnouncement.setVisibility(GONE);
+
         db = FirebaseFirestore.getInstance();
 
         announcementList = new ArrayList<>();
+
+        UserRoleService roleService = new UserRoleService();
+
+        roleService.getCurrentUser(new UserRoleService.UserCallback() {
+            @Override
+            public void onUserLoaded(User user) {
+                if (roleService.isStaff(user)) {
+                    fabAddAnnouncement.setVisibility(View.VISIBLE);
+                    fabAddAnnouncement.setOnClickListener(v -> {
+                        AddAnnouncementDialog dialog = AddAnnouncementDialog.newInstance();
+                        dialog.show(getParentFragmentManager(), "AddAnnouncementDialog");
+                    });
+
+                } else {
+                    fabAddAnnouncement.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                // Hide FAB on error for security
+                fabAddAnnouncement.setVisibility(View.GONE);
+            }
+        });
 
         adapter = new AnnouncementsAdapter(announcementList, v -> {
             int position = recyclerView.getChildAdapterPosition(v);
@@ -129,10 +159,6 @@ public class AnnouncementFragment extends Fragment {
         });
 
         // Setup FAB click listener
-        fabAddAnnouncement.setOnClickListener(v -> {
-            AddAnnouncementDialog dialog = AddAnnouncementDialog.newInstance();
-            dialog.show(getParentFragmentManager(), "AddAnnouncementDialog");
-        });
 
         fabAi.setOnClickListener(v -> {
             AiQueryDialog dialog = AiQueryDialog.newInstance();
