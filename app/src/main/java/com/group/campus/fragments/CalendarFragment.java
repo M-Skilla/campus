@@ -274,7 +274,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
             String title = etTitle.getText().toString().trim();
             String selectedEventText = tvSelectedEvent.getText().toString();
             String reminderTimeText = tvReminderTime.getText().toString();
-            
+
             if (!title.isEmpty() && !selectedEventText.equals("Select Event") && !reminderTimeText.equals("Select Time")) {
                 createSoundReminder(selectedEventText, reminderTimeText);
                 showToast("Sound reminder set successfully!");
@@ -318,26 +318,26 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     private void setupDateTimePickerListeners(View dialogView, SwitchMaterial switchAllDay) {
         dialogView.findViewById(R.id.layout_start_date).setOnClickListener(v ->
-            showDateTimePicker(dialogView.findViewById(R.id.tv_start_date),
-                             dialogView.findViewById(R.id.tv_start_time),
-                             switchAllDay.isChecked(), true));
+                showDateTimePicker(dialogView.findViewById(R.id.tv_start_date),
+                        dialogView.findViewById(R.id.tv_start_time),
+                        switchAllDay.isChecked(), true));
 
         dialogView.findViewById(R.id.layout_end_date).setOnClickListener(v ->
-            showDateTimePicker(dialogView.findViewById(R.id.tv_end_date),
-                             dialogView.findViewById(R.id.tv_end_time),
-                             switchAllDay.isChecked(), false));
+                showDateTimePicker(dialogView.findViewById(R.id.tv_end_date),
+                        dialogView.findViewById(R.id.tv_end_time),
+                        switchAllDay.isChecked(), false));
     }
 
     private void setupReminderSelectionListeners(View dialogView, TextView tvSelectedEvent, TextView tvReminderTime) {
         dialogView.findViewById(R.id.layout_event_selection).setOnClickListener(v ->
-            showEventSelectionDialog(tvSelectedEvent));
+                showEventSelectionDialog(tvSelectedEvent));
 
         dialogView.findViewById(R.id.layout_reminder_time).setOnClickListener(v ->
-            showReminderTimeSelectionDialog(tvReminderTime));
+                showReminderTimeSelectionDialog(tvReminderTime));
     }
 
     private void setupDialogButtons(BottomSheetDialog dialog, TextView btnCancel, TextView btnDone,
-                                  TextInputEditText etTitle, SwitchMaterial switchAllDay, SwitchMaterial switchSoundAlert) {
+                                    TextInputEditText etTitle, SwitchMaterial switchAllDay, SwitchMaterial switchSoundAlert) {
         btnCancel.setOnClickListener(v -> dialog.dismiss());
         btnDone.setOnClickListener(v -> {
             String title = etTitle.getText().toString().trim();
@@ -347,8 +347,8 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
                 boolean hasSoundAlert = switchSoundAlert != null ? switchSoundAlert.isChecked() : false;
 
                 Event newEvent = new Event(title, selectedStartDateTime.getTime(),
-                                         selectedEndDateTime.getTime(),
-                                         isAllDay, hasSoundAlert);
+                        selectedEndDateTime.getTime(),
+                        isAllDay, hasSoundAlert);
                 eventManager.addEvent(newEvent);
                 saveEventToFirestore(newEvent);
                 refreshAllViews();
@@ -359,15 +359,15 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     private void showEventSelectionDialog(TextView tvSelectedEvent) {
         List<Event> allEvents = eventManager.getAllEvents();
-        
+
         if (allEvents.isEmpty()) {
             showAlert("No Events Available", "Please create some events first before setting reminders.");
             return;
         }
-        
+
         String[] events = allEvents.stream()
-                                  .map(event -> event.getTitle() + " - " + event.getFormattedDate())
-                                  .toArray(String[]::new);
+                .map(event -> event.getTitle() + " - " + event.getFormattedDate())
+                .toArray(String[]::new);
 
         new androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setTitle("Select Event to Remind")
@@ -384,7 +384,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
 
     private void showReminderTimeSelectionDialog(TextView tvReminderTime) {
         String[] reminderOptions = {"5 minutes before", "15 minutes before", "30 minutes before",
-                                   "1 hour before", "2 hours before", "1 day before", "1 week before"};
+                "1 hour before", "2 hours before", "1 day before", "1 week before"};
 
         new androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setTitle("Reminder Time")
@@ -635,7 +635,7 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
     // Show reminder dialog specifically for an event
     private void showReminderDialogForEvent(Event event) {
         String[] reminderOptions = {"5 minutes before", "15 minutes before", "30 minutes before",
-                                   "1 hour before", "2 hours before", "1 day before", "1 week before"};
+                "1 hour before", "2 hours before", "1 day before", "1 week before"};
 
         new androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setTitle("Set Reminder")
@@ -664,10 +664,10 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         // Create reminder
         String reminderId = "reminder_" + System.currentTimeMillis();
         Reminder reminder = new Reminder(
-            reminderId,
-            event.getTitle(),
-            event.getStartDate(),
-            reminderMinutes
+                reminderId,
+                event.getTitle(),
+                event.getStartDate(),
+                reminderMinutes
         );
 
         // Schedule the reminder
@@ -817,10 +817,10 @@ public class CalendarFragment extends Fragment implements YearViewAdapter.OnMont
         // Create reminder
         String reminderId = "reminder_" + System.currentTimeMillis();
         Reminder reminder = new Reminder(
-            reminderId,
-            selectedEvent.getTitle(),
-            selectedEvent.getStartDate(),
-            reminderMinutes
+                reminderId,
+                selectedEvent.getTitle(),
+                selectedEvent.getStartDate(),
+                reminderMinutes
         );
 
         // Schedule the sound alert
