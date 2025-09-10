@@ -69,4 +69,26 @@ public class FCMHelper {
                 });
 
     }
+
+    public static void manageNewAnnouncementsSubscription(boolean subscribe) {
+        if (subscribe) {
+            FirebaseMessaging.getInstance().subscribeToTopic("new_announcements")
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Subscribed to New Announcements");
+                        } else {
+                            Log.w(TAG, "Failed to subscribe to New Announcements", task.getException());
+                        }
+                    });
+        } else {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("new_announcements")
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Unsubscribed from New Announcements");
+                        } else {
+                            Log.w(TAG, "Failed to unsubscribe from New Announcements", task.getException());
+                        }
+                    });
+        }
+    }
 }
